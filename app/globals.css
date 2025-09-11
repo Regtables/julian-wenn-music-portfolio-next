@@ -1,8 +1,35 @@
 @import "tailwindcss";
 
+.section{
+  @apply min-h-screen
+}
+
+.section-padding{
+  @apply lg:px-section-x-desktop lg:py-section-y-desktop
+}
+
+.section-heading{
+  @apply lg:text-7xl text-custom-gold lg:tracking-[15px] uppercase
+}
+
+.body-text{
+  @apply lg:text-sm
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Your custom colors */
+  --color-black: #0e0d0d;
+  --color-gold: #ab8f31;
+  --color-white: #eaeaea;
+
+  /* Your custom spacing */
+  --margin-section-x-desktop: 64px;
+  --margin-section-y-desktop: 96px;
+  --padding-section-x-desktop: 64px;
+  --padding-section-y-desktop: 96px;
 }
 
 @theme inline {
@@ -10,6 +37,17 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Add your custom colors to the theme */
+  --color-custom-black: var(--color-black);
+  --color-custom-gold: var(--color-gold);
+  --color-custom-white: var(--color-white);
+  
+  /* Add your custom spacing to the theme */
+  --spacing-section-x-desktop: var(--margin-section-x-desktop);
+  --spacing-section-y-desktop: var(--margin-section-y-desktop);
+  --spacing-padding-x-desktop: var(--padding-section-x-desktop);
+  --spacing-padding-y-desktop: var(--padding-section-y-desktop);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,7 +58,8 @@
 }
 
 body {
-  background: var(--background);
+  background: var(--color-black);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }

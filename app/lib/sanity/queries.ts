@@ -1,0 +1,72 @@
+import {
+  MEDIA_FRAGMENT,
+  PAGE_FRAGMENT,
+} from './fragments'
+
+export const SANITY_HOME_PAGE_QUERY = `*[_type == "homePage"][0]{
+  ${PAGE_FRAGMENT},
+
+  heroSection->{
+    title,
+    heading,
+    backgroundImageDesktop->${MEDIA_FRAGMENT},
+    backgroundImageMobile->${MEDIA_FRAGMENT},
+    shortBio
+  },
+
+  aboutSection->{
+    title,
+    heading,
+    mediumBio,
+    fullBio,
+    timeline->{
+      timeline[]{
+        year,
+        description,
+        images[]->${MEDIA_FRAGMENT}
+      }
+    }
+  },
+
+  upcomingShowsSection->{
+    title,
+    heading,
+    upcomingShows[]{
+      name,
+      venue,
+      city,
+      date,
+      poster{
+        image{
+          asset->{
+            url,
+            metadata
+          }
+        },
+        alt
+      },
+      eventLink
+    }
+  },
+
+  featuredMusicSection->{
+    title,
+    heading,
+    featuredMusic[]->{
+      name,
+      description,
+      artwork{
+        image{
+          asset->
+        },
+        alt
+      }
+    }
+  },
+
+  featuredGallerySection->{
+    title,
+    heading,
+    featuredMedia[]->${MEDIA_FRAGMENT}
+  }
+}`
