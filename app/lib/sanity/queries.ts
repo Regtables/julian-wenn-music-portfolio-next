@@ -68,5 +68,41 @@ export const SANITY_HOME_PAGE_QUERY = `*[_type == "homePage"][0]{
     title,
     heading,
     featuredMedia[]->${MEDIA_FRAGMENT}
+  },
+
+  contactSection->{
+    heading,
+    text,
+    image{
+      image{
+        asset->{
+          url
+        },
+      },
+      alt
+    }
+  },
+
+  albumSection->{
+    heading,
+    album->{
+      albumTitle,
+      artwork{
+        image{
+          asset->{
+            url
+          }
+        },
+        alt
+      },
+      description,
+      listenLinks,
+      trackList[]->
+    }
+  },
+
+  musicVideosSection->{
+    heading,
+    musicVideos[]->
   }
 }`

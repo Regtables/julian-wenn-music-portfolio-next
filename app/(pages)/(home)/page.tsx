@@ -5,10 +5,23 @@ import About from "@/components/sections/About";
 import UpcomingShows from "@/components/sections/UpcomingShows";
 import FeaturedMusic from "@/components/sections/FeaturedMusic";
 import FeaturedGallery from "@/components/sections/FeaturedGallery";
+import Contact from "@/components/sections/Contact";
+import Footer from "@/components/Footer";
+import FeaturedAlbum from "@/components/sections/FeaturedAlbum";
+import MusicVideos from "@/components/sections/MusicVideos";
 
 export default async function Home() {
   const page = await sanityFetchHomePage();
-  const { heroSection, aboutSection, upcomingShowsSection, featuredMusicSection, featuredGallerySection } = page;
+  const {
+    heroSection,
+    aboutSection,
+    upcomingShowsSection,
+    featuredMusicSection,
+    featuredGallerySection,
+    contactSection,
+    albumSection,
+    musicVideosSection,
+  } = page;
   console.log(page);
   return (
     <div className="">
@@ -27,19 +40,37 @@ export default async function Home() {
       />
 
       <UpcomingShows
-        heading= {upcomingShowsSection?.heading}
+        heading={upcomingShowsSection?.heading}
         upcomingShows={upcomingShowsSection?.upcomingShows}
       />
 
-      <FeaturedMusic 
-        heading= {featuredMusicSection.heading}
+      <FeaturedMusic
+        heading={featuredMusicSection.heading}
         featuredMusic={featuredMusicSection.featuredMusic}
       />
 
-      <FeaturedGallery 
-        heading= {featuredGallerySection.heading}
+      <MusicVideos
+        heading={musicVideosSection.heading}
+        musicVideos={musicVideosSection.musicVideos}
+      />
+
+      <FeaturedAlbum
+        heading={albumSection?.heading}
+        album={albumSection?.album}
+      />
+
+      <FeaturedGallery
+        heading={featuredGallerySection.heading}
         galleryItems={featuredGallerySection.featuredMedia}
-      />  
+      />
+
+      <Contact
+        heading={contactSection.heading}
+        text={contactSection.text}
+        image={contactSection.image}
+      />
+
+      <Footer />
     </div>
   );
 }

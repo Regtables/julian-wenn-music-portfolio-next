@@ -9,9 +9,80 @@ type GalleryItemTileProps = PropsWithClassName<{
   title: string;
 }>;
 
-const GalleryItemTile = ({ title, media }: GalleryItemTileProps) => {
+// Helper function to extract YouTube video ID from URL
+const getYouTubeVideoId = (url: string): string | null => {
+  const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+};
+
+const GalleryItemTile = ({ title, media, className }: GalleryItemTileProps) => {
+  const renderMediaContent = () => {
+    switch (media.mediaType) {
+      case "image":
+        return (
+          <div className="w-full h-full relative">
+            <Image 
+              src={media.imageWithAlt?.url || media.fileUrl || ""} 
+              fill 
+              alt={media.alt || media.imageWithAlt?.alt || ""}
+              className="object-cover rounded-lg"
+            />
+          </div>
+        );
+
+      case "youtube":
+        if (!media.fileUrl) return null;
+        
+        const videoId = getYouTubeVideoId(media.fileUrl);
+        if (!videoId) return null;
+
+        return (
+          <div className="w-full h-full relative">
+            <iframe
+              src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+              title={media.title || title}
+              className="w-full h-full rounded-lg"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        );
+
+      case "video":
+        return (
+          <div className="w-full h-full relative">
+            <video
+              className="w-full h-full object-cover rounded-lg"
+              controls
+              preload="metadata"
+            >
+              {media.videoUrlMp4 && (
+                <source src={media.videoUrlMp4} type="video/mp4" />
+              )}
+              {media.videoUrlWebm && (
+                <source src={media.videoUrlWebm} type="video/webm" />
+              )}
+              {media.fileUrl && (
+                <source src={media.fileUrl} type="video/mp4" />
+              )}
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        );
+
+      default:
+        return (
+          <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center">
+            <span className="text-gray-500">Unsupported media type</span>
+          </div>
+        );
+    }
+  };
+
   return (
-    <div className="lg:h-[250px] rounded-lg cursor-pointer">
+    <div className={`lg:h-[250px] rounded-lg cursor-pointer ${className || ""}`}>
       {/* Positioner */}
       <div className="w-full h-full relative">
         {/* Overlay */}
@@ -31,21 +102,7 @@ const GalleryItemTile = ({ title, media }: GalleryItemTileProps) => {
           </div>
         </div>
 
-        {media.mediaType === "image" ? (
-          <div className="w-full h-full relative">
-            <Image 
-              src={media.fileUrl} 
-              fill 
-              alt={media.alt}
-              objectFit="cover"
-              className="rounded-lg"
-            />
-          </div>
-        ) : (
-          <div className="w-full h-full">
-              
-          </div>
-        )}
+        {renderMediaContent()}
       </div>
     </div>
   );

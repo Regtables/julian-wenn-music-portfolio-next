@@ -2,7 +2,7 @@ import { X } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-const NAV_LINKS = [
+export const NAV_LINKS = [
   {
     link: "home",
     slug: "#",

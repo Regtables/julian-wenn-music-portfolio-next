@@ -36,6 +36,16 @@ export type SanityMedia = {
   imageWithAlt?: ImageWithAlt
 }
 
+export type SanityMusicVideoSection = {
+  heading: string,
+  musicVideos: SanityMusicVideo[]
+}
+
+export type SanityMusicVideo = {
+  name:string,
+  url: string
+}
+
 // SEO
 export type PageSeo = {
   title?: string
@@ -45,11 +55,25 @@ export type PageSeo = {
   ogImage?: ImageWithAlt
 }
 
-// Sections
-export type HeroSection = {
+// Listen/Song Links
+export type SongLinks = {
+  spotify?: string
+  appleMusic?: string
+  youtube?: string
+  soundcloud?: string
+  bandcamp?: string
+  amazonMusic?: string
+}
+
+// Base Section (for reusable section fields)
+export type BaseSection = {
   _id: string
   title?: string
   heading?: string
+}
+
+// Sections
+export type HeroSection = BaseSection & {
   shortBio?: string
   backgroundImageDesktop?: SanityMedia
   backgroundImageMobile?: SanityMedia
@@ -57,20 +81,15 @@ export type HeroSection = {
 
 export type SanityTimelineMilestone = {
   year?: string
-  decription?: string
+  description?: string // Fixed typo from "decription"
   images?: SanityMedia[]
 }
 
-export type SanityTimelineSection = {
-  _id: string
-  title?: string
+export type SanityTimelineSection = BaseSection & {
   timeline?: SanityTimelineMilestone[]
 }
 
-export type AboutSection = {
-  _id: string
-  title?: string
-  heading?: string
+export type AboutSection = BaseSection & {
   mediumBio?: SanityTextBlock // Portable Text
   fullBio?: SanityTextBlock   // Portable Text
   timeline?: SanityTimelineSection
@@ -85,14 +104,57 @@ export type UpcomingShow = {
   poster?: ImageWithAlt
 }
 
-export type UpcomingShowsSection = {
-  _id: string
-  title?: string
-  heading?: string
+export type UpcomingShowsSection = BaseSection & {
   upcomingShows?: UpcomingShow[]
 }
 
-// Home Page
+// Enhanced Song Type
+export type SanitySongType = {
+  _id: string
+  name: string
+  artwork: SanityImageWithAlt
+  description: string
+  duration?: string
+  trackNumber?: number
+  listenLinks?: SongLinks
+  lyrics?: string
+  isExplicit?: boolean
+}
+
+// Album Type
+export type SanityAlbum = {
+  _id: string
+  albumTitle: string
+  description?: string
+  artwork: SanityImageWithAlt
+  listenLinks?: SongLinks
+  trackList?: SanitySongType[]
+  releaseDate?: string
+  genre?: string
+  totalDuration?: string
+  isExplicit?: boolean
+}
+
+// Album Section
+export type AlbumSection = BaseSection & {
+  album: SanityAlbum
+}
+
+// Contact Section
+export type ContactSection = BaseSection & {
+  image: SanityImageWithAlt
+  text: string
+}
+
+export type SanityFeaturedMusicSection = BaseSection & {
+  featuredMusic: SanitySongType[]
+}
+
+export type FeaturedGallerySection = BaseSection & {
+  featuredMedia: SanityMedia[]
+}
+
+// Home Page (Updated with new sections)
 export type SanityHomePageData = {
   _id: string
   title?: string
@@ -101,21 +163,9 @@ export type SanityHomePageData = {
   heroSection?: HeroSection
   aboutSection?: AboutSection
   upcomingShowsSection?: UpcomingShowsSection
-  featuredMusicSection: SanityFeaturedMusicSection
-  featuredGallerySection: {
-    heading: string,
-    featuredMedia: SanityMedia[]
-  }
-}
-
-export type SanityFeaturedMusicSection = {
-  title?: string,
-  heading: string,
-  featuredMusic: SanitySongType
-}
-
-export type SanitySongType = {
-  name: string,
-  artwork: SanityImageWithAlt
-  description: string
+  featuredMusicSection?: SanityFeaturedMusicSection,
+  musicVideosSection: SanityMusicVideoSection
+  featuredGallerySection?: FeaturedGallerySection
+  albumSection?: AlbumSection
+  contactSection?: ContactSection
 }
