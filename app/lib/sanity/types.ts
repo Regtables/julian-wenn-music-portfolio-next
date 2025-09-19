@@ -43,7 +43,7 @@ export type SanityMusicVideoSection = {
 
 export type SanityMusicVideo = {
   name:string,
-  url: string
+  link: string
 }
 
 // SEO

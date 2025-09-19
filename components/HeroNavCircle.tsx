@@ -24,10 +24,10 @@ const HeroNavCircle = ({ icon, title, link }: HeroNavCircleProps) => {
       onMouseEnter={() => handleHover("start")}
       onMouseLeave={() => handleHover("end")}
     >
-      <div className="rounded-full h-full flex flex-col gap-4 items-center justify-center relative z-10">
+      <div className="rounded-full w-full h-full flex flex-col gap-4 items-center justify-center relative z-10">
         {icon}
 
-        <h4>{title}</h4>
+        <h4 className="font-heading text-3xl w-3/5 mx-auto font-bold text-center">{title}</h4>
       </div>
 
       <div

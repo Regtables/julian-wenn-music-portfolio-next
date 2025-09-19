@@ -1,5 +1,5 @@
 import NavbarWrapper from "@/components/wrappers/layout/NavbarWrapper";
-import ScrollPinningWrapper from "@/components/wrappers/layout/ScrollPinningWrapper";
+import ScrollEffectsWrapper from "@/components/wrappers/layout/ScrollEffectsWrapper";
 import Providers from "@/providers";
 import React, { PropsWithChildren } from "react";
 
@@ -9,9 +9,9 @@ const RootPagesLayout = async ({ children }: Props) => {
   return (
     <Providers>
       <NavbarWrapper>
-        <ScrollPinningWrapper>
+        <ScrollEffectsWrapper>
           <main>{children}</main>
-        </ScrollPinningWrapper>
+        </ScrollEffectsWrapper>
       </NavbarWrapper>
     </Providers>
   );

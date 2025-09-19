@@ -34,7 +34,7 @@ const About = ({
             {/* Copy */}
             <div className="w-3/5 flex flex-col gap-8">
               <h2 className="section-heading !text-custom-black">{heading}</h2>
-              <SanityTextBlock text={mediumBio} className="body-text" />
+              <SanityTextBlock text={mediumBio} className="body-text font-bold" />
               <div className="flex gap-6">
                 <MainButton text="view upcoming shows" color="black" />
                 <MainButton text="get in touch" color="black" />

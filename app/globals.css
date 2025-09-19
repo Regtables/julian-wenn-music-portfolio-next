@@ -9,11 +9,11 @@
 }
 
 .section-heading{
-  @apply lg:text-7xl text-custom-gold lg:tracking-[15px] uppercase
+  @apply lg:text-7xl text-custom-gold lg:tracking-[15px] uppercase font-bold
 }
 
 .body-text{
-  @apply lg:text-sm
+  @apply lg:text-sm font-body
 }
 
 :root {
@@ -37,6 +37,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-body: var(--font-body);
+  --font-baskerville: var(--font-baskerville);
+  --font-heading: var(--font-heading);
   
   /* Add your custom colors to the theme */
   --color-custom-black: var(--color-black);
@@ -60,6 +63,11 @@
 body {
   background: var(--color-black);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   overflow-x: hidden;
+}
+
+h1, h2 {
+  font-family: var(--font-heading);
+  font-weight: 600;
 }

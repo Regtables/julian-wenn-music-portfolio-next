@@ -1,8 +1,19 @@
 "use client";
 
+import { UpcomingShow } from "@/app/lib/sanity/types";
 import React, { createContext, useState, useContext, ReactNode } from "react";
 
-export type ModalType = "login" | "alert" | "loading" | "imagePreview" | "deliveryDetails" | "cookieConsent" | "imageCarousel" | "wishlistLogin" | null;
+export type ModalType =
+  | "login"
+  | "alert"
+  | "loading"
+  | "imagePreview"
+  | "deliveryDetails"
+  | "cookieConsent"
+  | "imageCarousel"
+  | "wishlistLogin"
+  | "showPoster"
+  | null;
 
 interface AlertProps {
   confirm: string;
@@ -21,6 +32,7 @@ interface ModalContextProps {
     activationUrl?: string;
     alert?: AlertProps;
     activeImage?: any;
+    show?: UpcomingShow;
   };
   handleModalOpen: (type: ModalType, modalData?: any) => void;
   handleModalClose: (typeToClose?: ModalType) => void;
@@ -41,11 +53,11 @@ const defaultModalData = {
   activeImage: "",
   deliveryDetails: {
     headingWithBlockText: {
-      heading: '',
-      text: []
+      heading: "",
+      text: [],
     },
-    deliveryAreas: []
-  }
+    deliveryAreas: [],
+  },
 };
 
 const defaultValues: ModalContextProps = {

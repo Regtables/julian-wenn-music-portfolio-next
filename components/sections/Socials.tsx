@@ -40,7 +40,7 @@ const Socials = (props: Props) => {
         <div className="px-section-x-desktop py-section-y-desktop">
           {/* Follow */}
           <div className="flex flex-col justify-between items-start">
-            <h3 className="text-custom-gold text-9xl">Follow</h3>
+            <h3 className="text-custom-gold text-9xl font-heading uppercase">Follow</h3>
 
             <div className="text-custom-gold flex">
               <div>icon</div>
@@ -51,7 +51,7 @@ const Socials = (props: Props) => {
 
           {/* Listen */}
           <div className="flex flex-col-reverse justify-between items-end">
-            <h3 className="text-custom-gold text-9xl">Lsiten</h3>
+            <h3 className="text-custom-gold text-9xl font-heading uppercase">Listen</h3>
 
             <div className="text-custom-gold flex">
               <div>icon</div>

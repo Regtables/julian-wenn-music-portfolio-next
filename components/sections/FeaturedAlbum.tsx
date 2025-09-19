@@ -37,7 +37,7 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
 
         {/* Content */}
         <div className="text-custom-gold flex flex-col gap-8 items-end text-end w-1/2">
-          <h3 className="text-5xl uppercase">{albumTitle}</h3>
+          <h3 className="text-5xl uppercase font-heading">{albumTitle}</h3>
 
           <p className="text-xs">{album.description}</p>
 
@@ -59,14 +59,14 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
 
             <div className="flex flex-col items-start w-full">
               {album.trackList?.map((track, i) => (
-                <div key={i} className={cn("group text-custom-gold flex w-full justify-between py-4 border-b border-custom-gold/40 hover:bg-custom-gold/20 cursor-pointer", i === 0 && 'border-t')}>
+                <div key={i} className={cn("group text-custom-gold flex w-full justify-between items-center py-4 border-b border-custom-gold/40 hover:bg-custom-gold/20 cursor-pointer", i === 0 && 'border-t')}>
                   <div className="flex items-center gap-16">
-                    <h5>{track.name}</h5>
+                    <h5 className="font-heading text-lg capitalize">{track.name}</h5>
 
                     <Play className="opacity-0 group-hover:opacity-100 transition-opacity duration-500" fill="var(--color-gold)" size={'1rem'} />
                   </div>
 
-                  <div>3:00</div>
+                  <div className="text-sm">3:00</div>
                 </div>
               ))}
             </div>

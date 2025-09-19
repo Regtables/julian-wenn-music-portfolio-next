@@ -54,7 +54,7 @@ const NavMenu = ({ ref, handleClose }: NavMenuProps) => {
         </div>
         <div className="flex flex-col justify-between h-full text-[var(--color-gold)]">
           {NAV_LINKS.map((link, i) => (
-            <Link key={i} href={link.slug} className="text-6xl uppercase">
+            <Link key={i} href={link.slug} className="text-6xl uppercase font-heading tracking-[1px]">
               {link.link}
             </Link>
           ))}

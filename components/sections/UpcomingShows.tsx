@@ -1,6 +1,8 @@
+"use client";
+
 import { UpcomingShow } from "@/app/lib/sanity/types";
-import { Calendar, MapPin } from "lucide-react";
-import React from "react";
+import { useModal } from "@/context/ModalContext";
+import { Calendar, Eye, MapPin, MoveUpRight } from "lucide-react";
 
 type UpcomingShowsProps = {
   heading: string;
@@ -8,24 +10,32 @@ type UpcomingShowsProps = {
 };
 
 const UpcomingShows = ({ heading, upcomingShows }: UpcomingShowsProps) => {
+  const { handleModalOpen } = useModal();
+
+  const handlePosterClick = (show: UpcomingShow) => {
+    handleModalOpen("showPoster", { show });
+  };
   return (
-    <div className="min-h-screen relative z-20 lg:px-section-x-desktop lg:py-section-y-desktop">
+    <div className="relative z-20 lg:px-section-x-desktop lg:py-section-y-desktop flex flex-col gap-12">
       <h2 className="section-heading text-custom-gold">{heading}</h2>
 
       {upcomingShows.map((show, i) => (
         <div key={i} className="text-custom-gold flex items-center gap-8">
           <div>Month</div>
-          <div className="border-2 border-custom-gold/30 p-6 grow rounded-lg">
+          <div className="border-2 border-custom-gold/30 p-6 grow rounded-lg flex justify-between items-center">
             <div className="flex flex-col gap-6">
-              <h3>{show.name}</h3>
+              <h3 className="font-heading uppercase tracking-[3px] text-sm">
+                {show.name}
+              </h3>
 
               <div className="flex gap-6">
-                <div className="flex gap-2">
+                <div className="flex gap-2 items-center">
                   <MapPin
                     // fill="var(--color-white)"
                     color="var(--color-white)"
+                    size={"16px"}
                   />
-                  <h4>
+                  <h4 className="text-xs">
                     {show.venue}, {show.city}
                   </h4>
                 </div>
@@ -34,11 +44,24 @@ const UpcomingShows = ({ heading, upcomingShows }: UpcomingShowsProps) => {
                   <Calendar
                     // fill="var(--color-white)"
                     color="var(--color-white)"
+                    size={"1rem"}
                   />
-                  <h4>
-                    {show.date}
-                  </h4>
+                  <h4 className="text-xs">{show.date}</h4>
                 </div>
+              </div>
+            </div>
+            <div className="flex gap-8">
+              <div
+                className="flex gap-2 items-center text-xs uppercase border-b-2 border-custom-gold/0 box-border hover:border-custom-gold py-1 transition-all duration-500 cursor-pointer"
+                onClick={() => handlePosterClick(show)}
+              >
+                view poster
+                <Eye size={16} />
+              </div>
+
+              <div className="flex gap-2 items-center text-xs uppercase border-b-2 border-custom-gold/0 box-border hover:border-custom-gold py-1 transition-all duration-500 cursor-pointer">
+                get tickets
+                <MoveUpRight size={16} />
               </div>
             </div>
           </div>
