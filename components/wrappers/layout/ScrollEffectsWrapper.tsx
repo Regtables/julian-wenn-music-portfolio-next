@@ -5,16 +5,20 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollSmoother from "gsap/ScrollSmoother";
+import { useAppSettings } from "@/context/AppSettingsContext";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 
 type ScrollPinningWrapperProps = PropsWithChildren;
 
 const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
+  const { isAnimationReady } = useAppSettings()
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    if(isAnimationReady) return 
+
     const smoother = ScrollSmoother.create({
       wrapper: wrapperRef.current,
       content: contentRef.current,
@@ -55,7 +59,7 @@ const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
         }
       });
     };
-  }, []);
+  }, [isAnimationReady]);
 
   return (
     <div ref={wrapperRef} className="overflow-hidden">

@@ -21,13 +21,15 @@ type HeroProps = {
 
 const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
   const { isAnimationReady } = useAppSettings()
-  const horLineLeft = useRef<HTMLDivElement>(null);
-  const horLineRight = useRef<HTMLDivElement>(null);
-  const verLine = useRef<HTMLDivElement>(null);
+  const verLineLeft = useRef<HTMLDivElement>(null);
+  const verLineRight = useRef<HTMLDivElement>(null);
+  const horLine = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     if(!isAnimationReady) return 
+    
     const heroNavContainer = document.querySelector(".hero-nav-container");
+    console.log(heroNavContainer)
     const heading = new SplitText(".hero-heading");
 
     const heroTl = gsap.timeline({
@@ -36,16 +38,26 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
       },
     });
 
-    heroTl.set(
+    gsap.set(
       [
         heading.chars,
         heroNavContainer?.children,
-        horLineLeft,
-        horLineRight,
-        verLine,
+        verLineLeft.current,
+        verLineRight.current,
+        horLine.current,
+        '.hero-about',
+        '.hero-bg-image'
       ],
       { autoAlpha: 0 }
     );
+
+    heroTl
+      .to('.hero-bg-image', { autoAlpha: 1, duration: 0.5 }, 0)
+      .fromTo(heading.chars, { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, stagger: 0.15 }, 1)
+      .fromTo([verLineLeft.current, verLineRight.current], { autoAlpha: 0, scaleY: 0 }, { autoAlpha: 1, scaleY: 1 }, 2)
+      .fromTo(horLine.current, { autoAlpha: 0, scaleX: 0 }, { autoAlpha: 1, scaleX: 1 }, 2)
+      .fromTo([heroNavContainer?.children], { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, stagger: 0.1 }, "-=0.2")
+      .fromTo('.hero-about', { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0 }, '-=0.2')
 
     return () => {
       heroTl.kill()
@@ -55,7 +67,7 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
   return (
     <section className="hero-section w-full min-h-screen relative">
       <div className="absolute w-full h-full top-0 left-0 right-0">
-        <Overlay opacity={40}>
+        <Overlay opacity={40} className="hero-bg-image">
           <Image
             src={bgImageDesktop.fileUrl!}
             fill
@@ -67,7 +79,7 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
 
       <div className="h-full w-full flex relative z-10 lg:py-8 lg:px-8">
         {/* Line */}
-        <div className="w-[4px] bg-[var(--color-gold)]" ref={horLineLeft} />
+        <div className="w-[4px] bg-[var(--color-gold)]" ref={verLineLeft} />
 
         {/* Content */}
         <div className="w-full flex flex-col">
@@ -79,7 +91,7 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
 
           <div
             className="h-[3px] w-full bg-[var(--color-gold)]"
-            ref={verLine}
+            ref={horLine}
           />
 
           <div className="flex gap-8 px-8 py-8">
@@ -101,7 +113,7 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
               />
             </div>
 
-            <div className="bg-[var(--color-black)] text-[var(--color-gold)] p-4 flex flex-col gap-4">
+            <div className="bg-[var(--color-black)] text-[var(--color-gold)] p-4 flex flex-col gap-4 hero-about">
               <p className="font-baskerville text-justify">{shortBio}</p>
 
               <div className="flex gap-4">
@@ -114,7 +126,7 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
         </div>
 
         {/* Line */}
-        <div className="w-[4px] bg-[var(--color-gold)]" ref={horLineRight} />
+        <div className="w-[4px] bg-[var(--color-gold)]" ref={verLineRight} />
       </div>
     </section>
   );

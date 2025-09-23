@@ -28,7 +28,7 @@ const Socials = (props: Props) => {
   const { animateSectionHeading } = useGSAPAnimations();
 
   useGSAP(() => {
-    if(!isAnimationReady) return
+    //if(!isAnimationReady) return
     // Intro animations - headings and icons
     if (followHeadingRef.current) {
       gsap.from(followHeadingRef.current, {
@@ -145,7 +145,7 @@ const Socials = (props: Props) => {
     return () => {
       ScrollTrigger.getAll().forEach(st => st.kill());
     };
-  }, [isAnimationReady]);
+  }, []);
 
   return (
     <div 
