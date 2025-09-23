@@ -13,7 +13,7 @@ const Footer = (props: Props) => {
     <footer className="w-full">
       {/* Socials */}
       <div className="w-full bg-custom-gold lg:py-12 lg:px-section-x-desktop flex justify-end">
-        <SocialIconStrip iconSize={72} />
+        {/* <SocialIconStrip iconSize={72} /> */}
       </div>
 
       {/* Links & Copy */}

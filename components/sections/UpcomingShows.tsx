@@ -3,6 +3,12 @@
 import { UpcomingShow } from "@/app/lib/sanity/types";
 import { useModal } from "@/context/ModalContext";
 import { Calendar, Eye, MapPin, MoveUpRight } from "lucide-react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAPAnimations } from "@/hooks/useGSAPAnimations";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type UpcomingShowsProps = {
   heading: string;
@@ -11,16 +17,43 @@ type UpcomingShowsProps = {
 
 const UpcomingShows = ({ heading, upcomingShows }: UpcomingShowsProps) => {
   const { handleModalOpen } = useModal();
+  const { animateSectionHeading } = useGSAPAnimations();
 
   const handlePosterClick = (show: UpcomingShow) => {
     handleModalOpen("showPoster", { show });
   };
+
+  useGSAP(() => {
+    const upcomingIntro = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".upcoming-section",
+        start: "top 80%",
+        markers: true,
+      },
+    });
+
+    const shows = gsap.utils.toArray(".upcoming-show");
+
+    upcomingIntro
+      .add(animateSectionHeading(".upcoming-heading"))
+      .fromTo(shows, { y: 50, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1 });
+
+    return () => {
+      upcomingIntro.kill();
+    };
+  }, []);
+
   return (
-    <div className="relative z-20 lg:px-section-x-desktop lg:py-section-y-desktop flex flex-col gap-12">
-      <h2 className="section-heading text-custom-gold">{heading}</h2>
+    <div className="upcoming-section relative z-20 lg:px-section-x-desktop lg:py-section-y-desktop flex flex-col gap-12">
+      <h2 className="upcoming-heading section-heading text-custom-gold">
+        {heading}
+      </h2>
 
       {upcomingShows.map((show, i) => (
-        <div key={i} className="text-custom-gold flex items-center gap-8">
+        <div
+          key={i}
+          className="upcoming-show text-custom-gold flex items-center gap-8"
+        >
           <div>Month</div>
           <div className="border-2 border-custom-gold/30 p-6 grow rounded-lg flex justify-between items-center">
             <div className="flex flex-col gap-6">

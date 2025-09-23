@@ -8,6 +8,7 @@ import React, { useRef, useState } from "react";
 import Image from "next/image";
 
 import BigTileCarouselNavigator from "../bigTileCarousel/BigTileCarouselNavigator";
+import { useGSAPAnimations } from "@/hooks/useGSAPAnimations";
 
 gsap.registerPlugin(useGSAP);
 
@@ -22,13 +23,33 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
   );
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const { animateSectionHeading } = useGSAPAnimations()
+
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const navigatorRef = useRef<HTMLDivElement>(null)
   const navigatorBgRef = useRef<HTMLDivElement>(null);
   const trackListRef = useRef<HTMLDivElement>(null);
   const trackItemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  console.log(featuredMusic);
+  useGSAP(() => {
+    const featuredMusicTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 90%'
+      }
+    })
+
+    featuredMusicTl
+      .set([navigatorRef.current, trackItemsRef.current], { opacity: 0 })
+      .add( animateSectionHeading(headingRef.current) )
+      .fromTo(navigatorRef.current, { y: 50, opacity: 0 }, { y: 0, opacity: 1 })
+      .fromTo(trackItemsRef.current, { y: 50, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.5 })
+
+    return () => {
+      featuredMusicTl.kill()
+    }
+  },[])
 
   const animateToItem = (targetIndex: number, item: SanitySongType) => {
     if (targetIndex === activeIndex) return;
@@ -73,13 +94,15 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
         {heading}
       </h2>
 
-      <BigTileCarouselNavigator
-        featuredMusic={featuredMusic}
-        activeItem={activeItem}
-        handleItemSelect={handleItemSelect}
-        className="bg-custom-gold"
-        ref={navigatorBgRef}
-      />
+      <div ref = {navigatorRef}>
+        <BigTileCarouselNavigator
+          featuredMusic={featuredMusic}
+          activeItem={activeItem}
+          handleItemSelect={handleItemSelect}
+          className="bg-custom-gold"
+          ref={navigatorBgRef}
+        />
+      </div>
 
       <div className="w-full">
         <div className="flex items-center justify-center gap-64 w-full overflow-hidden">

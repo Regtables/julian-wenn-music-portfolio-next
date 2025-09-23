@@ -82,7 +82,7 @@ const GalleryItemTile = ({ title, media, className }: GalleryItemTileProps) => {
   };
 
   return (
-    <div className={`lg:h-[250px] rounded-lg cursor-pointer ${className || ""}`}>
+    <div className={`gallery-item-wrapper lg:h-[250px] rounded-lg cursor-pointer ${className || ""}`}>
       {/* Positioner */}
       <div className="w-full h-full relative">
         {/* Overlay */}

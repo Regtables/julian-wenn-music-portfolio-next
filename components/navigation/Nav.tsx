@@ -47,7 +47,7 @@ const Nav: React.FC = () => {
       <Menu 
         color='var(--color-gold)' 
         size='2rem' 
-        className='fixed lg:left-[var(--margin-section-x-desktop)] lg:top-8 cursor-pointer z-50'
+        className='nav-menu-icon fixed lg:left-[var(--margin-section-x-desktop)] lg:top-8 cursor-pointer z-50'
         onClick={handleMenuClick}
       />
 
