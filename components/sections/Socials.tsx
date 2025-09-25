@@ -17,9 +17,7 @@ import YouTubeMusicIcon from "../icons/YoutubeMusicIcon";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type Props = {};
-
-const Socials = (props: Props) => {
+const Socials = () => {
   // Refs for animation targeting
   const { isAnimationReady } = useAppSettings();
   const sectionRef = useRef<HTMLDivElement>(null);
