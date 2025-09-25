@@ -7,35 +7,35 @@ import { navigateToSection } from "@/app/lib/utils";
 export const NAV_LINKS = [
   {
     link: "home",
-    slug: "#home",
-  },
-  {
-    link: "featured music",
-    slug: "#featured-music",
+    slug: "home",
   },
   {
     link: "about",
-    slug: "#about",
-  },
-  {
-    link: "music videos",
-    slug: "#music-videos",
+    slug: "about",
   },
   {
     link: "upcoming shows",
-    slug: "#upcoming-shows",
+    slug: "upcoming-shows",
   },
   {
-    link: "featured gallery",
-    slug: "#featured-gallery",
+    link: "featured music",
+    slug: "featured-music",
   },
   {
     link: "the album",
-    slug: "#album",
+    slug: "featured-album",
+  },
+  {
+    link: "music videos",
+    slug: "music-videos",
+  },
+  {
+    link: "featured gallery",
+    slug: "featured-gallery",
   },
   {
     link: "contact",
-    slug: "#contact",
+    slug: "contact",
   },
 ];
 
@@ -46,12 +46,12 @@ interface NavMenuProps {
 
 const NavMenu = ({ ref, handleClose }: NavMenuProps) => {
   const handleItemClick = (item) => {
-    // navigateToSection(item.slug)
+    navigateToSection(item.slug)
     handleClose()
   }
   return (
     <div
-      className="nav-menu z-50 flex h-screen w-screen bg-[var(--color-black)] fixed top-0 -left-full right-0 bottom-0 lg:px-[var(--padding-section-x-desktop)] py-16"
+className="nav-menu z-50 flex h-screen w-screen bg-[var(--color-black)] fixed top-0 left-0 right-0 bottom-0 lg:px-[var(--padding-section-x-desktop)] py-16 invisible"
       ref={ref}
     >
       <div className="relative flex justify-between items-end w-full h-full">
@@ -63,14 +63,14 @@ const NavMenu = ({ ref, handleClose }: NavMenuProps) => {
         </div>
         <div className="flex flex-col justify-between h-full text-[var(--color-gold)]">
           {NAV_LINKS.map((link, i) => (
-            <a
+            <div
               key={i}
-              href={link.slug}
+              // href={link.slug}
               className="text-6xl uppercase font-heading tracking-[1px] hover:text-custom-white transition-colors duration-500"
               onClick={() => handleItemClick(link)}
             >
               {link.link}
-            </a>
+            </div>
           ))}
         </div>
 

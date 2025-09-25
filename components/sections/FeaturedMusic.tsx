@@ -9,6 +9,7 @@ import Image from "next/image";
 
 import BigTileCarouselNavigator from "../bigTileCarousel/BigTileCarouselNavigator";
 import { useGSAPAnimations } from "@/hooks/useGSAPAnimations";
+import { Play } from "lucide-react";
 
 gsap.registerPlugin(useGSAP);
 
@@ -23,11 +24,11 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
   );
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const { animateSectionHeading } = useGSAPAnimations()
+  const { animateSectionHeading } = useGSAPAnimations();
 
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const navigatorRef = useRef<HTMLDivElement>(null)
+  const navigatorRef = useRef<HTMLDivElement>(null);
   const navigatorBgRef = useRef<HTMLDivElement>(null);
   const trackListRef = useRef<HTMLDivElement>(null);
   const trackItemsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -36,20 +37,24 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
     const featuredMusicTl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: 'top 90%'
-      }
-    })
+        start: "top 90%",
+      },
+    });
 
     featuredMusicTl
       .set([navigatorRef.current, trackItemsRef.current], { opacity: 0 })
-      .add( animateSectionHeading(headingRef.current) )
+      .add(animateSectionHeading(headingRef.current))
       .fromTo(navigatorRef.current, { y: 50, opacity: 0 }, { y: 0, opacity: 1 })
-      .fromTo(trackItemsRef.current, { y: 50, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.5 })
+      .fromTo(
+        trackItemsRef.current,
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.5 }
+      );
 
     return () => {
-      featuredMusicTl.kill()
-    }
-  },[])
+      featuredMusicTl.kill();
+    };
+  }, []);
 
   const animateToItem = (targetIndex: number, item: SanitySongType) => {
     if (targetIndex === activeIndex) return;
@@ -89,13 +94,13 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
     <section
       className="section section-padding !pr-0 flex flex-col items-center gap-8"
       ref={sectionRef}
-      id = 'featured-music'
+      id="featured-music"
     >
       <h2 className="section-heading text-center" ref={headingRef}>
         {heading}
       </h2>
 
-      <div ref = {navigatorRef}>
+      <div ref={navigatorRef}>
         <BigTileCarouselNavigator
           featuredMusic={featuredMusic}
           activeItem={activeItem}
@@ -111,7 +116,7 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
             {featuredMusic.map((song, i) => (
               <div
                 key={i}
-                className="h-screen min-w-full relative flex justify-center"
+                className="h-screen min-w-full relative flex"
                 ref={(el) => (trackItemsRef.current[i] = el)}
               >
                 <figure className="h-full absolute top-0 left-0 lg:min-w-[50vw]">
@@ -123,6 +128,16 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
                     className="rounded-[8px]"
                   />
                 </figure>
+                <div className="flex w-full h-full items-end relative p-3">
+                  <div className="h-9 w-9 rounded-full bg-custom-black absolute top-1/2 start-1/2 flex justify-center items-center z-10">
+                    <Play color="var(--color-gold)" fill="var(--color-gold)" />
+                  </div>
+
+                  <div className="bg-custom-black text-custom-gold relative w-1/3 rounded-lg p-3 flex flex-col gap-2 ">
+                    <h3 className="font-heading text-xl">{song.name}</h3>
+                    <p className="text-sm text-justify">{song.description}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

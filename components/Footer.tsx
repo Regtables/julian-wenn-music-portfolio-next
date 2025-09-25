@@ -17,7 +17,7 @@ const Footer = (props: Props) => {
       </div>
 
       {/* Links & Copy */}
-      <div className="lg:px-section-x-desktop lg:pt-12 text-custom-gold w-full flex justify-between">
+      <div className="lg:px-section-x-desktop lg:pt-12 lg:pb-6 text-custom-gold w-full flex justify-between">
         <div className="flex flex-col gap-4">
           <div className="flex gap-4 font-heading text-sm uppercase tracking-[2px]">
             {NAV_LINKS.map((link, i) => (

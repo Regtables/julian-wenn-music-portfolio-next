@@ -16,18 +16,19 @@ const Nav: React.FC = () => {
 
   const handleNavOpen = (): void => {
     const navTl = gsap.timeline();
-    navTl.fromTo(
+    navTl.to(
       navSlideBgRef.current,
-      { autoAlpha: 1 },
-      { autoAlpha: 1, xPercent: 100, duration: 0.8, ease: "power2.out" },
+      {
+        xPercent: 0,
+        duration: 0.8,
+        ease: "power2.out",
+      },
       0
     );
-    navTl.fromTo(
+    navTl.to(
       navMenuRef.current,
-      { autoAlpha: 1 },
       {
-        autoAlpha: 1,
-        xPercent: 100,
+        xPercent: 0,
         delay: 0.2,
         duration: 0.8,
         ease: "circ.out",
@@ -41,12 +42,21 @@ const Nav: React.FC = () => {
     const navTl = gsap.timeline();
     navTl.to(
       navMenuRef.current,
-      { xPercent: -100, duration: 1, ease: "power.out" },
+      {
+        xPercent: -100,
+        duration: 0.8,
+        ease: "power.out",
+      },
       0
     );
     navTl.to(
       navSlideBgRef.current,
-      { xPercent: -100, duration: 1, delay: 0.2, ease: "power.out" },
+      {
+        xPercent: -100,
+        duration: 0.8,
+        delay: 0.2,
+        ease: "power.out",
+      },
       0
     );
     setIsNavOpen(false);
@@ -63,24 +73,24 @@ const Nav: React.FC = () => {
   useGSAP(() => {
     gsap.set([navMenuRef.current, navSlideBgRef.current], {
       xPercent: -100,
-      autoAlpha: 1,
+      visibility: "visible", // Make them visible but off-screen
     });
   }, []);
 
   return (
     <nav>
       <MenuIcon
-       // This is what your ScrollTrigger targets
+        // This is what your ScrollTrigger targets
         color="var(--color-gold)" // Default color
         size={32}
         onClick={handleMenuClick}
-       className='nav-menu-icon fixed lg:left-[var(--margin-section-x-desktop)] lg:top-8 cursor-pointer z-50'
+        className="nav-menu-icon fixed lg:left-[var(--margin-section-x-desktop)] lg:top-8 cursor-pointer z-50"
       />
 
       <NavMenu ref={navMenuRef} handleClose={handleNavClose} />
       <div
         ref={navSlideBgRef}
-        className="nav-slide-bg z-40 h-screen w-screen bg-[var(--color-gold)] fixed top-0 -left-full right-0"
+        className="nav-slide-bg z-40 h-screen w-screen bg-[var(--color-gold)] fixed top-0 right-0 invisible"
       />
     </nav>
   );

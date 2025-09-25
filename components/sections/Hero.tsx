@@ -99,17 +99,17 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
               <HeroNavCircle
                 icon={<Music color="var(--color-black)" size={"32px"} />}
                 title="Featured Music"
-                link="#featured-music"
+                link="featured-music"
               />
               <HeroNavCircle
                 icon={<Guitar size={"32px"} />}
                 title="Upcoming Shows"
-                link="#upcoming-shows"
+                link="upcoming-shows"
               />
               <HeroNavCircle
                 icon={<Mail size={"28px"} />}
                 title="Get in Touch"
-                link="#featured-music"
+                link="featured-music"
               />
             </div>
 

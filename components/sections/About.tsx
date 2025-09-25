@@ -35,368 +35,264 @@ const About = ({
   const buttonsContainerRef = useRef<HTMLDivElement>(null);
   const timelineContainerRef = useRef<HTMLDivElement>(null);
 
-  const { handleModalOpen } = useModal()
+  const { handleModalOpen } = useModal();
 
   const { animateSectionHeading } = useGSAPAnimations();
 
-  useGSAP(() => {
-    // Intro animations
-    const aboutIntroTl = gsap.timeline({
+useGSAP(() => {
+  // Intro animations
+  const aboutIntroTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: sectionRef.current,
+      start: "top 80%",
+    },
+  });
+
+  const aboutMainImages = gsap.utils.toArray(".about-main-image");
+  const aboutLeftImages = gsap.utils.toArray(".about-left-image");
+  const timelineSections = gsap.utils.toArray(".timeline-section");
+  const timelineBases = gsap.utils.toArray(".timeline-section-base");
+  const timelineMilestones = gsap.utils.toArray(
+    ".timeline-section-milestone"
+  );
+  const timelineTexts = gsap.utils.toArray(".milestone-text");
+  const timelineDates = gsap.utils.toArray(".milestone-date");
+
+  const buttonsContainer = buttonsContainerRef.current;
+
+  // Set initial states
+  gsap.set(
+    [
+      ".about-text",
+      buttonsContainer?.children,
+      ".about-images",
+      ".about-timeline",
+    ],
+    {
+      autoAlpha: 0,
+    }
+  );
+
+  // Set initial states for all images
+  gsap.set([aboutMainImages, aboutLeftImages], {
+    opacity: 0,
+    y: 100,
+    scale: 0.8,
+  });
+
+  // Set initial timeline states
+  gsap.set(timelineSections, { opacity: 0 });
+  gsap.set(timelineBases, { scaleX: 0, transformOrigin: "left center" });
+  gsap.set([timelineMilestones, timelineTexts, timelineDates], {
+    opacity: 0,
+  });
+
+  // Intro timeline
+  aboutIntroTl
+    .add(animateSectionHeading(headingRef.current), 0)
+    .fromTo(
+      ".about-text",
+      { autoAlpha: 0, y: 50 },
+      { autoAlpha: 1, y: 0, ease: "circ.out" },
+      1
+    )
+    .fromTo(
+      buttonsContainer?.children,
+      { autoAlpha: 0, y: 30 },
+      { autoAlpha: 1, y: 0, stagger: 0.2, ease: "circ.out" },
+      1
+    )
+    .fromTo(
+      [".about-images", ".about-timeline"],
+      { autoAlpha: 0 },
+      { autoAlpha: 1 },
+      "-=0.2"
+    );
+
+  // Initial image animations - first images in position at start
+  if (aboutMainImages[0]) {
+    gsap.to(aboutMainImages[0], {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      duration: 0.3,
+      ease: "none",
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top 80%",
+        start: "top bottom",
+        end: "top top",
+        scrub: true,
       },
     });
+  }
 
-    const aboutMainImages = gsap.utils.toArray(".about-main-image");
-    const aboutLeftImages = gsap.utils.toArray(".about-left-image");
-    const timelineSections = gsap.utils.toArray(".timeline-section");
-    const timelineBases = gsap.utils.toArray(".timeline-section-base");
-    const timelineMilestones = gsap.utils.toArray(
-      ".timeline-section-milestone"
-    );
-    const timelineTexts = gsap.utils.toArray(".milestone-text");
-    const timelineDates = gsap.utils.toArray(".milestone-date");
-
-    const buttonsContainer = buttonsContainerRef.current;
-
-    // Set initial states
-    gsap.set(
-      [
-        ".about-text",
-        buttonsContainer?.children,
-        ".about-images",
-        ".about-timeline",
-      ],
-      {
-        autoAlpha: 0,
-      }
-    );
-
-    // Set initial states for all images
-    gsap.set([aboutMainImages, aboutLeftImages], {
-      opacity: 0,
-      y: 100,
-      scale: 0.8,
+  if (aboutLeftImages[0]) {
+    gsap.to(aboutLeftImages[0], {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      duration: 0.3,
+      ease: "none",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top bottom",
+        end: "top top",
+        scrub: true,
+      },
     });
+  }
 
-    // Set initial timeline states
-    gsap.set(timelineSections, { opacity: 0 });
-    gsap.set(timelineBases, { scaleX: 0, transformOrigin: "left center" });
-    gsap.set([timelineMilestones, timelineTexts, timelineDates], {
-      opacity: 0,
-    });
+  // Initial timeline section
+  if (
+    timelineSections[0] &&
+    timelineBases[0] &&
+    timelineMilestones[0] &&
+    timelineTexts[0] &&
+    timelineDates[0]
+  ) {
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+        },
+      })
+      .to(timelineSections[0], { opacity: 1, duration: 0.1 }, 0)
+      .to(timelineMilestones[0], { opacity: 1, duration: 0.2 }, 0)
+      .to(
+        timelineBases[0],
+        { scaleX: 1, duration: 0.3, ease: "power2.out" },
+        0.1
+      )
+      .to(
+        [timelineTexts[0], timelineDates[0]],
+        { opacity: 1, duration: 0.2 },
+        0.2
+      );
+  }
 
-    // Intro timeline
-    aboutIntroTl
-      .add(animateSectionHeading(headingRef.current), 0)
-      .fromTo(
-        ".about-text",
-        { autoAlpha: 0, y: 50 },
-        { autoAlpha: 1, y: 0, ease: "circ.out" },
-        1
-      )
-      .fromTo(
-        buttonsContainer?.children,
-        { autoAlpha: 0, y: 30 },
-        { autoAlpha: 1, y: 0, stagger: 0.2, ease: "circ.out" },
-        1
-      )
-      .fromTo(
-        [".about-images", ".about-timeline"],
-        { autoAlpha: 0 },
-        { autoAlpha: 1 },
-        "-=0.2"
+  // Main scroll-based animation timeline
+  const aboutTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: sectionRef.current,
+      start: "top top",
+      end: "bottom bottom",
+      scrub: true,
+    },
+  });
+
+  // Animation settings
+  const mainStagger = 0.9;
+
+  console.log(aboutMainImages, "about images");
+
+  gsap.set(aboutMainImages, { y: 100, scale: 0.9, opacity: 0 });
+  gsap.set(aboutMainImages[0], { y: 0, scale: 1, opacity: 1 });
+  gsap.set(aboutLeftImages, { y: 100, scale: 0.8, opacity: 0 });
+  gsap.set(aboutLeftImages[0], { y: 0, scale: 1, opacity: 1 });
+
+  // SYNC ALL ANIMATIONS - Main Images, Left Images, and Timeline
+  aboutMainImages.forEach((image, index) => {
+    const startTime = index * mainStagger - mainStagger + (index === 1 ? 0.3 : 0);
+    
+    if (index === 0) {
+      // First main image fades out
+      aboutTimeline.fromTo(
+        image,
+        { y: 0, scale: 1, opacity: 1 },
+        { y: -100, scale: 1.1, opacity: 0, duration: 0.8, ease: "power2.inOut" },
+        0
+      );
+    } else {
+      // Other main images fade in at staggered times
+      aboutTimeline.fromTo(
+        image,
+        { y: 100, scale: 0.9, opacity: 0 },
+        { y: 0, scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" },
+        startTime
       );
 
-    // Initial image animations - first images in position at start
-    if (aboutMainImages[0]) {
-      gsap.to(aboutMainImages[0], {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 0.3,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "top top",
-          scrub: true,
-        },
-      });
-    }
-
-    if (aboutLeftImages[0]) {
-      gsap.to(aboutLeftImages[0], {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 0.3,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "top top",
-          scrub: true,
-        },
-      });
-    }
-
-    // Initial timeline section
-    if (
-      timelineSections[0] &&
-      timelineBases[0] &&
-      timelineMilestones[0] &&
-      timelineTexts[0] &&
-      timelineDates[0]
-    ) {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top bottom",
-            end: "top top",
-            scrub: true,
-          },
-        })
-        .to(timelineSections[0], { opacity: 1, duration: 0.1 }, 0)
-        .to(timelineMilestones[0], { opacity: 1, duration: 0.2 }, 0)
-        .to(
-          timelineBases[0],
-          { scaleX: 1, duration: 0.3, ease: "power2.out" },
-          0.1
-        )
-        .to(
-          [timelineTexts[0], timelineDates[0]],
-          { opacity: 1, duration: 0.2 },
-          0.2
-        );
-    }
-
-    // Main scroll-based animation timeline
-    const aboutTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "+=3000",
-        scrub: true,
-      },
-    });
-
-    // Timeline for timeline elements
-    const timelineTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top -=100",
-        end: "+=3000",
-        scrub: true,
-      },
-    });
-
-    // Animation settings
-    const mainStagger = 0.9;
-    const leftStagger = 0.9;
-
-    // MAIN IMAGES ANIMATION (center/main images)
-    aboutMainImages.forEach((image, index) => {
-      const startTime =
-        index * mainStagger - mainStagger + (index === 1 ? 0.3 : 0);
-
-      if (index === 0) {
-        // First image fade out
-        aboutTimeline.to(
+      // Only fade out if it's not the last image
+      if (index < aboutMainImages.length - 1) {
+        aboutTimeline.fromTo(
           image,
-          {
-            y: -100,
-            scale: 1.1,
-            opacity: 0,
-            duration: 0.5,
-            ease: "none",
-          },
-          0
-        );
-      } else {
-        // Show image
-        aboutTimeline.to(
-          image,
-          {
-            y: 0,
-            scale: 1,
-            opacity: 1,
-            duration: 0.3,
-            ease: "none",
-          },
-          startTime
-        );
-
-        // Hide image (unless it's the last one)
-        if (index !== aboutMainImages.length - 1) {
-          aboutTimeline.to(
-            image,
-            {
-              y: -50,
-              duration: 0.5,
-              ease: "none",
-            },
-            startTime + 0.3
-          );
-
-          aboutTimeline.to(
-            image,
-            {
-              y: -100,
-              opacity: 0,
-              duration: 0.2,
-              scale: 1.1,
-              ease: "circ.out",
-            },
-            startTime + 0.6
-          );
-        }
-      }
-    });
-
-    // LEFT IMAGES ANIMATION (slower than main)
-    aboutLeftImages.forEach((image, index) => {
-      const startTime =
-        index * leftStagger - leftStagger + (index === 1 ? 0.3 : 0);
-
-      if (index === 0) {
-        // First left image fades out
-        aboutTimeline.to(
-          image,
-          {
-            y: -40,
-            scale: 1.05,
-            opacity: 0,
-            duration: 0.4,
-            ease: "none",
-          },
-          0
-        );
-      } else {
-        // Show left image
-        aboutTimeline.to(
-          image,
-          {
-            y: 0,
-            scale: 1,
-            opacity: 1,
-            duration: 0.4,
-            ease: "none",
-          },
-          startTime
-        );
-
-        // Hide left image (unless it's the last one)
-        if (index !== aboutLeftImages.length - 1) {
-          aboutTimeline.to(
-            image,
-            {
-              y: -30,
-              duration: 0.4,
-              ease: "none",
-            },
-            startTime + 0.3
-          );
-
-          aboutTimeline.to(
-            image,
-            {
-              y: -50,
-              opacity: 0,
-              duration: 0.4,
-              scale: 1.05,
-              ease: "none",
-            },
-            startTime + 0.6
-          );
-        }
-      }
-    });
-
-    // TIMELINE ANIMATION
-    const aboutStagger = 0.9;
-
-    timelineSections.forEach((section, index) => {
-      const startTime =
-        index * aboutStagger - aboutStagger + (index === 1 ? 0.3 : 0);
-
-      if (index === 0) {
-        // First timeline section already handled
-      } else {
-        timelineTimeline.to(
-          timelineMilestones[index],
-          {
-            opacity: 1,
-            duration: 0.2,
-            ease: "none",
-          },
-          startTime
-        );
-
-        timelineTimeline.to(
-          timelineBases[index],
-          {
-            scaleX: 1,
-            duration: 0.3,
-            ease: "power2.out",
-          },
-          startTime + 0.1
-        );
-
-        timelineTimeline.to(
-          [timelineTexts[index], timelineDates[index]],
-          {
-            opacity: 1,
-            duration: 0.2,
-            ease: "none",
-          },
-          startTime + 0.2
-        );
-
-        timelineTimeline.to(
-          timelineSections[index],
-          {
-            opacity: 1,
-            duration: 0.1,
-            ease: "none",
-          },
-          startTime
+          { opacity: 1, y: 0, scale: 1 },
+          { y: -100, scale: 1.1, opacity: 0, duration: 0.5, ease: "power2.out" },
+          startTime + 0.3
         );
       }
-    });
+    }
+  });
 
-    // Timeline hover interactions
-    timelineMilestones.forEach((milestone, index) => {
-      milestone.addEventListener("mouseenter", () => {
-        const targetProgress = (index * 0.6 + 0.3) / aboutTimeline.duration();
+  // Left images - synced with main images
+  aboutLeftImages.forEach((image, index) => {
+    const startTime = index * mainStagger - mainStagger + (index === 1 ? 0.3 : 0);
+    
+    if (index === 0) {
+      // First left image fades out
+      aboutTimeline.fromTo(
+        image,
+        { y: 0, scale: 1, opacity: 1 },
+        { y: -40, scale: 1.05, opacity: 0, duration: 0.8, ease: "power2.inOut" },
+        0
+      );
+    } else {
+      // Other left images fade in at staggered times
+      aboutTimeline.fromTo(
+        image,
+        { y: 100, scale: 0.8, opacity: 0 },
+        { y: 0, scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" },
+        startTime
+      );
 
-        gsap.to(aboutTimeline, {
-          progress: targetProgress,
-          duration: 0.5,
-          ease: "power2.out",
-        });
+      // Only fade out if it's not the last image
+      if (index < aboutLeftImages.length - 1) {
+        aboutTimeline.fromTo(
+          image,
+          { opacity: 1, y: 0, scale: 1 },
+          { y: -40, scale: 1.05, opacity: 0, duration: 0.5, ease: "power2.out" },
+          startTime + 0.3
+        );
+      }
+    }
+  });
 
-        gsap.to(timelineTimeline, {
-          progress: targetProgress,
-          duration: 0.5,
-          ease: "power2.out",
-        });
-      });
-    });
+  // Timeline elements - synced with images
+  timelineSections.forEach((section, index) => {
+    const startTime = index * mainStagger - mainStagger + (index === 1 ? 0.3 : 0);
 
-    return () => {
-      aboutIntroTl.kill();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
+    if (index === 0) {
+      // First timeline section already visible
+    } else {
+      // Timeline sections appear in sync with images
+      aboutTimeline.to(timelineSections[index], { opacity: 1, duration: 0.1 }, startTime);
+      aboutTimeline.to(timelineMilestones[index], { opacity: 1, duration: 0.2 }, startTime);
+      aboutTimeline.to(
+        timelineBases[index],
+        { scaleX: 1, duration: 0.3, ease: "power2.out" },
+        startTime + 0.1
+      );
+      aboutTimeline.to(
+        [timelineTexts[index], timelineDates[index]],
+        { opacity: 1, duration: 0.2 },
+        startTime + 0.2
+      );
+    }
+  });
+
+  return () => {
+    aboutIntroTl.kill();
+    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  };
+}, []);
 
   return (
     <section
-      className="about about-wrapper min-h-screen bg-custom-gold lg:px-section-x-desktop h-[600vh]"
+      className="about about-wrapper min-h-screen bg-custom-gold lg:px-section-x-desktop h-[800vh]"
       ref={sectionRef}
-      id = 'about'
+      id="about"
     >
       <div className="about-container w-full h-screen py-section-y-desktop">
         <div className="flex flex-col w-full h-full">
@@ -418,13 +314,16 @@ const About = ({
                 />
               </div>
 
-              <div ref={buttonsContainerRef} className="flex items-center gap-6">
+              <div
+                ref={buttonsContainerRef}
+                className="flex items-center gap-6"
+              >
                 <MainButton text="view upcoming shows" color="black" />
                 <MainButton text="get in touch" color="black" />
 
-                <button 
+                <button
                   className="bg-custom-black text-custom-gold text-xs h-[20px] px-2 capitalize font-bold cursor-pointer"
-                  onClick={() => handleModalOpen('fullBio', { fullBio })}
+                  onClick={() => handleModalOpen("fullBio", { fullBio })}
                 >
                   read full bio
                 </button>

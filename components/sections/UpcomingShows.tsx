@@ -28,7 +28,6 @@ const UpcomingShows = ({ heading, upcomingShows }: UpcomingShowsProps) => {
       scrollTrigger: {
         trigger: ".upcoming-section",
         start: "top 80%",
-        markers: true,
       },
     });
 

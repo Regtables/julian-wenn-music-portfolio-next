@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import gsap from "gsap";
+import { navigateToSection } from "@/app/lib/utils";
 
 gsap.registerPlugin();
 
@@ -18,11 +19,16 @@ const HeroNavCircle = ({ icon, title, link }: HeroNavCircleProps) => {
     hoverTl.to(circleSlideBg.current, { yPercent: phase === "start" ? -100 : 100, duration: 0.5, ease: 'power1.out' });
   };
 
+  const handleClick = (itemLink) => {
+    navigateToSection(itemLink)
+  }
+
   return (
     <div
       className="relative overflow-hidden h-[200px] w-[200px] bg-custom-gold rounded-full cursor-pointer"
       onMouseEnter={() => handleHover("start")}
       onMouseLeave={() => handleHover("end")}
+      onClick={() => handleClick(link)}
     >
       <div className="rounded-full w-full h-full flex flex-col gap-4 items-center justify-center relative z-10">
         {icon}

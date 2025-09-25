@@ -12,21 +12,19 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 type ScrollPinningWrapperProps = PropsWithChildren;
 
 const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
-  const { isAnimationReady } = useAppSettings();
+  // const { isAnimationReady } = useAppSettings();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (isAnimationReady) return;
-
     const smoother = ScrollSmoother.create({
       wrapper: wrapperRef.current,
       content: contentRef.current,
       smooth: 1,
       smoothTouch: 0.1,
-      normalizeScroll: true,
-      ignoreMobileResize: true,
-      effects: true,
+      // normalizeScroll: true,
+      // ignoreMobileResize: true,
+      // effects: true,
     });
 
     function initNavigationColorChanges() {
@@ -38,7 +36,6 @@ const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
           stroke: "var(--color-black)",
         }),
         scrub: true,
-        markers: true,
       });
 
       ScrollTrigger.create({
@@ -56,19 +53,17 @@ const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
       ScrollTrigger.create({
         trigger: ".socials",
         start: "top top",
-        end: "+=2000",
+        end: "bottom bottom",
         pin: ".socials-container",
-        markers: true,
         pinSpacing: false,
       });
 
       ScrollTrigger.create({
         trigger: ".about",
         start: "top top",
-        end: "+=4000",
+        end: "bottom bottom",
         pin: ".about-container",
         pinSpacing: false,
-        markers: true,
       });
     };
 
@@ -83,7 +78,7 @@ const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
         }
       });
     };
-  }, [isAnimationReady]);
+  }, []);
 
   return (
     <div ref={wrapperRef} className="overflow-hidden">

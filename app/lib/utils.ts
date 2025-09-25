@@ -11,10 +11,37 @@ export const getYouTubeVideoId = (url: string): string | null => {
   return match ? match[1] : null;
 };
 
-export const navigateToSection = (id: string) => {
-  const section = document.getElementById(`${id}`)
+// export const navigateToSection = (id: string) => {
+//   const section = document.getElementById(`${id}`)
 
-  if(section){
-    section.scrollIntoView({ behavior: 'smooth'})
+//   if(section){
+//     section.scrollIntoView({ behavior: 'smooth'})
+//   }
+// }
+
+import gsap from 'gsap';
+import ScrollSmoother from 'gsap/ScrollSmoother';
+import ScrollToPlugin from 'gsap/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollToPlugin);
+
+// Method 1: Using ScrollSmoother.scrollTo() - BEST for ScrollSmoother
+export const navigateToSection = (id: string) => {
+  const smoother = ScrollSmoother.get();
+  const target = document.getElementById(`${id}`);
+  
+  if (smoother && target) {
+    // ScrollSmoother's scrollTo method - maintains smooth scrolling
+    smoother.scrollTo(target, true, "top top");
+    
+    // Optional: Update URL hash without triggering scroll
+    history.pushState(null, '', `#${id}`);
+  } else if (target) {
+    // Fallback if ScrollSmoother isn't available
+    gsap.to(window, {
+      duration: 1.5,
+      scrollTo: { y: target, offsetY: 0 },
+      ease: "power2.inOut"
+    });
   }
-}
+};

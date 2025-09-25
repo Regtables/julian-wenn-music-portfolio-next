@@ -112,7 +112,7 @@ const MusicVideos = ({ heading, musicVideos }: MusicVideosProps) => {
     <section 
       ref={sectionRef}
       className="music-videos section flex flex-col gap-12 relative"
-      id = 'music-vidoes'
+      id = 'music-videos'
     >
       {/* Vertical Lines */}
       <div 
