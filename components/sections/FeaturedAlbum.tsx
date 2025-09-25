@@ -85,6 +85,7 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
     <section
       ref={sectionRef}
       className="album-section w-full section-padding h-screen flex gap-12 flex-col"
+      id = 'featured-album'
     >
       <h2 ref={headingRef} className="featured-album-title section-heading">
         {heading}

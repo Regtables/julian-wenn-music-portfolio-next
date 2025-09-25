@@ -11,3 +11,10 @@ export const getYouTubeVideoId = (url: string): string | null => {
   return match ? match[1] : null;
 };
 
+export const navigateToSection = (id: string) => {
+  const section = document.getElementById(`${id}`)
+
+  if(section){
+    section.scrollIntoView({ behavior: 'smooth'})
+  }
+}

@@ -13,6 +13,7 @@ export type ModalType =
   | "imageCarousel"
   | "wishlistLogin"
   | "showPoster"
+  | "fullBio"
   | null;
 
 interface AlertProps {

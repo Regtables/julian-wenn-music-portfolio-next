@@ -21,7 +21,7 @@ const BigTileCarouselNavigator = forwardRef<HTMLDivElement, BigTileNavigatorProp
   return (
     <div
       className={cn(
-        "rounded-full flex items-center gap-4 relative p-2 py-2",
+        "featured-music-navigator rounded-full flex items-center gap-4 relative p-2 py-2",
         className
       )}
     >

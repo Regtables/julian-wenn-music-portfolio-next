@@ -78,6 +78,7 @@ const Contact = ({ heading, text, image }: ContactProps) => {
     <section 
       ref={sectionRef}
       className="contact-us flex w-full h-screen"
+      id = 'contact'
     >
       {/* Image */}
       <div 

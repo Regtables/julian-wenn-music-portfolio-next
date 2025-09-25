@@ -12,12 +12,12 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 type ScrollPinningWrapperProps = PropsWithChildren;
 
 const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
-  const { isAnimationReady } = useAppSettings()
+  const { isAnimationReady } = useAppSettings();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if(isAnimationReady) return 
+    if (isAnimationReady) return;
 
     const smoother = ScrollSmoother.create({
       wrapper: wrapperRef.current,
@@ -28,6 +28,29 @@ const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
       ignoreMobileResize: true,
       effects: true,
     });
+
+    function initNavigationColorChanges() {
+      ScrollTrigger.create({
+        trigger: ".about",
+        start: "-=50",
+        end: "+=20",
+        animation: gsap.to(".nav-menu-icon path", {
+          stroke: "var(--color-black)",
+        }),
+        scrub: true,
+        markers: true,
+      });
+
+      ScrollTrigger.create({
+        trigger: ".upcoming-section",
+        start: "-=50",
+        end: "+=20",
+        animation: gsap.to(".nav-menu-icon path", {
+          stroke: "var(--color-gold)",
+        }),
+        scrub: true,
+      });
+    }
 
     const initPinning = () => {
       ScrollTrigger.create({
@@ -42,7 +65,7 @@ const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
       ScrollTrigger.create({
         trigger: ".about",
         start: "top top",
-        end: "+=2000",
+        end: "+=4000",
         pin: ".about-container",
         pinSpacing: false,
         markers: true,
@@ -50,9 +73,10 @@ const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
     };
 
     initPinning();
+    initNavigationColorChanges();
 
     return () => {
-      smoother?.kill()
+      smoother?.kill();
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.vars.pin) {
           trigger.kill();

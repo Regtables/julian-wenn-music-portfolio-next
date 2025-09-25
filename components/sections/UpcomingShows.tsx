@@ -44,7 +44,10 @@ const UpcomingShows = ({ heading, upcomingShows }: UpcomingShowsProps) => {
   }, []);
 
   return (
-    <div className="upcoming-section relative z-20 lg:px-section-x-desktop lg:py-section-y-desktop flex flex-col gap-12">
+    <div
+      className="upcoming-section relative z-20 lg:px-section-x-desktop lg:py-section-y-desktop flex flex-col gap-12"
+      id="upcoming-shows"
+    >
       <h2 className="upcoming-heading section-heading text-custom-gold">
         {heading}
       </h2>

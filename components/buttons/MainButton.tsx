@@ -1,7 +1,8 @@
+"use client";
+
 import { cn } from "@/app/lib/utils";
 import { PropsWithClassName } from "@/types";
 import Link from "next/link";
-import React from "react";
 
 type MainButtonProps = PropsWithClassName<{
   text: string;
@@ -16,7 +17,7 @@ const MainButton = ({
   color = "gold",
 }: MainButtonProps) => {
   return (
-    <Link href={link}>
+    <a href={link}>
       <button
         className={cn(
           "rounded-[20rem] font-bold border-2 py-2 px-6 text-sm capitalize max-w-[200px] hover:bg-custom-white hover:text-custom-black hover:border-custom-white cursor-pointer transition-colors duration-500",
@@ -26,7 +27,7 @@ const MainButton = ({
       >
         {text}
       </button>
-    </Link>
+    </a>
   );
 };
 

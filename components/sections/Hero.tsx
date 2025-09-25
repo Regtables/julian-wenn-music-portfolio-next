@@ -28,14 +28,14 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
   useGSAP(() => {
     if(!isAnimationReady) return 
     
-    const heroNavContainer = document.querySelector(".hero-nav-container");
-    console.log(heroNavContainer)
+    const heroNavContainer = document.querySelector(".hero-nav-container"); 
     const heading = new SplitText(".hero-heading");
 
     const heroTl = gsap.timeline({
       scrollTrigger: {
         trigger: ".hero-section",
       },
+      delay: 1.5
     });
 
     gsap.set(
@@ -65,7 +65,7 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
   }, [isAnimationReady]);
 
   return (
-    <section className="hero-section w-full min-h-screen relative">
+    <section className="hero-section w-full min-h-screen relative" id = 'home'>
       <div className="absolute w-full h-full top-0 left-0 right-0">
         <Overlay opacity={40} className="hero-bg-image">
           <Image

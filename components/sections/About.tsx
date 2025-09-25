@@ -12,8 +12,9 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import { useGSAPAnimations } from "@/hooks/useGSAPAnimations";
+import { useModal } from "@/context/ModalContext";
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
 type AboutProps = {
   heading: string;
@@ -32,102 +33,431 @@ const About = ({
   const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const buttonsContainerRef = useRef<HTMLDivElement>(null);
+  const timelineContainerRef = useRef<HTMLDivElement>(null);
+
+  const { handleModalOpen } = useModal()
 
   const { animateSectionHeading } = useGSAPAnimations();
 
   useGSAP(() => {
+    // Intro animations
     const aboutIntroTl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: 'top 80%'
-      }
+        start: "top 80%",
+      },
     });
+
+    const aboutMainImages = gsap.utils.toArray(".about-main-image");
+    const aboutLeftImages = gsap.utils.toArray(".about-left-image");
+    const timelineSections = gsap.utils.toArray(".timeline-section");
+    const timelineBases = gsap.utils.toArray(".timeline-section-base");
+    const timelineMilestones = gsap.utils.toArray(
+      ".timeline-section-milestone"
+    );
+    const timelineTexts = gsap.utils.toArray(".milestone-text");
+    const timelineDates = gsap.utils.toArray(".milestone-date");
 
     const buttonsContainer = buttonsContainerRef.current;
 
-    // Set initial state - hide elements before animation
-    gsap.set(['.about-text', buttonsContainer?.children, '.about-images', '.about-timeline'], { 
-      autoAlpha: 0 
+    // Set initial states
+    gsap.set(
+      [
+        ".about-text",
+        buttonsContainer?.children,
+        ".about-images",
+        ".about-timeline",
+      ],
+      {
+        autoAlpha: 0,
+      }
+    );
+
+    // Set initial states for all images
+    gsap.set([aboutMainImages, aboutLeftImages], {
+      opacity: 0,
+      y: 100,
+      scale: 0.8,
     });
 
+    // Set initial timeline states
+    gsap.set(timelineSections, { opacity: 0 });
+    gsap.set(timelineBases, { scaleX: 0, transformOrigin: "left center" });
+    gsap.set([timelineMilestones, timelineTexts, timelineDates], {
+      opacity: 0,
+    });
+
+    // Intro timeline
     aboutIntroTl
       .add(animateSectionHeading(headingRef.current), 0)
-      .fromTo('.about-text', 
-        { autoAlpha: 0, y: 50 }, 
-        { autoAlpha: 1, y: 0, ease: 'circ.out' }, 
+      .fromTo(
+        ".about-text",
+        { autoAlpha: 0, y: 50 },
+        { autoAlpha: 1, y: 0, ease: "circ.out" },
         1
       )
-      .fromTo(buttonsContainer?.children, 
-        { autoAlpha: 0, y: 30 }, 
-        { autoAlpha: 1, y: 0, stagger: 0.2, ease: 'circ.out' }, 
+      .fromTo(
+        buttonsContainer?.children,
+        { autoAlpha: 0, y: 30 },
+        { autoAlpha: 1, y: 0, stagger: 0.2, ease: "circ.out" },
         1
       )
-      .fromTo(['.about-images', '.about-timeline'], 
-        { autoAlpha: 0 }, 
-        { autoAlpha: 1 }, 
-        '-=0.2'
+      .fromTo(
+        [".about-images", ".about-timeline"],
+        { autoAlpha: 0 },
+        { autoAlpha: 1 },
+        "-=0.2"
       );
+
+    // Initial image animations - first images in position at start
+    if (aboutMainImages[0]) {
+      gsap.to(aboutMainImages[0], {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.3,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+        },
+      });
+    }
+
+    if (aboutLeftImages[0]) {
+      gsap.to(aboutLeftImages[0], {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.3,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
+        },
+      });
+    }
+
+    // Initial timeline section
+    if (
+      timelineSections[0] &&
+      timelineBases[0] &&
+      timelineMilestones[0] &&
+      timelineTexts[0] &&
+      timelineDates[0]
+    ) {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top bottom",
+            end: "top top",
+            scrub: true,
+          },
+        })
+        .to(timelineSections[0], { opacity: 1, duration: 0.1 }, 0)
+        .to(timelineMilestones[0], { opacity: 1, duration: 0.2 }, 0)
+        .to(
+          timelineBases[0],
+          { scaleX: 1, duration: 0.3, ease: "power2.out" },
+          0.1
+        )
+        .to(
+          [timelineTexts[0], timelineDates[0]],
+          { opacity: 1, duration: 0.2 },
+          0.2
+        );
+    }
+
+    // Main scroll-based animation timeline
+    const aboutTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "+=3000",
+        scrub: true,
+      },
+    });
+
+    // Timeline for timeline elements
+    const timelineTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top -=100",
+        end: "+=3000",
+        scrub: true,
+      },
+    });
+
+    // Animation settings
+    const mainStagger = 0.9;
+    const leftStagger = 0.9;
+
+    // MAIN IMAGES ANIMATION (center/main images)
+    aboutMainImages.forEach((image, index) => {
+      const startTime =
+        index * mainStagger - mainStagger + (index === 1 ? 0.3 : 0);
+
+      if (index === 0) {
+        // First image fade out
+        aboutTimeline.to(
+          image,
+          {
+            y: -100,
+            scale: 1.1,
+            opacity: 0,
+            duration: 0.5,
+            ease: "none",
+          },
+          0
+        );
+      } else {
+        // Show image
+        aboutTimeline.to(
+          image,
+          {
+            y: 0,
+            scale: 1,
+            opacity: 1,
+            duration: 0.3,
+            ease: "none",
+          },
+          startTime
+        );
+
+        // Hide image (unless it's the last one)
+        if (index !== aboutMainImages.length - 1) {
+          aboutTimeline.to(
+            image,
+            {
+              y: -50,
+              duration: 0.5,
+              ease: "none",
+            },
+            startTime + 0.3
+          );
+
+          aboutTimeline.to(
+            image,
+            {
+              y: -100,
+              opacity: 0,
+              duration: 0.2,
+              scale: 1.1,
+              ease: "circ.out",
+            },
+            startTime + 0.6
+          );
+        }
+      }
+    });
+
+    // LEFT IMAGES ANIMATION (slower than main)
+    aboutLeftImages.forEach((image, index) => {
+      const startTime =
+        index * leftStagger - leftStagger + (index === 1 ? 0.3 : 0);
+
+      if (index === 0) {
+        // First left image fades out
+        aboutTimeline.to(
+          image,
+          {
+            y: -40,
+            scale: 1.05,
+            opacity: 0,
+            duration: 0.4,
+            ease: "none",
+          },
+          0
+        );
+      } else {
+        // Show left image
+        aboutTimeline.to(
+          image,
+          {
+            y: 0,
+            scale: 1,
+            opacity: 1,
+            duration: 0.4,
+            ease: "none",
+          },
+          startTime
+        );
+
+        // Hide left image (unless it's the last one)
+        if (index !== aboutLeftImages.length - 1) {
+          aboutTimeline.to(
+            image,
+            {
+              y: -30,
+              duration: 0.4,
+              ease: "none",
+            },
+            startTime + 0.3
+          );
+
+          aboutTimeline.to(
+            image,
+            {
+              y: -50,
+              opacity: 0,
+              duration: 0.4,
+              scale: 1.05,
+              ease: "none",
+            },
+            startTime + 0.6
+          );
+        }
+      }
+    });
+
+    // TIMELINE ANIMATION
+    const aboutStagger = 0.9;
+
+    timelineSections.forEach((section, index) => {
+      const startTime =
+        index * aboutStagger - aboutStagger + (index === 1 ? 0.3 : 0);
+
+      if (index === 0) {
+        // First timeline section already handled
+      } else {
+        timelineTimeline.to(
+          timelineMilestones[index],
+          {
+            opacity: 1,
+            duration: 0.2,
+            ease: "none",
+          },
+          startTime
+        );
+
+        timelineTimeline.to(
+          timelineBases[index],
+          {
+            scaleX: 1,
+            duration: 0.3,
+            ease: "power2.out",
+          },
+          startTime + 0.1
+        );
+
+        timelineTimeline.to(
+          [timelineTexts[index], timelineDates[index]],
+          {
+            opacity: 1,
+            duration: 0.2,
+            ease: "none",
+          },
+          startTime + 0.2
+        );
+
+        timelineTimeline.to(
+          timelineSections[index],
+          {
+            opacity: 1,
+            duration: 0.1,
+            ease: "none",
+          },
+          startTime
+        );
+      }
+    });
+
+    // Timeline hover interactions
+    timelineMilestones.forEach((milestone, index) => {
+      milestone.addEventListener("mouseenter", () => {
+        const targetProgress = (index * 0.6 + 0.3) / aboutTimeline.duration();
+
+        gsap.to(aboutTimeline, {
+          progress: targetProgress,
+          duration: 0.5,
+          ease: "power2.out",
+        });
+
+        gsap.to(timelineTimeline, {
+          progress: targetProgress,
+          duration: 0.5,
+          ease: "power2.out",
+        });
+      });
+    });
 
     return () => {
       aboutIntroTl.kill();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
-  console.log(timeline, "timeline");
-
   return (
-    <section 
-      className="about min-h-screen bg-custom-gold lg:px-section-x-desktop h-[400vh]" 
+    <section
+      className="about about-wrapper min-h-screen bg-custom-gold lg:px-section-x-desktop h-[600vh]"
       ref={sectionRef}
+      id = 'about'
     >
       <div className="about-container w-full h-screen py-section-y-desktop">
         <div className="flex flex-col w-full h-full">
           {/* Content */}
           <div className="flex w-full h-full">
             {/* Copy */}
-            <div className="w-3/5 flex flex-col gap-8">
-              <h2 
-                className="section-heading !text-custom-black" 
+            <div className="w-3/5 flex flex-col gap-6">
+              <h2
+                className="section-heading !text-custom-black"
                 ref={headingRef}
               >
                 {heading}
               </h2>
-              
-              <SanityTextBlock 
-                text={mediumBio} 
-                className="about-text body-text font-bold" 
-              />
-              
-              <div 
-                ref={buttonsContainerRef}
-                className="flex gap-6"
-              >
+
+              <div>
+                <SanityTextBlock
+                  text={mediumBio}
+                  className="about-text body-text font-bold"
+                />
+              </div>
+
+              <div ref={buttonsContainerRef} className="flex items-center gap-6">
                 <MainButton text="view upcoming shows" color="black" />
                 <MainButton text="get in touch" color="black" />
+
+                <button 
+                  className="bg-custom-black text-custom-gold text-xs h-[20px] px-2 capitalize font-bold cursor-pointer"
+                  onClick={() => handleModalOpen('fullBio', { fullBio })}
+                >
+                  read full bio
+                </button>
               </div>
             </div>
 
             {/* Images */}
             <div className="about-images w-full h-full flex justify-end items-center relative">
               {/* Smaller Images */}
-              <div className="w-1/3 h-[250px] absolute top-[50%] left-10 z-10 -bottom-1/2">
+              <div className="about-images-left w-1/3 h-[250px] absolute top-[30%] left-10 z-10 -bottom-1/2">
                 {timeline?.map((milestone, i) => (
-                  <div key={i} className="ml-auto relative w-full h-full">
+                  <div
+                    key={i}
+                    className="ml-auto absolute w-full h-full about-left-image about-image z-10"
+                  >
                     <Image
                       src={milestone.images[1].fileUrl}
                       fill
                       style={{ objectFit: "cover" }}
-                      className="rounded-[20rem] absolute"
+                      className="rounded-[20rem] absolute z-0"
                       alt={milestone.images[1].alt}
                     />
                   </div>
                 ))}
               </div>
-              
+
               {/* Main Images */}
-              <div className="w-2/3 h-full">
+              <div className="about-images-right w-2/3 absolute h-full -top-[10%] -bottom-1/2">
                 {timeline?.map((milestone, i) => (
-                  <div key={i} className="ml-auto relative w-full h-full">
+                  <div
+                    key={i}
+                    className="ml-auto absolute w-full h-full about-main-image about-image z-10"
+                  >
                     <Image
                       src={milestone.images[0].fileUrl}
                       fill
@@ -142,19 +472,27 @@ const About = ({
           </div>
 
           {/* Timeline */}
-          <div className="about-timeline grid grid-cols-5 w-full">
+          <div
+            ref={timelineContainerRef}
+            className="about-timeline about-timeline-container grid grid-cols-5 w-full"
+          >
             {timeline?.map((milestone, i) => (
-              <div key={i} className="relative w-full flex items-center">
+              <div
+                key={i}
+                className="timeline-section relative w-full flex items-center"
+              >
                 {/* Base */}
                 {i === 0 && (
-                  <div className="h-4 w-4 rounded-full bg-custom-black" />
+                  <div className="timeline-section-milestone h-4 w-4 rounded-full bg-custom-black" />
                 )}
-                <div className="h-[4.5px] w-full bg-custom-black" />
-                <div className="h-4 w-4 rounded-full bg-custom-black" />
-                <div className="absolute -top-[40px] bg-custom-black text-custom-white text-xs px-2 py-1">
+                <div className="timeline-section-base h-[4.5px] w-full bg-custom-black" />
+                <div className="timeline-section-milestone h-4 w-4 rounded-full bg-custom-black" />
+                <div className="milestone-text absolute -top-[40px] bg-custom-black text-custom-white text-xs px-2 py-1">
                   {milestone.description}
                 </div>
-                <p className="absolute -bottom-[40px] text-sm">{milestone.year}</p>
+                <p className="milestone-date absolute -bottom-[40px] text-sm">
+                  {milestone.year}
+                </p>
               </div>
             ))}
           </div>

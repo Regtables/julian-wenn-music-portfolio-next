@@ -89,6 +89,7 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
     <section
       className="section section-padding !pr-0 flex flex-col items-center gap-8"
       ref={sectionRef}
+      id = 'featured-music'
     >
       <h2 className="section-heading text-center" ref={headingRef}>
         {heading}

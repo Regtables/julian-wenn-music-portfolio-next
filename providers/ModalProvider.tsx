@@ -1,3 +1,4 @@
+import FullBioModal from '@/components/modals/FullBioModal'
 import UpcomingShowsPosterModal from '@/components/modals/UpcomingShowsPosterModal'
 import React, { PropsWithChildren } from 'react'
 
@@ -7,6 +8,7 @@ const ModalProvider = ({ children }: Props) => {
   return (
     <div>
       <UpcomingShowsPosterModal />
+      <FullBioModal />
     </div>
   )
 }

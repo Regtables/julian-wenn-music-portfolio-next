@@ -116,7 +116,7 @@ const FeaturedGallery = ({ heading, galleryItems }: FeaturedGalleryProps) => {
   };
 
   return (
-    <section className="section-padding flex flex-col items-center gap-8">
+    <section className="section-padding flex flex-col items-center gap-8" id = 'featured-gallery'>
       <h2
         ref={headingRef}
         className="gallery-section-heading section-heading text-center"
