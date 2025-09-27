@@ -2,7 +2,7 @@
 
 import { SanityImageWithAlt } from "@/app/lib/sanity/types";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -20,6 +20,24 @@ type ContactProps = {
   image: SanityImageWithAlt;
 };
 
+// Form data interface
+interface FormData {
+  fullName: string;
+  email: string;
+  instagram: string;
+  country: string;
+  message: string;
+}
+
+// Form errors interface
+interface FormErrors {
+  fullName?: string;
+  email?: string;
+  instagram?: string;
+  country?: string;
+  message?: string;
+}
+
 const Contact = ({ heading, text, image }: ContactProps) => {
   // Refs for animation targeting
   const sectionRef = useRef<HTMLElement>(null);
@@ -27,7 +45,122 @@ const Contact = ({ heading, text, image }: ContactProps) => {
   const imageRef = useRef<HTMLDivElement>(null);
   const contentContainerRef = useRef<HTMLDivElement>(null);
 
+  // Form state
+  const [formData, setFormData] = useState<FormData>({
+    fullName: "",
+    email: "",
+    instagram: "",
+    country: "",
+    message: ""
+  });
+
+  // Form validation errors
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  
+  // Loading and submission states
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
   const { animateSectionHeading } = useGSAPAnimations();
+
+  // Handle input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Clear error when user starts typing
+    if (formErrors[name as keyof FormErrors]) {
+      setFormErrors(prev => ({
+        ...prev,
+        [name]: undefined
+      }));
+    }
+  };
+
+  // Validate form
+  const validateForm = (): boolean => {
+    const errors: FormErrors = {};
+
+    // First name validation
+    if (!formData.firstName.trim()) {
+      errors.firstName = "First name is required";
+    }
+
+    // Email validation
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = "Please enter a valid email address";
+    }
+
+    // Message validation
+    if (!formData.message.trim()) {
+      errors.message = "Message is required";
+    } else if (formData.message.trim().length < 10) {
+      errors.message = "Message must be at least 10 characters long";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('/api/emails/send/contact-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+          firstName: "",
+          email: "",
+          instagram: "",
+          country: "",
+          message: ""
+        });
+        console.log('Form submitted successfully:', formData);
+      } else {
+        throw new Error('Failed to submit form');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Reset form
+  const resetForm = () => {
+    setFormData({
+      fullName: "",
+      email: "",
+      instagram: "",
+      country: "",
+      message: ""
+    });
+    setFormErrors({});
+    setSubmitStatus('idle');
+  };
 
   useGSAP(() => {
     const contactTl = gsap.timeline({
@@ -78,7 +211,7 @@ const Contact = ({ heading, text, image }: ContactProps) => {
     <section 
       ref={sectionRef}
       className="contact-us flex md:flex-row flex-col w-full lg:!h-screen md:!h-[60vh] md:min-h-[unset] min-h-screen"
-      id = 'contact'
+      id="contact"
     >
       {/* Image */}
       <div 
@@ -113,23 +246,100 @@ const Contact = ({ heading, text, image }: ContactProps) => {
         </div>
 
         {/* Form */}
-        <form className="w-full flex flex-col gap-2">
+        <form className="w-full flex flex-col gap-2" onSubmit={handleSubmit}>
           <div className="flex min-w-full gap-2">
-            <Input placeholder="First Name" className="w-full" />
-            <Input placeholder="Email Address" type="email" />
+            <div className="w-full">
+              <Input 
+                placeholder="Full Name" 
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleInputChange}
+                className="w-full" 
+                required
+              />
+              {formErrors.fullName && (
+                <span className="text-red-500 text-xs mt-1 block">
+                  {formErrors.fullName}
+                </span>
+              )}
+            </div>
+            <div className="w-full">
+              <Input 
+                placeholder="Email Address" 
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
+              {formErrors.email && (
+                <span className="text-red-500 text-xs mt-1 block">
+                  {formErrors.email}
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="flex gap-2">
-            <Input placeholder="Instagram" />
-            <Input placeholder="Country" />
+            <Input 
+              placeholder="Instagram" 
+              name="instagram"
+              value={formData.instagram}
+              onChange={handleInputChange}
+            />
+            <Input 
+              placeholder="Country" 
+              name="country"
+              value={formData.country}
+              onChange={handleInputChange}
+            />
           </div>
 
-          <textarea
-            className="w-full border-2 border-custom-gold rounded-lg px-3 py-2 placeholder:text-custom-gold"
-            placeholder="Your Message"
-          />
+          <div>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleInputChange}
+              className="w-full border-2 border-custom-gold rounded-lg px-3 py-2 placeholder:text-custom-gold bg-transparent text-custom-gold resize-none min-h-[100px]"
+              placeholder="Your Message"
+              required
+            />
+            {formErrors.message && (
+              <span className="text-red-500 text-xs mt-1 block">
+                {formErrors.message}
+              </span>
+            )}
+          </div>
 
-          <MainButton text="submit" className="w-full max-w-[unset]" />
+          {/* Submit Status Messages */}
+          {submitStatus === 'success' && (
+            <div className="text-green-500 text-sm text-center">
+              Thank you! Your message has been sent successfully.
+            </div>
+          )}
+          
+          {submitStatus === 'error' && (
+            <div className="text-red-500 text-sm text-center">
+              Sorry, there was an error sending your message. Please try again.
+            </div>
+          )}
+
+          {/* <div className="flex w-full gap-2"> */}
+            <MainButton 
+              text={isSubmitting ? "Sending..." : "Submit"} 
+              className="w-full min-w-full"
+              color="gold"
+            />
+            {/* {(submitStatus === 'success' || Object.keys(formData).some(key => formData[key as keyof FormData])) && (
+              <button
+                type="button"
+                onClick={resetForm}
+                className="px-4 py-2 border border-custom-gold text-custom-gold rounded-lg text-sm hover:bg-custom-gold hover:text-black transition-colors"
+              >
+                Reset
+              </button>
+            )} */}
+          {/* </div> */}
         </form>
       </div>
     </section>
