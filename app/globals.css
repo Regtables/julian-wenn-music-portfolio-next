@@ -1,23 +1,19 @@
 @import "tailwindcss";
 
-.section{
-  @apply min-h-screen
-}
-
 .section-padding{
-  @apply lg:px-section-x-desktop lg:py-section-y-desktop
+  @apply lg:px-section-x-desktop lg:py-section-y-desktop md:px-section-x-tablet md:py-section-y-tablet px-section-x-mobile py-section-y-mobile;
 }
 
 .section-heading{
-  @apply lg:text-7xl text-custom-gold lg:tracking-[15px] uppercase font-bold
+  @apply lg:text-7xl md:text-5xl text-4xl text-center text-custom-gold lg:tracking-[15px] md:tracking-[10px] tracking-[5px] uppercase font-bold;
 }
 
 .body-text{
-  @apply lg:text-sm font-body
+  @apply lg:text-sm font-body;
 }
 
 .icon-base{
-  @apply hover:!text-custom-white transition-colors duration-500 cursor-pointer
+  @apply hover:!text-custom-white transition-colors duration-500 !cursor-pointer;
 }
 
 :root {
@@ -34,6 +30,16 @@
   --margin-section-y-desktop: 96px;
   --padding-section-x-desktop: 64px;
   --padding-section-y-desktop: 96px;
+
+  --margin-section-x-tablet: 32px;
+  --margin-section-y-tablet: 64px;
+  --padding-section-x-tablet: 32px;
+  --padding-section-y-tablet: 64px;
+
+  --margin-section-x-mobile: 16px;
+  --margin-section-y-mobile: 32px;
+  --padding-section-x-mobile: 16px;
+  --padding-section-y-mobile: 32px;
 }
 
 @theme inline {
@@ -55,6 +61,17 @@
   --spacing-section-y-desktop: var(--margin-section-y-desktop);
   --spacing-padding-x-desktop: var(--padding-section-x-desktop);
   --spacing-padding-y-desktop: var(--padding-section-y-desktop);
+
+  /*  */
+  --spacing-section-x-tablet: var(--margin-section-x-tablet);
+  --spacing-section-y-tablet: var(--margin-section-y-tablet);
+  --spacing-padding-x-tablet: var(--padding-section-x-tablet);
+  --spacing-padding-y-tablet: var(--padding-section-y-tablet);
+
+  --spacing-section-x-mobile: var(--margin-section-x-mobile);
+  --spacing-section-y-mobile: var(--margin-section-y-mobile);
+  --spacing-padding-x-mobile: var(--padding-section-x-mobile);
+  --spacing-padding-y-mobile: var(--padding-section-y-mobile);
 }
 
 @media (prefers-color-scheme: dark) {

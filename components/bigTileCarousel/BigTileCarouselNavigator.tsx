@@ -29,7 +29,7 @@ const BigTileCarouselNavigator = forwardRef<HTMLDivElement, BigTileNavigatorProp
         <div
           key={i}
           className={cn(
-            "uppercase text-sm font-bold h-[50px] w-[120px] flex items-center justify-center relative transition-colors duration-500 z-10 cursor-pointer",
+            "uppercase md:text-sm text-xs font-bold md:h-[50px] h-[40px] md:w-[120px] w-[80px] flex items-center justify-center relative transition-colors duration-500 z-10 cursor-pointer",
             activeItem.name === song.name && "text-custom-gold"
           )}
           onClick={() => handleItemSelect(song, i)}
@@ -39,7 +39,7 @@ const BigTileCarouselNavigator = forwardRef<HTMLDivElement, BigTileNavigatorProp
       ))}
       <div 
         ref={ref}
-        className="bg-custom-black absolute left-0 w-[120px] h-[50px] rounded-full mx-2" 
+        className="bg-custom-black absolute left-0 md:w-[120px] w-[80px] md:h-[50px] h-[40px] rounded-full mx-2" 
       />
     </div>
   );

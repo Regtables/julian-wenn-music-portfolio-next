@@ -111,17 +111,17 @@ const MusicVideos = ({ heading, musicVideos }: MusicVideosProps) => {
   return (
     <section 
       ref={sectionRef}
-      className="music-videos section flex flex-col gap-12 relative"
+      className="music-videos section flex flex-col md:gap-12 gap-8 relative"
       id = 'music-videos'
     >
       {/* Vertical Lines */}
       <div 
         ref={leftLineRef}
-        className="verticle-line music-video-left-line h-full w-[4px] absolute left-section-x-desktop top-0 bg-custom-gold" 
+        className="verticle-line music-video-left-line h-full w-[4px] absolute lg:left-section-x-desktop md:left-section-x-tablet left-section-x-mobile top-0 bg-custom-gold" 
       />
       <div 
         ref={rightLineRef}
-        className="verticle-line music-video-right-line h-full w-[4px] absolute right-section-x-desktop top-0 bg-custom-gold" 
+        className="verticle-line music-video-right-line h-full w-[4px] absolute lg:right-section-x-desktop md:right-section-x-tablet right-section-x-mobile top-0 bg-custom-gold" 
       />
       
       {/* Section Heading */}
@@ -149,7 +149,7 @@ const MusicVideos = ({ heading, musicVideos }: MusicVideosProps) => {
               key={i}
               onClick={() => handleVideoSelect(item)}
               className={cn(
-                "border-y border-r hover:bg-custom-gold/20 border-custom-gold/40 h-[35px] min-w-[150px] flex items-center cursor-pointer justify-center transition-colors duration-500",
+                "border-y border-r hover:bg-custom-gold/20 border-custom-gold/40 h-[35px] md:min-w-[150px] min-w-[100px] md:text-base text-xs flex items-center cursor-pointer justify-center transition-colors duration-500",
                 i === 0 && "border-l",
                 activeVideo?.name === item.name &&
                   "!bg-custom-gold text-custom-black"
@@ -163,7 +163,7 @@ const MusicVideos = ({ heading, musicVideos }: MusicVideosProps) => {
         {/* Video Player */}
         <div 
           ref={musicVideoRef}
-          className="music-video-items-wrapper w-full lg:px-32"
+          className="music-video-items-wrapper w-full lg:px-32 md:px-16 px-8"
         >
           {activeVideoId ? (
             <div

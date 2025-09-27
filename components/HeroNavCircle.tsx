@@ -25,19 +25,19 @@ const HeroNavCircle = ({ icon, title, link }: HeroNavCircleProps) => {
 
   return (
     <div
-      className="relative overflow-hidden h-[200px] w-[200px] bg-custom-gold rounded-full cursor-pointer"
+      className="relative overflow-hidden md:h-[200px] md:w-[200px] h-[100px] w-[100px] bg-custom-gold rounded-full cursor-pointer"
       onMouseEnter={() => handleHover("start")}
       onMouseLeave={() => handleHover("end")}
       onClick={() => handleClick(link)}
     >
-      <div className="rounded-full w-full h-full flex flex-col gap-4 items-center justify-center relative z-10">
+      <div className="rounded-full w-full h-full flex flex-col md:gap-4 gap-2 items-center justify-center relative z-10">
         {icon}
 
-        <h4 className="font-heading text-3xl w-3/5 mx-auto font-bold text-center">{title}</h4>
+        <h4 className="font-heading md:text-3xl text-lg md:leading-8 leading-5 md:w-3/5 w-4/5 md:mx-auto font-bold text-center">{title}</h4>
       </div>
 
       <div
-        className="h-[200px] w-[200px] bg-custom-white absolute -bottom-full rounded-full"
+        className="md:h-[200px] md:w-[200px] h-[100px] w-[100px] bg-custom-white absolute -bottom-full rounded-full"
         ref={circleSlideBg}
       />
     </div>

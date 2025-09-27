@@ -1,6 +1,6 @@
 "use client";
 
-import { UpcomingShow } from "@/app/lib/sanity/types";
+import { SanityMedia, UpcomingShow } from "@/app/lib/sanity/types";
 import React, { createContext, useState, useContext, ReactNode } from "react";
 
 export type ModalType =
@@ -14,6 +14,7 @@ export type ModalType =
   | "wishlistLogin"
   | "showPoster"
   | "fullBio"
+  | "galleryPreview"
   | null;
 
 interface AlertProps {
@@ -34,6 +35,7 @@ interface ModalContextProps {
     alert?: AlertProps;
     activeImage?: any;
     show?: UpcomingShow;
+    media?: SanityMedia
   };
   handleModalOpen: (type: ModalType, modalData?: any) => void;
   handleModalClose: (typeToClose?: ModalType) => void;

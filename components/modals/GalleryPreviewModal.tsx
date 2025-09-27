@@ -1,27 +1,21 @@
-"use client";
+'use client'
 
-import { SanityMedia } from "@/app/lib/sanity/types";
-import { useModal } from "@/context/ModalContext";
-import { PropsWithClassName } from "@/types";
-import { Image as LucideImage, LucideVideo } from "lucide-react";
-import Image from "next/image";
 import React from "react";
+import Popup from "../Popup";
+import { useModal } from "@/context/ModalContext";
+import Image from "next/image";
+import { getYouTubeVideoId } from "@/app/lib/utils";
 
-type GalleryItemTileProps = PropsWithClassName<{
-  media: SanityMedia;
-  title: string;
-}>;
+type Props = {};
 
-// Helper function to extract YouTube video ID from URL
-const getYouTubeVideoId = (url: string): string | null => {
-  const regex =
-    /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
-  const match = url.match(regex);
-  return match ? match[1] : null;
-};
+const GalleryPreviewModal = (props: Props) => {
+  const { isOpen, types, data } = useModal();
 
-const GalleryItemTile = ({ title, media, className }: GalleryItemTileProps) => {
-  const { handleModalOpen } = useModal();
+  const { media } = data;
+
+  if(!media) return
+
+  const isModalOpen = isOpen && types.includes("galleryPreview");
 
   const renderMediaContent = () => {
     switch (media.mediaType) {
@@ -47,7 +41,7 @@ const GalleryItemTile = ({ title, media, className }: GalleryItemTileProps) => {
           <div className="w-full h-full relative">
             <iframe
               src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
-              title={media.title || title}
+              title={media.title}
               className="w-full h-full rounded-lg"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -84,35 +78,11 @@ const GalleryItemTile = ({ title, media, className }: GalleryItemTileProps) => {
         );
     }
   };
-
   return (
-    <div
-      className={`gallery-item-wrapper lg:h-[250px] md:h-[200px] h-[150px] rounded-lg cursor-pointer ${className || ""}`}
-      onClick={() => handleModalOpen("galleryPreview", { media })}
-    >
-      {/* Positioner */}
-      <div className="w-full h-full relative">
-        {/* Overlay */}
-        <div className="absolute z-10 top-0 left-0 h-full flex flex-col justify-between w-full p-3 bg-black/40 rounded-lg hover:opacity-0 transition-opacity duration-500">
-          <div className="w-auto ml-auto">
-            <div className="bg-custom-black rounded-full h-8 w-8 flex items-center justify-center">
-              {media.mediaType === "image" ? (
-                <LucideImage color="var(--color-gold)" />
-              ) : (
-                <LucideVideo color="var(--color-gold)" />
-              )}
-            </div>
-          </div>
-
-          <div className="bg-black text-custom-gold text-xs p-1.5 w-auto mr-auto rounded-lg">
-            {title}
-          </div>
-        </div>
-
-        {renderMediaContent()}
-      </div>
-    </div>
+    <Popup isOpen={isModalOpen} className="items-center justify-center">
+      <div className="w-[40vw] h-[70vh]">{renderMediaContent()}</div>
+    </Popup>
   );
 };
 
-export default GalleryItemTile;
+export default GalleryPreviewModal;

@@ -47,15 +47,26 @@ const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
         }),
         scrub: true,
       });
+
+      ScrollTrigger.create({
+        trigger: ".about",
+        start: "top bottom",
+        end: "+=20",
+        animation: gsap.to(".nav-menu-icon path", {
+          stroke: "var(--color-black)",
+        }),
+        scrub: true
+      });
     }
 
     const initPinning = () => {
-      ScrollTrigger.create({
+      ScrollTrigger.create({  
         trigger: ".socials",
         start: "top top",
         end: "bottom bottom",
         pin: ".socials-container",
         pinSpacing: false,
+        markers: true
       });
 
       ScrollTrigger.create({

@@ -9,6 +9,9 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAPAnimations } from "@/hooks/useGSAPAnimations";
+import SpotifyIcon from "../icons/SpotifyIcon";
+import AppleMusicIcon from "../icons/AppleMusicIcon";
+import YouTubeMusicIcon from "../icons/YoutubeMusicIcon";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -84,45 +87,45 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
   return (
     <section
       ref={sectionRef}
-      className="album-section w-full section-padding h-screen flex gap-12 flex-col"
-      id = 'featured-album'
+      className="album-section w-full section-padding lg:h-screen flex gap-12 flex-col"
+      id="featured-album"
     >
       <h2 ref={headingRef} className="featured-album-title section-heading">
         {heading}
       </h2>
 
       {/* Album */}
-      <div className="w-full flex gap-16 h-full">
+      <div className="w-full flex xl:flex-row flex-col md:items-center items-center lg:gap-16 gap-8 h-full">
         {/* Artwork */}
         <div
           ref={artworkRef}
-          className="featured-album-cover-art relative w-1/2 h-full"
+          className="featured-album-cover-art relative aspect-square lg:w-1/2 md:w-3/5 w-full lg:h-full md:h-[40vh]"
         >
           <Image
             src={artwork.image.asset.url}
             fill
             alt={artwork.alt}
             style={{ objectFit: "cover" }}
-            className="rounded-lg"
+            className="rounded-lg aspect-square"
           />
         </div>
 
         {/* Content */}
         <div
           ref={contentContainerRef}
-          className="featured-album-content text-custom-gold flex flex-col gap-8 items-end text-end w-1/2"
+          className="featured-album-content text-custom-gold flex flex-col gap-8 lg:items-end items-center lg:text-end md:text-center text-center lg:w-1/2 w-full"
         >
-          <h3 className="text-5xl uppercase font-heading">{albumTitle}</h3>
+          <h3 className="md:text-5xl text-3xl uppercase font-heading">{albumTitle}</h3>
 
           <p className="text-xs">{album.description}</p>
 
-          <div className="flex gap-4">
+          <div className="flex md:flex-row flex-col md:gap-4 gap-2">
             <h4>Listen</h4>
 
             <div className="flex gap-4">
-              <div>spotify</div>
-              <div>apple</div>
-              <div>youtube</div>
+              <SpotifyIcon size={24} />
+              <AppleMusicIcon size={24}/>
+              <YouTubeMusicIcon size={24} />
             </div>
           </div>
 

@@ -92,7 +92,7 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
 
   return (
     <section
-      className="section section-padding !pr-0 flex flex-col items-center gap-8"
+      className="section-padding md:!pr-0 px-section-x-mobile flex flex-col items-center md:gap-8 gap-8"
       ref={sectionRef}
       id="featured-music"
     >
@@ -112,14 +112,14 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
 
       <div className="w-full">
         <div className="flex items-center justify-center gap-64 w-full overflow-hidden">
-          <div className="w-[50vw] flex gap-64" ref={trackListRef}>
+          <div className="xl:w-[50vw] md:w-[70vw] w-[90vw] flex gap-64" ref={trackListRef}>
             {featuredMusic.map((song, i) => (
               <div
                 key={i}
-                className="h-screen min-w-full relative flex"
+                className="xl:h-screen md:h-[60vh] h-[50vh] min-w-full relative flex"
                 ref={(el) => (trackItemsRef.current[i] = el)}
               >
-                <figure className="h-full absolute top-0 left-0 lg:min-w-[50vw]">
+                <figure className="h-full absolute top-0 left-0 xl:min-w-[50vw] md:min-w-[70vw] min-w-[90vw]">
                   <Image
                     src={song.artwork.image.asset.url}
                     fill
@@ -129,13 +129,13 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
                   />
                 </figure>
                 <div className="flex w-full h-full items-end relative p-3">
-                  <div className="h-9 w-9 rounded-full bg-custom-black absolute top-1/2 start-1/2 flex justify-center items-center z-10">
+                  <div className="h-9 w-9 rounded-full bg-custom-black absolute md:top-1/2 top-2/5 start-1/2 end-1/2 flex justify-center items-center z-10">
                     <Play color="var(--color-gold)" fill="var(--color-gold)" />
                   </div>
 
-                  <div className="bg-custom-black text-custom-gold relative w-1/3 rounded-lg p-3 flex flex-col gap-2 ">
+                  <div className="bg-custom-black text-custom-gold relative md:w-1/3 rounded-lg p-3 flex flex-col gap-2 ">
                     <h3 className="font-heading text-xl">{song.name}</h3>
-                    <p className="text-sm text-justify">{song.description}</p>
+                    <p className="md:text-sm text-xs text-start">{song.description}</p>
                   </div>
                 </div>
               </div>

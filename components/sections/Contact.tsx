@@ -77,13 +77,13 @@ const Contact = ({ heading, text, image }: ContactProps) => {
   return (
     <section 
       ref={sectionRef}
-      className="contact-us flex w-full h-screen"
+      className="contact-us flex md:flex-row flex-col w-full lg:!h-screen md:!h-[60vh] md:min-h-[unset] min-h-screen"
       id = 'contact'
     >
       {/* Image */}
       <div 
         ref={imageRef}
-        className="contact-us-image relative h-full w-1/2"
+        className="contact-us-image relative md:h-full md:w-1/2 w-full md:aspect-auto aspect-square"
       >
         <Image
           alt={image.alt}
@@ -96,16 +96,16 @@ const Contact = ({ heading, text, image }: ContactProps) => {
       {/* Copy & Form */}
       <div 
         ref={contentContainerRef}
-        className="contact-us-form-container flex text-custom-gold flex-col items-end w-1/2 gap-5 lg:px-section-x-desktop lg:pt-8 h-full justify-center"
+        className="contact-us-form-container flex text-custom-gold flex-col md:items-end items-center md:w-1/2 gap-5 lg:px-section-x-desktop md:px-section-x-tablet px-section-x-mobile lg:pt-8 pb-4 h-full justify-center"
       >
         <h2 
           ref={headingRef}
-          className="contact-us-heading ml-auto w-auto text-8xl text-end uppercase"
+          className="contact-us-heading md:ml-auto w-auto lg:text-8xl md:text-6xl text-4xl md:text-end text-center uppercase"
         >
           {heading}
         </h2>
         
-        <p className="text-xs w-3/5 text-end">{text}</p>
+        <p className="text-xs w-3/5 md:text-end text-center">{text}</p>
 
         <div className="flex gap-8">
           <PhoneInfo />

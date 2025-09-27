@@ -167,20 +167,20 @@ const Socials = () => {
   return (
     <div
       ref={sectionRef}
-      className="socials section socials-section flex flex-col justify-between w-full min-h-screen h-[300vh] py-[96px]"
+      className="socials section socials-section flex flex-col justify-between w-full lg:min-h-screen lg:h-[300vh] md:h-[200vh] py-[96px]"
     >
-      <div className="socials-container overflow-hidden">
+      <div className="socials-container flex flex-col overflow-hidden ">
         {/* Top Line */}
         <div ref={topLineRef} className="socials-horizontal-line">
           <Line className="socials-top-line h-[4px] w-full bg-custom-gold" />
         </div>
 
-        <div className="px-section-x-desktop py-section-y-desktop relative">
+        <div className="relative md:h-[80vh] flex flex-col justify-between py-20 md:px-section-x-tablet">
           {/* Follow */}
-          <div className="flex flex-col justify-between items-start">
+          <div className="flex flex-col justify-between lg:items-start md:items-center gap-4">
             <h3
               ref={followHeadingRef}
-              className="socials-heading left socials-follow text-custom-gold text-9xl font-heading uppercase"
+              className="socials-heading left socials-follow text-custom-gold md:text-9xl font-heading uppercase"
             >
               Follow
             </h3>
@@ -228,10 +228,10 @@ const Socials = () => {
           </div>
 
           {/* Listen */}
-          <div className="flex flex-col-reverse justify-between items-end">
+          <div className="flex flex-col-reverse gap-4 justify-between lg:items-end items-center">
             <h3
               ref={listenHeadingRef}
-              className="socials-heading right socials-listen text-custom-gold text-9xl font-heading uppercase"
+              className="socials-heading right socials-listen text-custom-gold md:text-9xl font-heading uppercase"
             >
               Listen
             </h3>

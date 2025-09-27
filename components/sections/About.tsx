@@ -290,18 +290,18 @@ useGSAP(() => {
 
   return (
     <section
-      className="about about-wrapper min-h-screen bg-custom-gold lg:px-section-x-desktop h-[800vh]"
+      className="about about-wrapper min-h-screen bg-custom-gold lg:px-section-x-desktop md:px-section-x-tablet h-[800vh]"
       ref={sectionRef}
       id="about"
     >
-      <div className="about-container w-full h-screen py-section-y-desktop">
+      <div className="about-container w-full h-screen lg:py-section-y-desktop md:py-section-y-tablet">
         <div className="flex flex-col w-full h-full">
           {/* Content */}
           <div className="flex w-full h-full">
             {/* Copy */}
-            <div className="w-3/5 flex flex-col gap-6">
+            <div className="lg:w-3/5 md:w-1/2 lg:min-w-3/5 flex flex-col gap-6">
               <h2
-                className="section-heading !text-custom-black"
+                className="section-heading w-full !text-start !text-custom-black"
                 ref={headingRef}
               >
                 {heading}
@@ -331,9 +331,9 @@ useGSAP(() => {
             </div>
 
             {/* Images */}
-            <div className="about-images w-full h-full flex justify-end items-center relative">
+            <div className="about-images w-full h-full flex lg:justify-end md:justify-center items-center relative">
               {/* Smaller Images */}
-              <div className="about-images-left w-1/3 h-[250px] absolute top-[30%] left-10 z-10 -bottom-1/2">
+              <div className="about-images-left w-1/3 h-[250px] absolute top-[30%] lg:left-10 md:left-4 z-20 -bottom-1/2">
                 {timeline?.map((milestone, i) => (
                   <div
                     key={i}
@@ -351,11 +351,11 @@ useGSAP(() => {
               </div>
 
               {/* Main Images */}
-              <div className="about-images-right w-2/3 absolute h-full -top-[10%] -bottom-1/2">
+              <div className="about-images-right lg:w-2/3 md:w-1/2 md:right-6 absolute h-full flex md:items-center -top-[10%] -bottom-1/2">
                 {timeline?.map((milestone, i) => (
                   <div
                     key={i}
-                    className="ml-auto absolute w-full h-full about-main-image about-image z-10"
+                    className="ml-auto absolute w-full lg:h-full md:h-[400px] about-main-image about-image z-10"
                   >
                     <Image
                       src={milestone.images[0].fileUrl}

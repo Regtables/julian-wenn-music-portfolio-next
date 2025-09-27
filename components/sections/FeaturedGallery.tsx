@@ -133,7 +133,7 @@ const FeaturedGallery = ({ heading, galleryItems }: FeaturedGalleryProps) => {
       </div>
 
       {/* Gallery */}
-      <div ref={galleryRef} className="grid w-full lg:grid-cols-4 gap-4">
+      <div ref={galleryRef} className="grid w-full lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
         {enhancedItems.map((item, i) => (
           <div
             key={item.id}
