@@ -62,7 +62,7 @@ const AboutMobile = ({
         <div>
           <SanityTextBlock
             text={mediumBio}
-            className="about-text body-text font-bold"
+            className="about-text !font-baskerville text-sm tracking-wide font-medium"
           />
         </div>
 

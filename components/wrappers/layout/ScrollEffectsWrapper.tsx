@@ -79,7 +79,6 @@ const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
         end: "bottom bottom",
         pin: ".socials-container",
         pinSpacing: false,
-        markers: true
       });
 
       ScrollTrigger.create({
