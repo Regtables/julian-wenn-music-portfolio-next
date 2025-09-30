@@ -3,12 +3,14 @@ import ScrollEffectsWrapper from "@/components/wrappers/layout/ScrollEffectsWrap
 import LoadingScreenWrapper from "@/components/wrappers/LoadingScreenWrapper";
 import Providers from "@/providers";
 import React, { PropsWithChildren } from "react";
+import { sanityFetchContactInfo } from "../lib/sanity/actions";
 
 type Props = PropsWithChildren;
 
 const RootPagesLayout = async ({ children }: Props) => {
+  const contactInfo = await sanityFetchContactInfo()
   return (
-    <Providers>
+    <Providers intialData={{ contactInfo }}>
       <LoadingScreenWrapper>
         <NavbarWrapper>
           <ScrollEffectsWrapper>

@@ -11,6 +11,11 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
 
 type ScrollPinningWrapperProps = PropsWithChildren;
 
+// Export a function to get the smoother instance
+export const getScrollSmoother = () => {
+  return ScrollSmoother.get();
+};
+
 const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
   // const { isAnimationReady } = useAppSettings();
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -28,34 +33,42 @@ const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
     });
 
     function initNavigationColorChanges() {
+      // Change to black when entering about section (scrolling down)
       ScrollTrigger.create({
         trigger: ".about",
-        start: "-=50",
+        start: "top center",
         end: "+=20",
-        animation: gsap.to(".nav-menu-icon path", {
-          stroke: "var(--color-black)",
-        }),
-        scrub: true,
+        onEnter: () => {
+          gsap.to(".nav-menu-icon path", {
+            stroke: "var(--color-black)",
+            duration: 0.1
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(".nav-menu-icon path", {
+            stroke: "var(--color-gold)",
+            duration: 0.1
+          });
+        }
       });
 
+      // Change to gold when entering upcoming section (scrolling down)
       ScrollTrigger.create({
         trigger: ".upcoming-section",
-        start: "-=50",
+        start: "top center",
         end: "+=20",
-        animation: gsap.to(".nav-menu-icon path", {
-          stroke: "var(--color-gold)",
-        }),
-        scrub: true,
-      });
-
-      ScrollTrigger.create({
-        trigger: ".about",
-        start: "top bottom",
-        end: "+=20",
-        animation: gsap.to(".nav-menu-icon path", {
-          stroke: "var(--color-black)",
-        }),
-        scrub: true
+        onEnter: () => {
+          gsap.to(".nav-menu-icon path", {
+            stroke: "var(--color-gold)",
+            duration: 0.1
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(".nav-menu-icon path", {
+            stroke: "var(--color-black)",
+            duration: 0.1
+          });
+        }
       });
     }
 
@@ -84,9 +97,7 @@ const ScrollEffectsWrapper = ({ children }: ScrollPinningWrapperProps) => {
     return () => {
       smoother?.kill();
       ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.vars.pin) {
-          trigger.kill();
-        }
+        trigger.kill();
       });
     };
   }, []);

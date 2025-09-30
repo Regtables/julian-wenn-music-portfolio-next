@@ -10,6 +10,7 @@ import Image from "next/image";
 import BigTileCarouselNavigator from "../bigTileCarousel/BigTileCarouselNavigator";
 import { useGSAPAnimations } from "@/hooks/useGSAPAnimations";
 import { Play } from "lucide-react";
+import Link from "next/link";
 
 gsap.registerPlugin(useGSAP);
 
@@ -92,7 +93,7 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
 
   return (
     <section
-      className="section-padding md:!pr-0 px-section-x-mobile flex flex-col items-center md:gap-8 gap-8"
+      className="section-margin-y section-padding md:!pr-0 px-section-x-mobile flex flex-col items-center md:gap-8 gap-8"
       ref={sectionRef}
       id="featured-music"
     >
@@ -114,10 +115,12 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
         <div className="flex items-center justify-center gap-64 w-full overflow-hidden">
           <div className="xl:w-[50vw] md:w-[70vw] w-[90vw] flex gap-64" ref={trackListRef}>
             {featuredMusic.map((song, i) => (
-              <div
+              <Link
                 key={i}
                 className="xl:h-screen md:h-[60vh] h-[50vh] min-w-full relative flex"
                 ref={(el) => (trackItemsRef.current[i] = el)}
+                href={song.links?.linktree || 'https://linktr.ee/'}
+                target="_blank"
               >
                 <figure className="h-full absolute top-0 left-0 xl:min-w-[50vw] md:min-w-[70vw] min-w-[90vw]">
                   <Image
@@ -138,7 +141,7 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
                     <p className="md:text-sm text-xs text-start">{song.description}</p>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

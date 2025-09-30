@@ -59,6 +59,7 @@ export const useGSAPAnimations = () => {
     const split = SplitText.create(el);
     const tl = gsap.timeline();
     const charsToAnimate = reverse ? split.chars.reverse() : split.chars;
+    gsap.set(charsToAnimate, {opacity: 0 })
 
     tl.set(charsToAnimate, { y, autoAlpha })
       .fromTo(charsToAnimate,

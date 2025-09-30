@@ -20,7 +20,7 @@ type HeroProps = {
 };
 
 const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
-  const { isAnimationReady, isMobile } = useAppSettings()
+  const { isAnimationReady } = useAppSettings()
   const verLineLeft = useRef<HTMLDivElement>(null);
   const verLineRight = useRef<HTMLDivElement>(null);
   const horLine = useRef<HTMLDivElement>(null);
@@ -52,6 +52,7 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
     );
 
     heroTl
+      .to('.hero-section', { opacity: 1, duration: 0 })
       .to('.hero-bg-image', { autoAlpha: 1, duration: 0.5 }, 0)
       .fromTo(heading.chars, { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, stagger: 0.15 }, 1)
       .fromTo([verLineLeft.current, verLineRight.current], { autoAlpha: 0, scaleY: 0 }, { autoAlpha: 1, scaleY: 1 }, 2)
@@ -65,7 +66,7 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
   }, [isAnimationReady]);
 
   return (
-    <section className="hero-section md:flex items-center w-full md:min-h-[unset] min-h-screen relative" id = 'home'>
+    <section className="hero-section md:flex flex items-center w-full md:min-h-[unset] min-h-screen relative opacity-0" id = 'home'>
       <div className="absolute w-full h-full top-0 left-0 right-0">
         <Overlay opacity={40} className="hero-bg-image">
           <Image
@@ -82,9 +83,9 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
         <div className="w-[4px] lg:h-auto md:h-screen md:min-h-full bg-[var(--color-gold)]" ref={verLineLeft} />
 
         {/* Content */}
-        <div className="w-full h-full flex flex-col md:justify-end md:pb-8">
-          <div className="flex w-full justify-center md:justify-end md:text-right lg:pr-8 md:pr-4">
-            <h1 className="hero-heading md:ml-auto lg:text-[200px] text-center md:text-[150px] text-[80px] md:tracking-[20px] tracking-[8px] lg:leading-[200px] md:leading-[150px] leading-[80px] text-[var(--color-gold)] lg:w-3/5 uppercase">
+        <div className="w-full h-full flex flex-col md:justify-end md:pb-8 md:py-0 py-4">
+          <div className="flex w-full justify-center md:justify-end md:!text-right">
+            <h1 className="hero-heading md:ml-auto lg:text-[200px] md:!text-right md:text-[150px] text-[80px] md:tracking-[20px] tracking-[8px] lg:leading-[200px] md:leading-[150px] leading-[80px] text-custom-gold lg:w-3/5 lg:ml-auto uppercase">
               Julian Wenn
             </h1>
           </div>
@@ -109,7 +110,7 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
               <HeroNavCircle
                 icon={<Mail size={"28px"} className="md:size-auto size-6" />}
                 title="Get in Touch"
-                link="featured-music"
+                link="contact"
               />
             </div>
 

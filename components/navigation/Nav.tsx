@@ -84,7 +84,7 @@ const Nav: React.FC = () => {
         color="var(--color-gold)" // Default color
         size={32}
         onClick={handleMenuClick}
-        className="nav-menu-icon fixed lg:left-padding-x-desktop md:left-padding-x-tablet left-padding-x-mobile lg:top-8 md:top-4 top-padding-y-mobile cursor-pointer z-50"
+        className="nav-menu-icon fixed lg:left-16 md:left-12 left-4 lg:top-8 md:top-4 top-4 top-padding-y-mobile cursor-pointer z-50"
       />
 
       <NavMenu ref={navMenuRef} handleClose={handleNavClose} />

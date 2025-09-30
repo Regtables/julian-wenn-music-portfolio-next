@@ -8,4 +8,5 @@ export interface IconProps {
   hoverColor?: string;
   className?: string;
   onClick?: () => void;
+  url?: string
 }

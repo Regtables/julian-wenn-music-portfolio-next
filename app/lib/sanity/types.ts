@@ -169,3 +169,27 @@ export type SanityHomePageData = {
   albumSection?: AlbumSection
   contactSection?: ContactSection
 }
+
+export interface SanityContactInfoData {
+  _id: string;
+  _type: 'contactInfo';
+  email?: string;
+  phone?: string;
+  address?: string;
+  workingHours?: string;
+  socialMedia?: {
+    instagram?: string;
+    facebook?: string;
+    twitter?: string;
+    tiktok?: string;
+    youtube?: string;
+    spotify?: string;
+    appleMusic?: string;
+    youtubeMusic?: string;
+    soundcloud?: string;
+    bandcamp?: string;
+    deezer?: string;
+    linkedin?: string;
+    threads?: string;
+  };
+}

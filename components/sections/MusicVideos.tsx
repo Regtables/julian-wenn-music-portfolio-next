@@ -41,7 +41,7 @@ const MusicVideos = ({ heading, musicVideos }: MusicVideosProps) => {
       }
     });
 
-    // Set initial state - hide all elements
+    // Set initial state - hide all elements using visibility and opacity
     musicVideoTl.set([
       leftLineRef.current, 
       rightLineRef.current, 
@@ -59,8 +59,9 @@ const MusicVideos = ({ heading, musicVideos }: MusicVideosProps) => {
         { autoAlpha: 1, scaleY: 1, duration: 0.6 }, 
         0
       )
-      .from([topLineRef.current, bottomLineRef.current], 
-        { autoAlpha: 0, scaleX: 0, duration: 0.4 }, 
+      .fromTo([topLineRef.current, bottomLineRef.current], 
+        { autoAlpha: 0, scaleX: 0, }, 
+        { autoAlpha: 1, scaleX: 1, duration: 0.4  },
         0
       )
       .add(animateSectionHeading(headingRef.current), '-=0.2')
@@ -111,17 +112,17 @@ const MusicVideos = ({ heading, musicVideos }: MusicVideosProps) => {
   return (
     <section 
       ref={sectionRef}
-      className="music-videos section flex flex-col md:gap-12 gap-8 relative"
+      className="music-videos section-margin-y section flex flex-col md:gap-12 gap-8 relative"
       id = 'music-videos'
     >
       {/* Vertical Lines */}
       <div 
         ref={leftLineRef}
-        className="verticle-line music-video-left-line h-full w-[4px] absolute lg:left-section-x-desktop md:left-section-x-tablet left-section-x-mobile top-0 bg-custom-gold" 
+        className="verticle-line opacity-0 music-video-left-line h-full w-[4px] absolute lg:left-section-x-desktop md:left-section-x-tablet left-section-x-mobile top-0 bg-custom-gold" 
       />
       <div 
         ref={rightLineRef}
-        className="verticle-line music-video-right-line h-full w-[4px] absolute lg:right-section-x-desktop md:right-section-x-tablet right-section-x-mobile top-0 bg-custom-gold" 
+        className="verticle-line opacity-0 music-video-right-line h-full w-[4px] absolute lg:right-section-x-desktop md:right-section-x-tablet right-section-x-mobile top-0 bg-custom-gold" 
       />
       
       {/* Section Heading */}
@@ -135,14 +136,14 @@ const MusicVideos = ({ heading, musicVideos }: MusicVideosProps) => {
       {/* Top Horizontal Line */}
       <div 
         ref={topLineRef}
-        className="horizontal-line music-video-top-line h-[4px] bg-custom-gold w-full" 
+        className="horizontal-line music-video-top-line h-[4px] bg-custom-gold w-full invisible opacity-0" 
       />
 
       <div className="flex flex-col items-center gap-8">
         {/* Video Selection Tabs */}
         <div 
           ref={tabsWrapperRef}
-          className="music-video-tabs-wrapper text-custom-gold flex"
+          className="music-video-tabs-wrapper text-custom-gold flex invisible opacity-0"
         >
           {musicVideos.map((item, i) => (
             <button
@@ -163,7 +164,7 @@ const MusicVideos = ({ heading, musicVideos }: MusicVideosProps) => {
         {/* Video Player */}
         <div 
           ref={musicVideoRef}
-          className="music-video-items-wrapper w-full lg:px-32 md:px-16 px-8"
+          className="music-video-items-wrapper w-full lg:px-32 md:px-16 px-8 invisible opacity-0"
         >
           {activeVideoId ? (
             <div
@@ -196,7 +197,7 @@ const MusicVideos = ({ heading, musicVideos }: MusicVideosProps) => {
       {/* Bottom Horizontal Line */}
       <div 
         ref={bottomLineRef}
-        className="horizontal-line music-video-bottom-line h-[4px] bg-custom-gold w-full" 
+        className="horizontal-line music-video-bottom-line h-[4px] bg-custom-gold w-full invisible opacity-0" 
       />
     </section>
   );

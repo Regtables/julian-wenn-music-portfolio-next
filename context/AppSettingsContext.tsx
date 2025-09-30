@@ -75,7 +75,7 @@ interface AppSettingsContextProviderProps {
   children: React.ReactNode;
   initialData?: {
     contactDetails: ContactDetails;
-    navMenuSettings: NavMenuSettings;
+    // navMenuSettings: NavMenuSettings;
     seoSettings: SeoSettings;
   };
 }
@@ -212,7 +212,7 @@ export const AppSettingsProvider: FC<AppSettingsContextProviderProps> = ({
   return (
     <AppSettingsContext.Provider
       value={{
-        contactDetails: initialData?.contactDetails || defaultContactDetails,
+        contactDetails: initialData?.contactInfo || defaultContactDetails,
         seoSettings: initialData?.seoSettings || defaultSeoSettings,
         brandLinks,
         setBrandLinks,

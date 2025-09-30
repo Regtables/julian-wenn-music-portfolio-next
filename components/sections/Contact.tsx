@@ -85,9 +85,9 @@ const Contact = ({ heading, text, image }: ContactProps) => {
   const validateForm = (): boolean => {
     const errors: FormErrors = {};
 
-    // First name validation
-    if (!formData.firstName.trim()) {
-      errors.firstName = "First name is required";
+    // Full name validation
+    if (!formData.fullName.trim()) {
+      errors.fullName = "Full name is required";
     }
 
     // Email validation
@@ -131,7 +131,7 @@ const Contact = ({ heading, text, image }: ContactProps) => {
       if (response.ok) {
         setSubmitStatus('success');
         setFormData({
-          firstName: "",
+          fullName: "",
           email: "",
           instagram: "",
           country: "",
@@ -210,13 +210,13 @@ const Contact = ({ heading, text, image }: ContactProps) => {
   return (
     <section 
       ref={sectionRef}
-      className="contact-us flex md:flex-row flex-col w-full lg:!h-screen md:!h-[60vh] md:min-h-[unset] min-h-screen"
+      className="contact-us flex md:flex-row flex-col w-full lg:h-screen md:h-[60vh]"
       id="contact"
     >
       {/* Image */}
       <div 
         ref={imageRef}
-        className="contact-us-image relative md:h-full md:w-1/2 w-full md:aspect-auto aspect-square"
+        className="contact-us-image relative md:h-full h-[40vh] md:w-1/2 w-full"
       >
         <Image
           alt={image.alt}
@@ -229,7 +229,7 @@ const Contact = ({ heading, text, image }: ContactProps) => {
       {/* Copy & Form */}
       <div 
         ref={contentContainerRef}
-        className="contact-us-form-container flex text-custom-gold flex-col md:items-end items-center md:w-1/2 gap-5 lg:px-section-x-desktop md:px-section-x-tablet px-section-x-mobile lg:pt-8 pb-4 h-full justify-center"
+        className="contact-us-form-container flex text-custom-gold flex-col md:items-end items-center md:w-1/2 gap-5 lg:px-section-x-desktop md:px-section-x-tablet px-section-x-mobile py-12 pt-6 pb-14 md:py-8 justify-center"
       >
         <h2 
           ref={headingRef}
@@ -286,6 +286,7 @@ const Contact = ({ heading, text, image }: ContactProps) => {
               name="instagram"
               value={formData.instagram}
               onChange={handleInputChange}
+              className="w-full"
             />
             <Input 
               placeholder="Country" 
@@ -324,22 +325,11 @@ const Contact = ({ heading, text, image }: ContactProps) => {
             </div>
           )}
 
-          {/* <div className="flex w-full gap-2"> */}
-            <MainButton 
-              text={isSubmitting ? "Sending..." : "Submit"} 
-              className="w-full min-w-full"
-              color="gold"
-            />
-            {/* {(submitStatus === 'success' || Object.keys(formData).some(key => formData[key as keyof FormData])) && (
-              <button
-                type="button"
-                onClick={resetForm}
-                className="px-4 py-2 border border-custom-gold text-custom-gold rounded-lg text-sm hover:bg-custom-gold hover:text-black transition-colors"
-              >
-                Reset
-              </button>
-            )} */}
-          {/* </div> */}
+          <MainButton 
+            text={isSubmitting ? "Sending..." : "Submit"} 
+            className="w-full min-w-full"
+            color="gold"
+          />
         </form>
       </div>
     </section>

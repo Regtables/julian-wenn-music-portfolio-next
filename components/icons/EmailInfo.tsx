@@ -1,14 +1,17 @@
 'use client'
 
+import { useContactDetails } from '@/context/AppSettingsContext'
 import { Mail } from 'lucide-react'
 import React from 'react'
 
 const EmailInfo = () => {
+  const details = useContactDetails()
+  console.log(details)
   return (
     <div className='flex items-center gap-2 text-sm'>
       <Mail size={'1rem'} color='var(--color-gold)' />
 
-      <p>julianwenn@gmail.com</p>
+      <p>{details.email}</p>
     </div>
   )
 }

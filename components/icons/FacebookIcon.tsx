@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { IconProps } from '@/types';
 import Link from 'next/link';
+import { useBrandLinks } from '@/context/AppSettingsContext';
 
 const FacebookIcon: React.FC<IconProps> = ({
   size = 32,
@@ -12,9 +13,10 @@ const FacebookIcon: React.FC<IconProps> = ({
   onClick
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { brands } = useBrandLinks()
 
   return (
-    <Link href={''} target='_blank'>
+    <Link href={brands.facebook || ''} target='_blank'>
       <svg
         width={size}
         height={size}

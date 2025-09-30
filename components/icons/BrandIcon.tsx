@@ -16,7 +16,6 @@ type BrandIconProps = PropsWithClassName<{
 
 const BrandIcon = ({ size = 48, brand, className }: BrandIconProps) => {
   const { brands, brandIconPaths } = useBrandLinks()
-  console.log(brands, brandIconPaths)
 
   const link = brands[brand]
   const icon = brandIconPaths[brand]

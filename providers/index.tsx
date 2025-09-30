@@ -4,12 +4,18 @@ import { ModalProvider as ModalWrapperProvider } from "@/context/ModalContext";
 import React, { PropsWithChildren } from "react";
 import ModalProvider from "./ModalProvider";
 import DrawerProvider from "./DrawerProvider";
+import { SanityContactInfoData } from "@/app/lib/sanity/types";
 
-type Props = PropsWithChildren<{}>;
+type Props = PropsWithChildren<{
+  intialData: {
+    contactInfo: SanityContactInfoData,
+    seoSettings: {}
+  }
+}>;
 
-const Providers = ({ children }: Props) => {
+const Providers = ({ children, intialData }: Props) => {
   return (
-    <AppSettingsProvider>
+    <AppSettingsProvider initialData={intialData}>
       <DrawerWrapperProvider>
         <ModalWrapperProvider>
           {children}

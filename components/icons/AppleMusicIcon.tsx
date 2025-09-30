@@ -4,18 +4,21 @@
 import React, { useState } from "react";
 import { IconProps } from "@/types";
 import Link from "next/link";
+import { useBrandLinks } from "@/context/AppSettingsContext";
 
 const AppleMusicIcon: React.FC<IconProps> = ({
   size = 32,
   color = "currentColor",
   hoverColor = "var(--color-white)",
   className = "",
+  url,
   onClick,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { brands } = useBrandLinks()
 
   return (
-    <Link href={"www.youtube.com"} target='_blank'>
+    <Link href={url || brands.appleMusic || ''} target='_blank'>
       <svg
         role="img"
         width={size}

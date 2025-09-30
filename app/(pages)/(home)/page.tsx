@@ -9,6 +9,7 @@ import Contact from "@/components/sections/Contact";
 import Footer from "@/components/Footer";
 import FeaturedAlbum from "@/components/sections/FeaturedAlbum";
 import MusicVideos from "@/components/sections/MusicVideos";
+import AboutMobile from "@/components/sections/AboutMobile";
 
 export default async function Home() {
   const page = await sanityFetchHomePage();
@@ -22,7 +23,6 @@ export default async function Home() {
     albumSection,
     musicVideosSection,
   } = page;
-  console.log(page);
   return (
     <div className="">
       <Hero
@@ -33,6 +33,13 @@ export default async function Home() {
       <Socials />
 
       <About
+        heading={aboutSection?.heading}
+        mediumBio={aboutSection?.mediumBio}
+        fullBio={aboutSection?.fullBio}
+        timelineSection={aboutSection?.timeline}
+      />
+
+      <AboutMobile
         heading={aboutSection?.heading}
         mediumBio={aboutSection?.mediumBio}
         fullBio={aboutSection?.fullBio}

@@ -186,8 +186,6 @@ useGSAP(() => {
   // Animation settings
   const mainStagger = 0.9;
 
-  console.log(aboutMainImages, "about images");
-
   gsap.set(aboutMainImages, { y: 100, scale: 0.9, opacity: 0 });
   gsap.set(aboutMainImages[0], { y: 0, scale: 1, opacity: 1 });
   gsap.set(aboutLeftImages, { y: 100, scale: 0.8, opacity: 0 });
@@ -290,7 +288,7 @@ useGSAP(() => {
 
   return (
     <section
-      className="about about-wrapper min-h-screen bg-custom-gold lg:px-section-x-desktop md:px-section-x-tablet h-[800vh]"
+      className="about about-wrapper lg:block hidden hidden min-h-screen bg-custom-gold lg:px-section-x-desktop md:px-section-x-tablet h-[800vh]"
       ref={sectionRef}
       id="about"
     >

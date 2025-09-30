@@ -4,6 +4,10 @@
   @apply lg:px-section-x-desktop lg:py-section-y-desktop md:px-section-x-tablet md:py-section-y-tablet px-section-x-mobile py-section-y-mobile;
 }
 
+.section-margin-y{
+  @apply lg:my-section-y-desktop md:my-section-y-tablet my-section-y-mobile;
+}
+
 .section-heading{
   @apply lg:text-7xl md:text-5xl text-4xl text-center text-custom-gold lg:tracking-[15px] md:tracking-[10px] tracking-[5px] uppercase font-bold;
 }
@@ -37,9 +41,9 @@
   --padding-section-y-tablet: 64px;
 
   --margin-section-x-mobile: 16px;
-  --margin-section-y-mobile: 32px;
+  --margin-section-y-mobile: 48px;
   --padding-section-x-mobile: 16px;
-  --padding-section-y-mobile: 32px;
+  --padding-section-y-mobile: 48px;
 }
 
 @theme inline {
@@ -56,22 +60,21 @@
   --color-custom-gold: var(--color-gold);
   --color-custom-white: var(--color-white);
   
-  /* Add your custom spacing to the theme */
-  --spacing-section-x-desktop: var(--margin-section-x-desktop);
-  --spacing-section-y-desktop: var(--margin-section-y-desktop);
-  --spacing-padding-x-desktop: var(--padding-section-x-desktop);
-  --spacing-padding-y-desktop: var(--padding-section-y-desktop);
+  /* Padding spacing for Tailwind */
+  --spacing-section-x-desktop: var(--padding-section-x-desktop);
+  --spacing-section-y-desktop: var(--padding-section-y-desktop);
+  --spacing-section-x-tablet: var(--padding-section-x-tablet);
+  --spacing-section-y-tablet: var(--padding-section-y-tablet);
+  --spacing-section-x-mobile: var(--padding-section-x-mobile);
+  --spacing-section-y-mobile: var(--padding-section-y-mobile);
 
-  /*  */
-  --spacing-section-x-tablet: var(--margin-section-x-tablet);
-  --spacing-section-y-tablet: var(--margin-section-y-tablet);
-  --spacing-padding-x-tablet: var(--padding-section-x-tablet);
-  --spacing-padding-y-tablet: var(--padding-section-y-tablet);
-
-  --spacing-section-x-mobile: var(--margin-section-x-mobile);
-  --spacing-section-y-mobile: var(--margin-section-y-mobile);
-  --spacing-padding-x-mobile: var(--padding-section-x-mobile);
-  --spacing-padding-y-mobile: var(--padding-section-y-mobile);
+  /* Margin spacing for Tailwind */
+  --spacing-margin-x-desktop: var(--margin-section-x-desktop);
+  --spacing-margin-y-desktop: var(--margin-section-y-desktop);
+  --spacing-margin-x-tablet: var(--margin-section-x-tablet);
+  --spacing-margin-y-tablet: var(--margin-section-y-tablet);
+  --spacing-margin-x-mobile: var(--margin-section-x-mobile);
+  --spacing-margin-y-mobile: var(--margin-section-y-mobile);
 }
 
 @media (prefers-color-scheme: dark) {

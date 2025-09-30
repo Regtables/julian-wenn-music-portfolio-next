@@ -23,14 +23,20 @@ const FeaturedGallery = ({ heading, galleryItems }: FeaturedGalleryProps) => {
   const galleryRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const navigatorRef = useRef<HTMLDivElement>(null);
+  
+  // Store items with refs
+  const itemsMapRef = useRef<Map<string, SanityMedia>>(new Map());
 
   const { animateSectionHeading } = useGSAPAnimations();
 
-  const enhancedItems = galleryItems.map((item, index) => ({
-    ...item,
-    id: `gallery-item-${index}`,
-    dataMediaType: item.mediaType,
-  }));
+  const enhancedItems = galleryItems.map((item, index) => {
+    const id = `gallery-item-${index}`;
+    itemsMapRef.current.set(id, item);
+    return {
+      ...item,
+      id,
+    };
+  });
 
   useGSAP(() => {
     if (!headingRef.current || !navigatorRef.current || !galleryRef.current)
@@ -77,22 +83,25 @@ const FeaturedGallery = ({ heading, galleryItems }: FeaturedGalleryProps) => {
 
     const allItems = galleryRef.current.querySelectorAll(
       ".gallery-item-wrapper"
-    );
+    ) as NodeListOf<HTMLElement>;
 
     const state = Flip.getState(allItems);
 
     allItems.forEach((item) => {
-      const mediaType = item.getAttribute("data-media-type");
+      const itemId = item.getAttribute("data-id");
+      if (!itemId) return;
+
+      const mediaItem = itemsMapRef.current.get(itemId);
+      if (!mediaItem) return;
+
+      const mediaType = mediaItem.mediaType;
+      
       const shouldShow =
         filterType === "all" ||
         (filterType === "videos" && mediaType !== "image") ||
         (filterType === "images" && mediaType === "image");
 
-      if (shouldShow) {
-        (item as HTMLElement).style.display = "block";
-      } else {
-        (item as HTMLElement).style.display = "none";
-      }
+      item.style.display = shouldShow ? "block" : "none";
     });
 
     Flip.from(state, {
@@ -116,7 +125,7 @@ const FeaturedGallery = ({ heading, galleryItems }: FeaturedGalleryProps) => {
   };
 
   return (
-    <section className="section-padding flex flex-col items-center gap-8" id = 'featured-gallery'>
+    <section className="section-padding section-margin-y flex flex-col items-center gap-8" id="featured-gallery">
       <h2
         ref={headingRef}
         className="gallery-section-heading section-heading text-center"
@@ -134,11 +143,11 @@ const FeaturedGallery = ({ heading, galleryItems }: FeaturedGalleryProps) => {
 
       {/* Gallery */}
       <div ref={galleryRef} className="grid w-full lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
-        {enhancedItems.map((item, i) => (
+        {enhancedItems.map((item) => (
           <div
             key={item.id}
             className="gallery-item-wrapper"
-            data-media-type={item.dataMediaType}
+            data-id={item.id}
           >
             <GalleryItemTile title={item.title} media={item} />
           </div>

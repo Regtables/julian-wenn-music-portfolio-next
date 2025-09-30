@@ -9,7 +9,7 @@ type SanityTextBlockProps = {
 
 const SanityTextBlock = ({ text, className, blockClassName } : PropsWithClassName<SanityTextBlockProps>) => {
   return (
-    <div className={className}>
+    <div className={cn('flex flex-col gap-4',className)}>
       {text.map((block, blockIndex) => (
         <p className={cn("lg:mb-4 last:mb-0", blockClassName)} key={blockIndex}>
           {block.children?.map((child, childIndex) => (

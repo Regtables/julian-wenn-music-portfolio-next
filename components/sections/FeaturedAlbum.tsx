@@ -12,6 +12,7 @@ import { useGSAPAnimations } from "@/hooks/useGSAPAnimations";
 import SpotifyIcon from "../icons/SpotifyIcon";
 import AppleMusicIcon from "../icons/AppleMusicIcon";
 import YouTubeMusicIcon from "../icons/YoutubeMusicIcon";
+import Link from "next/link";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -22,6 +23,8 @@ type FeaturedAlbumProps = {
 
 const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
   const { artwork, albumTitle } = album;
+
+  console.log(album)
 
   // Refs for animation targeting
   const sectionRef = useRef<HTMLElement>(null);
@@ -82,15 +85,13 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
     };
   }, []);
 
-  console.log(artwork);
-
   return (
     <section
       ref={sectionRef}
       className="album-section w-full section-padding lg:h-screen flex gap-12 flex-col"
       id="featured-album"
     >
-      <h2 ref={headingRef} className="featured-album-title section-heading">
+      <h2 ref={headingRef} className="featured-album-title section-heading lg:!text-start">
         {heading}
       </h2>
 
@@ -117,15 +118,15 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
         >
           <h3 className="md:text-5xl text-3xl uppercase font-heading">{albumTitle}</h3>
 
-          <p className="text-xs">{album.description}</p>
+          <p className="md:text-sm text-xs">{album.description}</p>
 
           <div className="flex md:flex-row flex-col md:gap-4 gap-2">
             <h4>Listen</h4>
 
             <div className="flex gap-4">
-              <SpotifyIcon size={24} />
-              <AppleMusicIcon size={24}/>
-              <YouTubeMusicIcon size={24} />
+              <SpotifyIcon size={24} url= {album.listenLinks?.spotify}/>
+              <AppleMusicIcon size={24} url= {album.listenLinks?.appleMusic}/>
+              <YouTubeMusicIcon size={24} url = {album.listenLinks?.youtube} />
             </div>
           </div>
 
@@ -140,12 +141,14 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
 
             <div className="flex flex-col items-start w-full">
               {album.trackList?.map((track, i) => (
-                <div
+                <Link
                   key={i}
                   className={cn(
                     "album-track group text-custom-gold flex w-full justify-between items-center py-4 border-b border-custom-gold/40 hover:bg-custom-gold/20 cursor-pointer",
                     i === 0 && "border-t"
                   )}
+                  href={track.links.linktree}
+                  target = '_blank'
                 >
                   <div className="flex items-center gap-16">
                     <h5 className="font-heading text-lg capitalize">
@@ -160,7 +163,7 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
                   </div>
 
                   <div className="text-sm">3:00</div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

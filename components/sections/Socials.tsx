@@ -5,8 +5,6 @@ import Line from "../Line";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { useGSAPAnimations } from "@/hooks/useGSAPAnimations";
-import { useAppSettings } from "@/context/AppSettingsContext";
 import Image from "next/image";
 import SpotifyIcon from "../icons/SpotifyIcon";
 import InstagramIcon from "../icons/InstagramIcon";
@@ -19,7 +17,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Socials = () => {
   // Refs for animation targeting
-  const { isAnimationReady } = useAppSettings();
   const sectionRef = useRef<HTMLDivElement>(null);
   const followHeadingRef = useRef<HTMLHeadingElement>(null);
   const listenHeadingRef = useRef<HTMLHeadingElement>(null);
@@ -29,8 +26,6 @@ const Socials = () => {
   const bottomLineRef = useRef<HTMLDivElement>(null);
   const svgCircleRef = useRef<SVGPathElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
-
-  const { animateSectionHeading } = useGSAPAnimations();
 
   useGSAP(() => {
     //if(!isAnimationReady) return
@@ -167,89 +162,91 @@ const Socials = () => {
   return (
     <div
       ref={sectionRef}
-      className="socials section socials-section flex flex-col justify-between w-full lg:min-h-screen lg:h-[300vh] md:h-[200vh] py-[96px]"
+      className="socials section socials-section flex flex-col justify-between w-full lg:min-h-screen lg:h-[300vh] h-[200vh]"
     >
-      <div className="socials-container flex flex-col overflow-hidden ">
-        {/* Top Line */}
-        <div ref={topLineRef} className="socials-horizontal-line">
-          <Line className="socials-top-line h-[4px] w-full bg-custom-gold" />
-        </div>
+      <div className="socials-container h-screen flex items-center w-full text-custom-gold overflow-hidden">
+        <div className="w-full flex flex-col">
+          {/* Top Line */}
+          <div ref={topLineRef} className="socials-horizontal-line">
+            <Line className="socials-top-line h-[4px] w-full bg-custom-gold" />
+          </div>
 
-        <div className="relative md:h-[80vh] flex flex-col justify-between py-20 md:px-section-x-tablet">
-          {/* Follow */}
-          <div className="flex flex-col justify-between lg:items-start md:items-center gap-4">
-            <h3
-              ref={followHeadingRef}
-              className="socials-heading left socials-follow text-custom-gold md:text-9xl font-heading uppercase"
-            >
-              Follow
-            </h3>
+          <div className="relative lg:h-[70vh] md:h-[80vh] h-[70vh] flex flex-col justify-between md:py-20 py-10 lg:px-section-xp-desktop md:px-section-x-tablet px-section-x-mobile">
+            {/* Follow */}
+            <div className="flex flex-col justify-between lg:items-start items-center gap-4">
+              <h3
+                ref={followHeadingRef}
+                className="socials-heading left socials-follow text-custom-gold lg:text-9xl md:text-8xl text-5xl font-heading uppercase"
+              >
+                Follow
+              </h3>
 
-            <div
-              ref={followIconsRef}
-              className="socials-icons left text-custom-gold flex gap-4"
-            >
-              <InstagramIcon />
-              <YouTubeIcon />
-              <FacebookIcon />
+              <div
+                ref={followIconsRef}
+                className="socials-icons left text-custom-gold flex gap-4"
+              >
+                <InstagramIcon />
+                <YouTubeIcon />
+                <FacebookIcon />
+              </div>
+            </div>
+
+            {/* Center Circle + Logo */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <svg
+                width="200"
+                height="200"
+                viewBox="0 0 100 100"
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              >
+                <path
+                  ref={svgCircleRef}
+                  className="circle-path"
+                  d="M 50,50 m -40,0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0"
+                  fill="none"
+                  stroke="var(--color-gold)"
+                  strokeWidth="1"
+                />
+              </svg>
+
+              <div
+                ref={logoRef}
+                className="socials-logo w-[130px] h-[140px] rounded-full flex items-center justify-center text-custom-black font-bold"
+              >
+                <Image
+                  src={"/logo.png"}
+                  fill
+                  alt="Julian Wenn Logo"
+                  objectFit="cover"
+                  className="rounded-[60px]"
+                />
+              </div>
+            </div>
+
+            {/* Listen */}
+            <div className="flex flex-col-reverse gap-4 justify-between lg:items-end items-center">
+              <h3
+                ref={listenHeadingRef}
+                className="socials-heading right socials-listen text-custom-gold lg:text-9xl md:text-8xl text-5xl font-heading uppercase"
+              >
+                Listen
+              </h3>
+
+              <div
+                ref={listenIconsRef}
+                className="socials-icons right text-custom-gold flex gap-4"
+              >
+                <SpotifyIcon />
+                <YouTubeMusicIcon />
+                <AppleMusicIcon />
+              </div>
             </div>
           </div>
 
-          {/* Center Circle + Logo */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <svg
-              width="200"
-              height="200"
-              viewBox="0 0 100 100"
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-            >
-              <path
-                ref={svgCircleRef}
-                className="circle-path"
-                d="M 50,50 m -40,0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0"
-                fill="none"
-                stroke="var(--color-gold)"
-                strokeWidth="1"
-              />
-            </svg>
-
-            <div
-              ref={logoRef}
-              className="socials-logo w-[130px] h-[140px] rounded-full flex items-center justify-center text-custom-black font-bold"
-            >
-              <Image
-                src={"/logo.png"}
-                fill
-                alt="Julian Wenn Logo"
-                objectFit="cover"
-                className="rounded-[60px]"
-              />
-            </div>
+          {/* Bottom Line */}
+          <div ref={bottomLineRef} className="socials-horizontal-line line-2">
+            <Line className="socials-bottom-line h-[4px] w-full bg-custom-gold" />
           </div>
-
-          {/* Listen */}
-          <div className="flex flex-col-reverse gap-4 justify-between lg:items-end items-center">
-            <h3
-              ref={listenHeadingRef}
-              className="socials-heading right socials-listen text-custom-gold md:text-9xl font-heading uppercase"
-            >
-              Listen
-            </h3>
-
-            <div
-              ref={listenIconsRef}
-              className="socials-icons right text-custom-gold flex gap-4"
-            >
-              <SpotifyIcon />
-              <YouTubeMusicIcon />
-              <AppleMusicIcon />
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Line */}
-        <div ref={bottomLineRef} className="socials-horizontal-line line-2">
-          <Line className="socials-bottom-line h-[4px] w-full bg-custom-gold" />
         </div>
       </div>
     </div>

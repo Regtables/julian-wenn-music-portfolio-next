@@ -7,6 +7,8 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAPAnimations } from "@/hooks/useGSAPAnimations";
+import Link from "next/link";
+import { format, parseISO } from "date-fns";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,6 +23,24 @@ const UpcomingShows = ({ heading, upcomingShows }: UpcomingShowsProps) => {
 
   const handlePosterClick = (show: UpcomingShow) => {
     handleModalOpen("showPoster", { show });
+  };
+
+  const formatShowDate = (dateString: string) => {
+    try {
+      const date = parseISO(dateString);
+      return {
+        month: format(date, "MMM"),
+        day: format(date, "dd"),
+        fullDate: format(date, "MMMM dd, yyyy"),
+      };
+    } catch (error) {
+      console.error("Error parsing date:", error);
+      return {
+        month: "---",
+        day: "--",
+        fullDate: dateString,
+      };
+    }
   };
 
   useGSAP(() => {
@@ -51,58 +71,69 @@ const UpcomingShows = ({ heading, upcomingShows }: UpcomingShowsProps) => {
         {heading}
       </h2>
 
-      {upcomingShows.map((show, i) => (
-        <div
-          key={i}
-          className="upcoming-show text-custom-gold flex md:flex-row flex-row items-center md:gap-8 gap-4"
-        >
-          <div>Month</div>
-          <div className="border-2 border-custom-gold/30 md:p-6 p-4 grow rounded-lg flex md:flex-row flex-col justify-between items-center md:gap-0 gap-4">
-            <div className="flex flex-col md:items-start items-center gap-6">
-              <h3 className="font-heading uppercase tracking-[3px] text-sm">
-                {show.name}
-              </h3>
-
-              <div className="flex gap-6">
-                <div className="flex gap-2 md:w-auto w-1/2 items-center">
-                  <MapPin
-                    // fill="var(--color-white)"
-                    color="var(--color-white)"
-                    size={"16px"}
-                    className="min-w-4"
-                  />
-                  <h4 className="text-xs">
-                    {show.venue}, {show.city}
-                  </h4>
-                </div>
-
-                <div className="flex gap-2 md:w-auto w-1/2 ">
-                  <Calendar
-                    // fill="var(--color-white)"
-                    color="var(--color-white)"
-                    size={"1rem"}
-                  />
-                  <h4 className="text-xs">{show.date}</h4>
-                </div>
-              </div>
+      {upcomingShows.map((show, i) => {
+        const { month, day, fullDate } = formatShowDate(show.date);
+        
+        return (
+          <div
+            key={i}
+            className="upcoming-show text-custom-gold flex md:flex-row flex-row items-center md:gap-8 gap-4"
+          >
+            <div className="flex flex-col items-center justify-center min-w-[60px]">
+              <div className="text-xs uppercase font-bold">{month}</div>
+              <div className="text-3xl font-heading">{day}</div>
             </div>
-            <div className="flex gap-8">
-              <div
-                className="flex gap-2 md:w-auto w-1/2  md:items-center items-start text-xs uppercase border-b-2 border-custom-gold/0 box-border hover:border-custom-gold py-1 transition-all duration-500 cursor-pointer"
-                onClick={() => handlePosterClick(show)}
-              >
-                view poster
-                <Eye size={16}  />
-              </div>
+            
+            <div className="border-2 border-custom-gold/30 md:p-6 p-4 grow rounded-lg flex md:flex-row flex-col justify-between items-center md:gap-0 gap-4">
+              <div className="flex flex-col md:items-start items-center gap-6">
+                <h3 className="font-heading uppercase tracking-[3px] text-sm">
+                  {show.name}
+                </h3>
 
-              <div className="flex gap-2 md:w-auto w-1/2  items-center text-xs uppercase border-b-2 border-custom-gold/0 box-border hover:border-custom-gold py-1 transition-all duration-500 cursor-pointer">
-                get tickets
-                <MoveUpRight size={16} />
+                <div className="flex gap-6">
+                  <div className="flex gap-2 md:w-auto w-1/2 items-center">
+                    <MapPin
+                      color="var(--color-white)"
+                      size={"16px"}
+                      className="min-w-4"
+                    />
+                    <h4 className="text-xs">
+                      {show.venue}, {show.city}
+                    </h4>
+                  </div>
+
+                  <div className="flex gap-2 md:w-auto w-1/2">
+                    <Calendar
+                      color="var(--color-white)"
+                      size={"1rem"}
+                    />
+                    <h4 className="text-xs">{fullDate}</h4>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex gap-8">
+                <div
+                  className="flex gap-2 md:w-auto w-1/2 md:items-center items-start text-xs uppercase border-b-2 border-custom-gold/0 box-border hover:border-custom-gold py-1 transition-all duration-500 cursor-pointer"
+                  onClick={() => handlePosterClick(show)}
+                >
+                  view poster
+                  <Eye size={16} />
+                </div>
+
+                <Link
+                  href={show.eventLink}
+                  target="_blank"
+                  className="flex gap-2 md:w-auto w-1/2 items-center text-xs uppercase border-b-2 border-custom-gold/0 box-border hover:border-custom-gold py-1 transition-all duration-500 cursor-pointer"
+                >
+                  get tickets
+                  <MoveUpRight size={16} />
+                </Link>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

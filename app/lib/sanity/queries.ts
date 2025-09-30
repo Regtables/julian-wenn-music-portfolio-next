@@ -60,7 +60,8 @@ export const SANITY_HOME_PAGE_QUERY = `*[_type == "homePage"][0]{
           asset->
         },
         alt
-      }
+      },
+      links
     }
   },
 
@@ -106,3 +107,27 @@ export const SANITY_HOME_PAGE_QUERY = `*[_type == "homePage"][0]{
     musicVideos[]->
   }
 }`
+
+export const SANITY_CONTACT_INFO_QUERY = `*[_type == "contactInfo"][0]{
+  _id,
+  _type,
+  email,
+  phone,
+  address,
+  workingHours,
+  socialMedia{
+    instagram,
+    facebook,
+    twitter,
+    tiktok,
+    youtube,
+    spotify,
+    appleMusic,
+    youtubeMusic,
+    soundcloud,
+    bandcamp,
+    deezer,
+    linkedin,
+    threads
+  }
+}`;

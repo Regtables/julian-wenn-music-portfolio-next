@@ -22,13 +22,14 @@ const LoadingScreen = (props: Props) => {
     gsap.set('.nav-menu-icon', { autoAlpha: 0 })
 
     loadingTl
+      .to('.loading-screen', { opacity: 1, duration: 0 })
       .to('.loading-logo', { autoAlpha: 1, scale: 1, duration: 2 })
       .to('.loading-screen', { autoAlpha: 0 }, "-=0.5")
       .to('.nav-menu-icon', { autoAlpha: 1 })
 
   },[])
   return (
-    <div className="loading-screen fixed top-0 left-0 right-0 z-40 h-screen w-screen bg-custom-black flex justify-center items-center">
+    <div className="loading-screen opacity-0 fixed top-0 left-0 right-0 z-40 h-screen w-screen bg-custom-black flex justify-center items-center">
       <div className="h-[150px] w-[130px] relative">
         <Image
           src={"/logo.png"}
