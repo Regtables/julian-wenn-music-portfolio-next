@@ -1,6 +1,5 @@
 "use client";
 
-import { Menu } from "lucide-react";
 import React, { useRef, useState } from "react";
 import NavMenu from "./NavMenu";
 import { useGSAP } from "@gsap/react";
@@ -13,6 +12,10 @@ const Nav: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
   const navMenuRef = useRef<HTMLDivElement>(null);
   const navSlideBgRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.fromTo('.nav-menu-icon', { opacity: 0 }, { opacity: 1, duration: 0.5, scrollTrigger: { trigger: '.nav-menu-icon' } })
+  }, [])
 
   const handleNavOpen = (): void => {
     const navTl = gsap.timeline();
@@ -84,7 +87,7 @@ const Nav: React.FC = () => {
         color="var(--color-gold)" // Default color
         size={32}
         onClick={handleMenuClick}
-        className="nav-menu-icon fixed lg:left-16 md:left-12 left-4 lg:top-8 md:top-4 top-4 top-padding-y-mobile cursor-pointer z-50"
+        className="nav-menu-icon fixed lg:left-16 md:left-12 left-4 lg:top-8 md:top-4 top-4 top-padding-y-mobile cursor-pointer z-50 opacity-0"
       />
 
       <NavMenu ref={navMenuRef} handleClose={handleNavClose} />
