@@ -15,6 +15,8 @@ import YouTubeMusicIcon from "../icons/YoutubeMusicIcon";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const ICON_SIZE = 64
+
 const Socials = () => {
   // Refs for animation targeting
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -171,7 +173,7 @@ const Socials = () => {
             <Line className="socials-top-line h-[4px] w-full bg-custom-gold" />
           </div>
 
-          <div className="relative lg:h-[70vh] md:h-[80vh] h-[70vh] flex flex-col justify-between md:py-20 py-10 lg:px-section-xp-desktop md:px-section-x-tablet px-section-x-mobile">
+          <div className="relative lg:h-[70vh] md:h-[80vh] h-[70vh] flex flex-col justify-between md:py-10 py-10 lg:px-section-x-desktop md:px-section-x-tablet px-section-x-mobile">
             {/* Follow */}
             <div className="flex flex-col justify-between lg:items-start items-center gap-4">
               <h3
@@ -185,9 +187,9 @@ const Socials = () => {
                 ref={followIconsRef}
                 className="socials-icons left text-custom-gold flex gap-4"
               >
-                <InstagramIcon />
-                <YouTubeIcon />
-                <FacebookIcon />
+                <InstagramIcon size={ICON_SIZE}  />
+                <YouTubeIcon size={ICON_SIZE} />
+                <FacebookIcon size={ICON_SIZE} />
               </div>
             </div>
 
@@ -236,9 +238,9 @@ const Socials = () => {
                 ref={listenIconsRef}
                 className="socials-icons right text-custom-gold flex gap-4"
               >
-                <SpotifyIcon />
-                <YouTubeMusicIcon />
-                <AppleMusicIcon />
+                <SpotifyIcon size={ICON_SIZE} />
+                <YouTubeMusicIcon size={ICON_SIZE} />
+                <AppleMusicIcon size={ICON_SIZE}  />
               </div>
             </div>
           </div>

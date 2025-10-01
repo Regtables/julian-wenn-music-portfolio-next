@@ -118,7 +118,7 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
         >
           <h3 className="md:text-5xl text-3xl uppercase font-heading">{albumTitle}</h3>
 
-          <p className="md:text-sm text-xs">{album.description}</p>
+          <p className="md:text-sm text-xs font-normal">{album.description}</p>
 
           <div className="flex md:flex-row flex-col md:gap-4 gap-2">
             <h4>Listen</h4>

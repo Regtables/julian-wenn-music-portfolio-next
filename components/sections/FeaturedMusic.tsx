@@ -138,7 +138,7 @@ const FeaturedMusic = ({ heading, featuredMusic }: FeaturedMusicProps) => {
 
                   <div className="bg-custom-black text-custom-gold relative md:w-1/3 rounded-lg p-3 flex flex-col gap-2 ">
                     <h3 className="font-heading text-xl">{song.name}</h3>
-                    <p className="md:text-sm text-xs text-start">{song.description}</p>
+                    <p className="md:text-sm font-light text-xs text-start">{song.description}</p>
                   </div>
                 </div>
               </Link>
