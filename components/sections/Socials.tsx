@@ -12,10 +12,14 @@ import YouTubeIcon from "../icons/YoutubeIcon";
 import AppleMusicIcon from "../icons/AppleMusicIcon";
 import FacebookIcon from "../icons/FacebookIcon";
 import YouTubeMusicIcon from "../icons/YoutubeMusicIcon";
+import { useAppSettings } from "@/context/AppSettingsContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const ICON_SIZE = 64
+
 const Socials = () => {
+  const { isMobile, isTablet } = useAppSettings()
   // Refs for animation targeting
   const sectionRef = useRef<HTMLDivElement>(null);
   const followHeadingRef = useRef<HTMLHeadingElement>(null);
@@ -171,7 +175,7 @@ const Socials = () => {
             <Line className="socials-top-line h-[4px] w-full bg-custom-gold" />
           </div>
 
-          <div className="relative lg:h-[70vh] md:h-[80vh] h-[70vh] flex flex-col justify-between md:py-20 py-10 lg:px-section-xp-desktop md:px-section-x-tablet px-section-x-mobile">
+          <div className="relative lg:h-[70vh] md:h-[80vh] h-[70vh] flex flex-col justify-between md:py-10 py-10 lg:px-section-x-desktop md:px-section-x-tablet px-section-x-mobile">
             {/* Follow */}
             <div className="flex flex-col justify-between lg:items-start items-center gap-4">
               <h3
@@ -185,9 +189,9 @@ const Socials = () => {
                 ref={followIconsRef}
                 className="socials-icons left text-custom-gold flex gap-4"
               >
-                <InstagramIcon />
-                <YouTubeIcon />
-                <FacebookIcon />
+                <InstagramIcon size={(!isMobile && !isTablet ) ? ICON_SIZE : 32}  />
+                <YouTubeIcon size={(!isMobile && !isTablet ) ? ICON_SIZE : 32}  />
+                <FacebookIcon size={(!isMobile && !isTablet ) ? ICON_SIZE : 32}  />
               </div>
             </div>
 
@@ -236,9 +240,9 @@ const Socials = () => {
                 ref={listenIconsRef}
                 className="socials-icons right text-custom-gold flex gap-4"
               >
-                <SpotifyIcon />
-                <YouTubeMusicIcon />
-                <AppleMusicIcon />
+                <SpotifyIcon size={(!isMobile && !isTablet ) ? ICON_SIZE : 32}  />
+                <YouTubeMusicIcon size={(!isMobile && !isTablet ) ? ICON_SIZE : 32}  />
+                <AppleMusicIcon size={(!isMobile && !isTablet ) ? ICON_SIZE : 32} />
               </div>
             </div>
           </div>
