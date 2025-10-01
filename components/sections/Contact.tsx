@@ -240,7 +240,7 @@ const Contact = ({ heading, text, image }: ContactProps) => {
         
         <p className="text-xs w-3/5 md:text-end text-center">{text}</p>
 
-        <div className="flex gap-8">
+        <div className="flex md:flex-row flex-col items-center gap-4 md:gap-8">
           <PhoneInfo />
           <EmailInfo />
         </div>

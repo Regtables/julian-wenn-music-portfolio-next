@@ -19,7 +19,7 @@ const UpcomingShowsPosterModal = (props: Props) => {
       className="items-center justify-center"
       ref={posterRef}
     >
-      <div className="relative w-[25vw] h-[75vh]">
+      <div className="relative md:w-[25vw] h-[75vh] w-[90vw]">
         <Image
           src={data.show?.poster?.image.asset.url}
           fill

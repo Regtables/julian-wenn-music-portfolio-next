@@ -14,8 +14,8 @@ const Footer = () => {
 
   const iconSizes = () => {
     if (isMobile) {
-      return 28;
-    } else if (isTablet) {
+      return 24;
+    } else if (isTablet && !isMobile) {
       return 36;
     } else if (!isMobile && isTablet) {
       return 72;
@@ -48,7 +48,7 @@ const Footer = () => {
             className="rounded-[3rem] md:hidden block"
           />
 
-          <div className="flex gap-8">
+          <div className="flex md:flex-row flex-col md:items-start items-center md:gap-8 gap-2">
             <PhoneInfo />
 
             <EmailInfo />

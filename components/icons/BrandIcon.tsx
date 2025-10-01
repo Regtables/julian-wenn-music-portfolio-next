@@ -20,8 +20,6 @@ const BrandIcon = ({ size = 48, brand, className }: BrandIconProps) => {
   const link = brands[brand]
   const icon = brandIconPaths[brand]
 
-  console.log(icon, 'icon')
-
   const iconElement = (
     <div className= {cn(className)}>
       <Image

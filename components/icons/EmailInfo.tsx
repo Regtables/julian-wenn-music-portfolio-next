@@ -6,7 +6,6 @@ import React from 'react'
 
 const EmailInfo = () => {
   const details = useContactDetails()
-  console.log(details)
   return (
     <div className='flex items-center gap-2 text-sm'>
       <Mail size={'1rem'} color='var(--color-gold)' />

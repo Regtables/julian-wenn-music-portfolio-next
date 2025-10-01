@@ -20,7 +20,7 @@ const MainButton = ({
     <a href={link}>
       <button
         className={cn(
-          "rounded-[20rem] font-bold border-2 py-2 px-6 text-sm capitalize max-w-[200px] hover:bg-custom-white hover:text-custom-black hover:border-custom-white cursor-pointer transition-colors duration-500",
+          "rounded-[20rem] border-2 py-2 px-6 text-sm font-medium capitalize max-w-[200px] hover:bg-custom-white hover:text-custom-black hover:border-custom-white cursor-pointer transition-colors duration-500",
           color === "gold" ? "border-custom-gold" : "border-custom-black",
           className
         )}

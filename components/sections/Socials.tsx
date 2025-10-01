@@ -17,7 +17,7 @@ import TiktokIcon from "../icons/TiktokIcon";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ICON_SIZE = 64;
+const ICON_SIZE = 48
 
 const Socials = () => {
   const { isMobile, isTablet } = useAppSettings();

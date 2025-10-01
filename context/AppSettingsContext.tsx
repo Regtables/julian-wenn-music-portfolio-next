@@ -180,8 +180,8 @@ export const AppSettingsProvider: FC<AppSettingsContextProviderProps> = ({
       threads: '/icons/threads.svg',
     };
 
-    if (initialData?.contactDetails?.socialMedia) {
-      const social = initialData.contactDetails.socialMedia;
+    if (initialData?.contactInfo?.socialMedia) {
+      const social = initialData.contactInfo.socialMedia;
       const links: { [brand: string]: string } = {};
       
       // Use CMS data if available, otherwise fall back to defaults

@@ -116,9 +116,9 @@ const UpcomingShows = ({ heading, upcomingShows }: UpcomingShowsProps) => {
                     </div>
                   </div>
 
-                  <div className="flex gap-8">
+                  <div className="flex md:flex-row flex-col md:items-start items-center text-center md:gap-8 gap-4">
                     <div
-                      className="flex gap-2 md:w-auto w-1/2 md:items-center items-start text-xs uppercase border-b-2 border-custom-gold/0 box-border hover:border-custom-gold py-1 transition-all duration-500 cursor-pointer"
+                      className="flex gap-2 lg:w-auto w-full md:items-center items-start text-xs uppercase border-b-2 border-custom-gold/0 box-border hover:border-custom-gold py-1 transition-all duration-500 cursor-pointer"
                       onClick={() => handlePosterClick(show)}
                     >
                       view poster
@@ -129,7 +129,7 @@ const UpcomingShows = ({ heading, upcomingShows }: UpcomingShowsProps) => {
                       <Link
                         href={show.eventLink}
                         target="_blank"
-                        className="flex gap-2 md:w-auto w-1/2 items-center text-xs uppercase border-b-2 border-custom-gold/0 box-border hover:border-custom-gold py-1 transition-all duration-500 cursor-pointer"
+                        className="flex gap-2 lg:w-auto w-full items-center text-center text-xs uppercase border-b-2 border-custom-gold/0 box-border hover:border-custom-gold py-1 transition-all duration-500 cursor-pointer"
                       >
                         get tickets
                         <MoveUpRight size={16} />
