@@ -14,6 +14,18 @@ const Nav: React.FC = () => {
   const navMenuRef = useRef<HTMLDivElement>(null);
   const navSlideBgRef = useRef<HTMLDivElement>(null);
 
+  useGSAP(() => {
+    gsap.fromTo(
+      ".nav-menu-icon",
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 0.5,
+        scrollTrigger: { trigger: ".nav-menu-icon" },
+      }
+    );
+  }, []);
+
   const handleNavOpen = (): void => {
     const navTl = gsap.timeline();
     navTl.to(
