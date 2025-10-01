@@ -308,7 +308,7 @@ useGSAP(() => {
               <div>
                 <SanityTextBlock
                   text={mediumBio}
-                  className="about-text font-medium text-sm tracking-widest"
+                  className="about-text text-sm tracking-widest"
                 />
               </div>
 
