@@ -11,6 +11,8 @@ import FeaturedAlbum from "@/components/sections/FeaturedAlbum";
 import MusicVideos from "@/components/sections/MusicVideos";
 import AboutMobile from "@/components/sections/AboutMobile";
 
+export const revalidate = 60
+
 export default async function Home() {
   const page = await sanityFetchHomePage();
   const {

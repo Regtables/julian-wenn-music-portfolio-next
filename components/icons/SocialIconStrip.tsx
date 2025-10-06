@@ -8,6 +8,7 @@ import SpotifyIcon from "./SpotifyIcon";
 import AppleMusicIcon from "./AppleMusicIcon";
 import { PropsWithClassName } from "@/types";
 import { cn } from "@/app/lib/utils";
+import TiktokIcon from "./TiktokIcon";
 
 type Props = PropsWithClassName<{
   iconSize?: number;
@@ -19,6 +20,7 @@ const SocialIconStrip = ({ iconSize = 48, color = "var(--color-gold)", className
     <div className={cn("flex lg:gap-8 gap-6", className)}>
       <FacebookIcon size={iconSize} color={color} />
       <InstagramIcon size={iconSize} color={color} />
+      <TiktokIcon  size={iconSize} color={color} />
       <YouTubeIcon size={iconSize} color={color} />
       <YouTubeMusicIcon size={iconSize} color={color} />
       <SpotifyIcon size={iconSize} color={color} />

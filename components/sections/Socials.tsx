@@ -13,13 +13,14 @@ import AppleMusicIcon from "../icons/AppleMusicIcon";
 import FacebookIcon from "../icons/FacebookIcon";
 import YouTubeMusicIcon from "../icons/YoutubeMusicIcon";
 import { useAppSettings } from "@/context/AppSettingsContext";
+import TiktokIcon from "../icons/TiktokIcon";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ICON_SIZE = 64
+const ICON_SIZE = 64;
 
 const Socials = () => {
-  const { isMobile, isTablet } = useAppSettings()
+  const { isMobile, isTablet } = useAppSettings();
   // Refs for animation targeting
   const sectionRef = useRef<HTMLDivElement>(null);
   const followHeadingRef = useRef<HTMLHeadingElement>(null);
@@ -189,9 +190,10 @@ const Socials = () => {
                 ref={followIconsRef}
                 className="socials-icons left text-custom-gold flex gap-4"
               >
-                <InstagramIcon size={(!isMobile && !isTablet ) ? ICON_SIZE : 32}  />
-                <YouTubeIcon size={(!isMobile && !isTablet ) ? ICON_SIZE : 32}  />
-                <FacebookIcon size={(!isMobile && !isTablet ) ? ICON_SIZE : 32}  />
+                <InstagramIcon size={!isMobile && !isTablet ? ICON_SIZE : 32} />
+                <YouTubeIcon size={!isMobile && !isTablet ? ICON_SIZE : 32} />
+                <FacebookIcon size={!isMobile && !isTablet ? ICON_SIZE : 32} />
+                <TiktokIcon size={!isMobile && !isTablet ? ICON_SIZE : 32} />
               </div>
             </div>
 
@@ -240,9 +242,13 @@ const Socials = () => {
                 ref={listenIconsRef}
                 className="socials-icons right text-custom-gold flex gap-4"
               >
-                <SpotifyIcon size={(!isMobile && !isTablet ) ? ICON_SIZE : 32}  />
-                <YouTubeMusicIcon size={(!isMobile && !isTablet ) ? ICON_SIZE : 32}  />
-                <AppleMusicIcon size={(!isMobile && !isTablet ) ? ICON_SIZE : 32} />
+                <SpotifyIcon size={!isMobile && !isTablet ? ICON_SIZE : 32} />
+                <YouTubeMusicIcon
+                  size={!isMobile && !isTablet ? ICON_SIZE : 32}
+                />
+                <AppleMusicIcon
+                  size={!isMobile && !isTablet ? ICON_SIZE : 32}
+                />
               </div>
             </div>
           </div>
