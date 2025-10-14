@@ -22,9 +22,9 @@ const SocialIconStrip = ({ iconSize = 48, color = "var(--color-gold)", className
       <InstagramIcon size={iconSize} color={color} />
       <TiktokIcon  size={iconSize} color={color} />
       <YouTubeIcon size={iconSize} color={color} />
-      <YouTubeMusicIcon size={iconSize} color={color} />
+      {/* <YouTubeMusicIcon size={iconSize} color={color} />
       <SpotifyIcon size={iconSize} color={color} />
-      <AppleMusicIcon size={iconSize} color={color} />
+      <AppleMusicIcon size={iconSize} color={color} /> */}
     </div>
   );
 };

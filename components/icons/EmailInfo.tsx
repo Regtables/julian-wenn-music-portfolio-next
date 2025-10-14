@@ -7,11 +7,11 @@ import React from 'react'
 const EmailInfo = () => {
   const details = useContactDetails()
   return (
-    <div className='flex items-center gap-2 text-sm'>
+    <a href = {`mailto:${details.email}`} className='flex items-center gap-2 text-sm'>
       <Mail size={'1rem'} color='var(--color-gold)' />
 
       <p>{details.email}</p>
-    </div>
+    </a>
   )
 }
 
