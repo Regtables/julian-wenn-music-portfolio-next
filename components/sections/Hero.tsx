@@ -36,7 +36,7 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
       scrollTrigger: {
         trigger: ".hero-section",
       },
-      delay: 1.5,
+      // delay: 1.5,
     });
 
     gsap.set(

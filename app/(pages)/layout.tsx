@@ -11,13 +11,13 @@ const RootPagesLayout = async ({ children }: Props) => {
   const contactInfo = await sanityFetchContactInfo()
   return (
     <Providers intialData={{ contactInfo }}>
-      <LoadingScreenWrapper>
+      {/* <LoadingScreenWrapper> */}
         <NavbarWrapper>
           <ScrollEffectsWrapper>
             <main>{children}</main>
           </ScrollEffectsWrapper>
         </NavbarWrapper>
-      </LoadingScreenWrapper>
+      {/* </LoadingScreenWrapper> */}
     </Providers>
   );
 };
