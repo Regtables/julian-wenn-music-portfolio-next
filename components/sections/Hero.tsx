@@ -11,6 +11,7 @@ import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 import { useAppSettings } from "@/context/AppSettingsContext";
+import { navigateToSection } from "@/app/lib/utils";
 
 gsap.registerPlugin(SplitText, useGSAP);
 
@@ -20,22 +21,22 @@ type HeroProps = {
 };
 
 const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
-  const { isAnimationReady } = useAppSettings()
+  const { isAnimationReady } = useAppSettings();
   const verLineLeft = useRef<HTMLDivElement>(null);
   const verLineRight = useRef<HTMLDivElement>(null);
   const horLine = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if(!isAnimationReady) return 
-    
-    const heroNavContainer = document.querySelector(".hero-nav-container"); 
+    if (!isAnimationReady) return;
+
+    const heroNavContainer = document.querySelector(".hero-nav-container");
     const heading = new SplitText(".hero-heading");
 
     const heroTl = gsap.timeline({
       scrollTrigger: {
         trigger: ".hero-section",
       },
-      delay: 1.5
+      delay: 1.5,
     });
 
     gsap.set(
@@ -45,28 +46,56 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
         verLineLeft.current,
         verLineRight.current,
         horLine.current,
-        '.hero-about',
-        '.hero-bg-image'
+        ".hero-about",
+        ".hero-bg-image",
       ],
       { autoAlpha: 0 }
     );
 
     heroTl
-      .to('.hero-section', { opacity: 1, duration: 0 })
-      .to('.hero-bg-image', { autoAlpha: 1, duration: 0.5 }, 0)
-      .fromTo(heading.chars, { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, stagger: 0.15 }, 1)
-      .fromTo([verLineLeft.current, verLineRight.current], { autoAlpha: 0, scaleY: 0 }, { autoAlpha: 1, scaleY: 1 }, 2)
-      .fromTo(horLine.current, { autoAlpha: 0, scaleX: 0 }, { autoAlpha: 1, scaleX: 1 }, 2)
-      .fromTo([heroNavContainer?.children], { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, stagger: 0.1 }, "-=0.2")
-      .fromTo('.hero-about', { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0 }, '-=0.2')
+      .to(".hero-section", { opacity: 1, duration: 0 })
+      .to(".hero-bg-image", { autoAlpha: 1, duration: 0.5 }, 0)
+      .fromTo(
+        heading.chars,
+        { autoAlpha: 0, y: 50 },
+        { autoAlpha: 1, y: 0, stagger: 0.15 },
+        1
+      )
+      .fromTo(
+        [verLineLeft.current, verLineRight.current],
+        { autoAlpha: 0, scaleY: 0 },
+        { autoAlpha: 1, scaleY: 1 },
+        2
+      )
+      .fromTo(
+        horLine.current,
+        { autoAlpha: 0, scaleX: 0 },
+        { autoAlpha: 1, scaleX: 1 },
+        2
+      )
+      .fromTo(
+        [heroNavContainer?.children],
+        { autoAlpha: 0, y: 30 },
+        { autoAlpha: 1, y: 0, stagger: 0.1 },
+        "-=0.2"
+      )
+      .fromTo(
+        ".hero-about",
+        { autoAlpha: 0, y: 30 },
+        { autoAlpha: 1, y: 0 },
+        "-=0.2"
+      );
 
     return () => {
-      heroTl.kill()
-    }
+      heroTl.kill();
+    };
   }, [isAnimationReady]);
 
   return (
-    <section className="hero-section md:flex flex items-center w-full md:min-h-[unset] min-h-screen relative opacity-0" id = 'home'>
+    <section
+      className="hero-section md:flex flex items-center w-full md:min-h-[unset] min-h-screen relative opacity-0"
+      id="home"
+    >
       <div className="absolute w-full h-full top-0 left-0 right-0">
         <Overlay opacity={40} className="hero-bg-image">
           <Image
@@ -80,7 +109,10 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
 
       <div className="h-full w-full flex lg:flex-row md:justify-center relative z-10 lg:py-8 md:py-4 py-8 lg:px-8 md:px-4 px-2">
         {/* Line */}
-        <div className="w-[4px] lg:h-auto md:h-screen md:min-h-full bg-[var(--color-gold)]" ref={verLineLeft} />
+        <div
+          className="w-[4px] lg:h-auto md:h-screen md:min-h-full bg-[var(--color-gold)]"
+          ref={verLineLeft}
+        />
 
         {/* Content */}
         <div className="w-full h-full flex flex-col md:justify-end md:pb-8 md:py-0 py-4">
@@ -98,12 +130,18 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
           <div className="flex lg:flex-row flex-col-reverse gap-8 lg:px-8 lg:py-8 md:px-4 md:py-4 py-4 px-4">
             <div className="flex md:gap-8 justify-between hero-nav-container">
               <HeroNavCircle
-                icon={<Music color="var(--color-black)" size={"32px"} className="md:size-auto size-6" />}
+                icon={
+                  <Music
+                    color="var(--color-black)"
+                    size={"32px"}
+                    className="md:size-auto size-6"
+                  />
+                }
                 title="Music Videos"
                 link="music videos"
               />
               <HeroNavCircle
-                icon={<Guitar size={"32px"} className="md:size-auto size-6"/>}
+                icon={<Guitar size={"32px"} className="md:size-auto size-6" />}
                 title="Upcoming Shows"
                 link="upcoming-shows"
               />
@@ -115,12 +153,18 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
             </div>
 
             <div className="bg-[var(--color-black)] text-[var(--color-gold)] p-4 flex flex-col md:items-start items-center gap-4 hero-about">
-              <p className="font-baskerville text-justify md:text-base text-sm">{shortBio}</p>
+              <p className="font-baskerville text-justify md:text-base text-sm">
+                {shortBio}
+              </p>
 
               <div className="flex gap-4">
-                <MainButton text="read more" link="#about" />
+                <div onClick={() => navigateToSection("about")}>
+                  <MainButton text="read more" />
+                </div>
 
-                <MainButton text="view gallery" link="#featured-gallery" />
+                <div onClick={() => navigateToSection("featured-gallery")}>
+                  <MainButton text="view gallery" />
+                </div>
               </div>
             </div>
           </div>
