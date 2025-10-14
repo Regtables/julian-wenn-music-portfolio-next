@@ -6,7 +6,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 type LoadingScreenWrapperProps = PropsWithChildren;
 
 const LoadingScreenWrapper = ({ children }: LoadingScreenWrapperProps) => {
-  const [shouldShowLoading, setShouldShowLoading] = useState(false);
+  const [shouldShowLoading, setShouldShowLoading] = useState(true);
 
   useEffect(() => {
     const lastLoadingString = localStorage.getItem("lastLoadingScreen");
@@ -34,6 +34,8 @@ const LoadingScreenWrapper = ({ children }: LoadingScreenWrapperProps) => {
       setShouldShowLoading(true);
     }
   }, []);
+
+  // if(shouldShowLoading) return <div className="h-screen w-screen bg-black"></div>
 
   return (
     <>
