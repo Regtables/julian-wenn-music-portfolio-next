@@ -17,7 +17,7 @@ import TiktokIcon from "../icons/TiktokIcon";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ICON_SIZE = 48
+const ICON_SIZE = 48;
 
 const Socials = () => {
   const { isMobile, isTablet } = useAppSettings();
@@ -176,17 +176,17 @@ const Socials = () => {
             <Line className="socials-top-line h-[4px] w-full bg-custom-gold" />
           </div>
 
-          <div className="relative lg:h-[70vh] md:h-[80vh] h-[70vh] flex flex-col justify-between md:py-10 py-10 lg:px-section-x-desktop md:px-section-x-tablet px-section-x-mobile">
+          <div className="relative lg:h-[70vh] md:h-[80vh] h-[70vh] flex flex-col justify-between md:py-10 py-10 md:pt-5 lg:px-section-x-desktop md:px-section-x-tablet px-section-x-mobile">
             {/* Follow */}
-            <div className="flex flex-col justify-between lg:items-start items-center gap-4">
+            <div className="flex flex-col justify-between lg:items-center items-center gap-4">
               <h3
                 ref={followHeadingRef}
-                className="socials-heading left socials-follow text-custom-gold lg:text-9xl md:text-8xl text-5xl font-heading uppercase"
+                className="socials-heading left socials-follow text-custom-gold lg:text-9xl md:text-8xl text-7xl font-heading uppercase"
               >
                 Follow
               </h3>
 
-              <div
+              {/* <div
                 ref={followIconsRef}
                 className="socials-icons left text-custom-gold flex gap-4"
               >
@@ -194,7 +194,7 @@ const Socials = () => {
                 <YouTubeIcon size={!isMobile && !isTablet ? ICON_SIZE : 32} />
                 <FacebookIcon size={!isMobile && !isTablet ? ICON_SIZE : 32} />
                 <TiktokIcon size={!isMobile && !isTablet ? ICON_SIZE : 32} />
-              </div>
+              </div> */}
             </div>
 
             {/* Center Circle + Logo */}
@@ -230,8 +230,17 @@ const Socials = () => {
             </div>
 
             {/* Listen */}
-            <div className="flex flex-col-reverse gap-4 justify-between lg:items-end items-center">
-              <h3
+            <div className="flex flex-col-reverse gap-4 justify-between lg:items-center items-center">
+              <div
+                ref={followIconsRef}
+                className="socials-icons left text-custom-gold flex gap-4"
+              >
+                <InstagramIcon size={!isMobile && !isTablet ? ICON_SIZE : 40} />
+                <YouTubeIcon size={!isMobile && !isTablet ? ICON_SIZE : 40} />
+                <FacebookIcon size={!isMobile && !isTablet ? ICON_SIZE : 40} />
+                <TiktokIcon size={!isMobile && !isTablet ? ICON_SIZE : 40} />
+              </div>
+              {/* <h3
                 ref={listenHeadingRef}
                 className="socials-heading right socials-listen text-custom-gold lg:text-9xl md:text-8xl text-5xl font-heading uppercase"
               >
@@ -249,7 +258,7 @@ const Socials = () => {
                 <AppleMusicIcon
                   size={!isMobile && !isTablet ? ICON_SIZE : 32}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
 

@@ -19,14 +19,14 @@ export const NAV_LINKS = [
     link: "upcoming shows",
     slug: "upcoming-shows",
   },
-  {
-    link: "featured music",
-    slug: "featured-music",
-  },
-  {
-    link: "the album",
-    slug: "featured-album",
-  },
+  // {
+  //   link: "featured music",
+  //   slug: "featured-music",
+  // },
+  // {
+  //   link: "the album",
+  //   slug: "featured-album",
+  // },
   {
     link: "music videos",
     slug: "music-videos",

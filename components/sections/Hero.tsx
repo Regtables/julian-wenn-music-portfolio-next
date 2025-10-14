@@ -99,8 +99,8 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
             <div className="flex md:gap-8 justify-between hero-nav-container">
               <HeroNavCircle
                 icon={<Music color="var(--color-black)" size={"32px"} className="md:size-auto size-6" />}
-                title="Featured Music"
-                link="featured-music"
+                title="Music Videos"
+                link="music videos"
               />
               <HeroNavCircle
                 icon={<Guitar size={"32px"} className="md:size-auto size-6"/>}

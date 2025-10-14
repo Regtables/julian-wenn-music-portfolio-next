@@ -52,21 +52,21 @@ export default async function Home() {
         heading={upcomingShowsSection?.heading}
         upcomingShows={upcomingShowsSection?.upcomingShows}
       />
-
+{/* 
       <FeaturedMusic
         heading={featuredMusicSection.heading}
         featuredMusic={featuredMusicSection.featuredMusic}
-      />
+      /> */}
 
       <MusicVideos
         heading={musicVideosSection.heading}
         musicVideos={musicVideosSection.musicVideos}
       />
 
-      <FeaturedAlbum
+      {/* <FeaturedAlbum
         heading={albumSection?.heading}
         album={albumSection?.album}
-      />
+      /> */}
 
       <FeaturedGallery
         heading={featuredGallerySection.heading}
