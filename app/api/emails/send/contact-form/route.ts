@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 
     const emailData = await resend.emails.send({
       from: `Website Contact <reg@regtables.com>`,
-      to: ["reghardt7@gmail.com", "julianwennbookings@gmail.com"],
+      to: ["reghardt7@gmail.com", "julianwennbookings@gmail.com", "julianwennmusic@gmail.com"],
       subject: `Contact Form Response from ${fullName}`,
       html: `<p><span style="font-family: arial, helvetica, sans-serif;">Hi Julian,</span></p>
       <p><span style="font-family: arial, helvetica, sans-serif;">You have received a response from the website contact form.</span></p>
