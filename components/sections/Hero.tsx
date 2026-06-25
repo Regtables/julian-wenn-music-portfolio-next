@@ -5,7 +5,7 @@ import Image from "next/image";
 import React, { useRef } from "react";
 import Overlay from "../Overlay";
 import HeroNavCircle from "../HeroNavCircle";
-import { Guitar, Mail, Music } from "lucide-react";
+import { Guitar, Mail, Music, Wallet } from "lucide-react";
 import MainButton from "../buttons/MainButton";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
@@ -49,42 +49,17 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
         ".hero-about",
         ".hero-bg-image",
       ],
-      { autoAlpha: 0 }
+      { autoAlpha: 0 },
     );
 
     heroTl
       .to(".hero-section", { opacity: 1, duration: 0 })
       .to(".hero-bg-image", { autoAlpha: 1, duration: 0.5 }, 0)
-      .fromTo(
-        heading.chars,
-        { autoAlpha: 0, y: 50 },
-        { autoAlpha: 1, y: 0, stagger: 0.15 },
-        1
-      )
-      .fromTo(
-        [verLineLeft.current, verLineRight.current],
-        { autoAlpha: 0, scaleY: 0 },
-        { autoAlpha: 1, scaleY: 1 },
-        2
-      )
-      .fromTo(
-        horLine.current,
-        { autoAlpha: 0, scaleX: 0 },
-        { autoAlpha: 1, scaleX: 1 },
-        2
-      )
-      .fromTo(
-        [heroNavContainer?.children],
-        { autoAlpha: 0, y: 30 },
-        { autoAlpha: 1, y: 0, stagger: 0.1 },
-        "-=0.2"
-      )
-      .fromTo(
-        ".hero-about",
-        { autoAlpha: 0, y: 30 },
-        { autoAlpha: 1, y: 0 },
-        "-=0.2"
-      );
+      .fromTo(heading.chars, { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, stagger: 0.15 }, 1)
+      .fromTo([verLineLeft.current, verLineRight.current], { autoAlpha: 0, scaleY: 0 }, { autoAlpha: 1, scaleY: 1 }, 2)
+      .fromTo(horLine.current, { autoAlpha: 0, scaleX: 0 }, { autoAlpha: 1, scaleX: 1 }, 2)
+      .fromTo([heroNavContainer?.children], { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, stagger: 0.1 }, "-=0.2")
+      .fromTo(".hero-about", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0 }, "-=0.2");
 
     return () => {
       heroTl.kill();
@@ -98,21 +73,13 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
     >
       <div className="absolute w-full h-full top-0 left-0 right-0">
         <Overlay opacity={40} className="hero-bg-image">
-          <Image
-            src={bgImageDesktop.fileUrl!}
-            fill
-            alt={bgImageDesktop.alt!}
-            objectFit="cover"
-          />
+          <Image src={bgImageDesktop.fileUrl!} fill alt={bgImageDesktop.alt!} objectFit="cover" />
         </Overlay>
       </div>
 
       <div className="h-full w-full flex lg:flex-row md:justify-center relative z-10 lg:py-8 md:py-4 py-8 lg:px-8 md:px-4 px-2">
         {/* Line */}
-        <div
-          className="w-[4px] lg:h-auto md:h-screen md:min-h-full bg-[var(--color-gold)]"
-          ref={verLineLeft}
-        />
+        <div className="w-[4px] lg:h-auto md:h-screen md:min-h-full bg-[var(--color-gold)]" ref={verLineLeft} />
 
         {/* Content */}
         <div className="w-full h-full flex flex-col md:justify-end md:pb-8 md:py-0 py-4">
@@ -122,21 +89,12 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
             </h1>
           </div>
 
-          <div
-            className="h-[3px] w-full bg-[var(--color-gold)]"
-            ref={horLine}
-          />
+          <div className="h-[3px] w-full bg-[var(--color-gold)]" ref={horLine} />
 
           <div className="flex lg:flex-row flex-col-reverse gap-8 lg:px-8 lg:py-8 md:px-4 md:py-4 py-4 px-4">
             <div className="flex md:gap-8 justify-between hero-nav-container">
               <HeroNavCircle
-                icon={
-                  <Music
-                    color="var(--color-black)"
-                    size={"32px"}
-                    className="md:size-auto size-6"
-                  />
-                }
+                icon={<Music color="var(--color-black)" size={"32px"} className="md:size-auto size-6" />}
                 title="Music Videos"
                 link="music videos"
               />
@@ -153,9 +111,7 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
             </div>
 
             <div className="bg-[var(--color-black)] text-[var(--color-gold)] p-4 flex flex-col md:items-start items-center gap-4 hero-about">
-              <p className="font-baskerville text-justify md:text-base text-sm">
-                {shortBio}
-              </p>
+              <p className="font-baskerville text-justify md:text-base text-sm">{shortBio}</p>
 
               <div className="flex gap-4">
                 <div onClick={() => navigateToSection("about")}>
@@ -165,6 +121,10 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
                 <div onClick={() => navigateToSection("featured-gallery")}>
                   <MainButton text="view gallery" />
                 </div>
+
+                <button className="px-4 py-2 bg-custom-gold text-black ml-auto w-auto text-sm items-center rounded-full flex gap-2 font-medium">
+                  Donate <Wallet />
+                </button>
               </div>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 import { SanityAlbum } from "@/app/lib/sanity/types";
 import { cn } from "@/app/lib/utils";
-import { Play } from "lucide-react";
+import { Download, Play, Wallet } from "lucide-react";
 import Image from "next/image";
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
@@ -50,7 +50,7 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
       {
         opacity: 0,
       },
-      0
+      0,
     );
 
     // Animation sequence
@@ -86,7 +86,7 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
   return (
     <section
       ref={sectionRef}
-      className="album-section w-full section-padding lg:h-screen flex gap-12 flex-col"
+      className="album-section w-full section-padding lg:h-screen flex gap-12 flex-col !pb-40"
       id="featured-album"
     >
       <h2 ref={headingRef} className="featured-album-title section-heading lg:!text-start">
@@ -122,18 +122,15 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
             <h4>Listen</h4>
 
             <div className="flex gap-4">
-              <SpotifyIcon size={24} url= {album.listenLinks?.spotify}/>
-              <AppleMusicIcon size={24} url= {album.listenLinks?.appleMusic}/>
-              <YouTubeMusicIcon size={24} url = {album.listenLinks?.youtube} />
+              <SpotifyIcon size={24} url={album.listenLinks?.spotify} />
+              <AppleMusicIcon size={24} url={album.listenLinks?.appleMusic} />
+              <YouTubeMusicIcon size={24} url={album.listenLinks?.youtube} />
             </div>
           </div>
 
           {/* Track List */}
           <div className="w-full flex flex-col gap-4 items-start">
-            <h4
-              ref={trackListTextRef}
-              className="track-list-text text-xs uppercase"
-            >
+            <h4 ref={trackListTextRef} className="track-list-text text-xs uppercase">
               Track List
             </h4>
 
@@ -143,29 +140,41 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
                   key={i}
                   className={cn(
                     "album-track group text-custom-gold flex w-full justify-between items-center py-4 border-b border-custom-gold/40 hover:bg-custom-gold/20 cursor-pointer",
-                    i === 0 && "border-t"
+                    i === 0 && "border-t",
                   )}
                   href={track.links.linktree}
-                  target = '_blank'
+                  target="_blank"
                 >
                   <div className="flex items-center gap-16">
-                    <h5 className="font-heading text-lg capitalize">
-                      {track.name}
-                    </h5>
+                    <h5 className="font-heading text-lg capitalize">{track.name}</h5>
+                  </div>
 
+                  <div className="flex items-center gap-4">
                     <Play
                       className="opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                       fill="var(--color-gold)"
                       size={"1rem"}
                     />
-                  </div>
+                    <button className="text-black cursor-pointer transition-opacity duration-500 bg-custom-gold opacity-0 group-hover:opacity-100 flex gap-1 rounded-full text-xs items-center px-2 py-1">
+                      Download <Download size={14} />
+                    </button>
 
-                  <div className="text-sm">3:00</div>
+                    <button className="text-black transition-opacity duration-500 cursor-pointer bg-custom-gold opacity-0 group-hover:opacity-100 flex gap-1 rounded-full text-xs items-center px-2 py-1">
+                      Donate <Wallet size={14} />
+                    </button>
+                    <div className="text-sm">3:00</div>
+                  </div>
                 </Link>
               ))}
             </div>
           </div>
         </div>
+      </div>
+      <div className="w-full flex flex-col items-center gap-4 justify-center pt-6">
+        <div className="text-custom-gold font-baskerville">All the music Julian releases is completely free. Concider donating to support the artist process.</div>
+        <button className="px-4 py-2 bg-custom-gold text-sm items-center rounded-full flex gap-2 font-medium">
+          Donate <Wallet />
+        </button>
       </div>
     </section>
   );
