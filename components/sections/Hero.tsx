@@ -12,6 +12,8 @@ import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 import { useAppSettings } from "@/context/AppSettingsContext";
 import { navigateToSection } from "@/app/lib/utils";
+import Link from "next/link";
+import { useModal } from "@/context/ModalContext";
 
 gsap.registerPlugin(SplitText, useGSAP);
 
@@ -25,6 +27,8 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
   const verLineLeft = useRef<HTMLDivElement>(null);
   const verLineRight = useRef<HTMLDivElement>(null);
   const horLine = useRef<HTMLDivElement>(null);
+
+  const { handleModalOpen } = useModal()
 
   useGSAP(() => {
     if (!isAnimationReady) return;
@@ -121,10 +125,12 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
                 <div onClick={() => navigateToSection("featured-gallery")}>
                   <MainButton text="view gallery" />
                 </div>
-
-                <button className="px-4 py-2 bg-custom-gold text-black ml-auto w-auto text-sm items-center rounded-full flex gap-2 font-medium">
-                  Donate <Wallet />
+              
+              {/* <Link href={'/donate'}> */}
+                <button onClick={() => handleModalOpen('donate')} className="border-custom-gold border-2 cursor-pointer hover:bg-custom-black hover:text-custom-gold transition-colors duration-500 px-4 py-2 bg-custom-gold text-black ml-auto w-auto text-sm items-center rounded-full flex gap-2 font-medium">
+                  Donate <Wallet size={20} />
                 </button>
+              {/* </Link> */}
               </div>
             </div>
           </div>

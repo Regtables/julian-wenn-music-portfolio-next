@@ -15,6 +15,7 @@ export type ModalType =
   | "showPoster"
   | "fullBio"
   | "galleryPreview"
+  | "donate"
   | null;
 
 interface AlertProps {

@@ -13,6 +13,7 @@ import SpotifyIcon from "../icons/SpotifyIcon";
 import AppleMusicIcon from "../icons/AppleMusicIcon";
 import YouTubeMusicIcon from "../icons/YoutubeMusicIcon";
 import Link from "next/link";
+import { useModal } from "@/context/ModalContext";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -32,6 +33,7 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
   const trackListTextRef = useRef<HTMLHeadingElement>(null);
 
   const { animateSectionHeading } = useGSAPAnimations();
+  const { handleModalOpen } = useModal()
 
   useGSAP(() => {
     const albumTl = gsap.timeline({
@@ -136,14 +138,14 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
 
             <div className="flex flex-col items-start w-full">
               {album.trackList?.map((track, i) => (
-                <Link
+                <div
                   key={i}
                   className={cn(
                     "album-track group text-custom-gold flex w-full justify-between items-center py-4 border-b border-custom-gold/40 hover:bg-custom-gold/20 cursor-pointer",
                     i === 0 && "border-t",
                   )}
-                  href={track.links.linktree}
-                  target="_blank"
+                  // href={track.links.linktree}
+                  // target="_blank"
                 >
                   <div className="flex items-center gap-16">
                     <h5 className="font-heading text-lg capitalize">{track.name}</h5>
@@ -159,12 +161,12 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
                       Download <Download size={14} />
                     </button>
 
-                    <button className="text-black transition-opacity duration-500 cursor-pointer bg-custom-gold opacity-0 group-hover:opacity-100 flex gap-1 rounded-full text-xs items-center px-2 py-1">
+                    <button onClick={() => handleModalOpen('donate')} className="text-black transition-opacity duration-500 cursor-pointer bg-custom-gold opacity-0 group-hover:opacity-100 flex gap-1 rounded-full text-xs items-center px-2 py-1">
                       Donate <Wallet size={14} />
                     </button>
                     <div className="text-sm">3:00</div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
@@ -172,7 +174,7 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
       </div>
       <div className="w-full flex flex-col items-center gap-4 justify-center pt-6">
         <div className="text-custom-gold font-baskerville">All the music Julian releases is completely free. Concider donating to support the artist process.</div>
-        <button className="px-4 py-2 bg-custom-gold text-sm items-center rounded-full flex gap-2 font-medium">
+        <button className="px-4 py-2 cursor-pointer border-custom-gold border-2 hover:bg-custom-black hover:text-custom-gold transition-colors duration-500 bg-custom-gold text-sm items-center rounded-full flex gap-2 font-medium" onClick={() => handleModalOpen('donate')}>
           Donate <Wallet />
         </button>
       </div>
