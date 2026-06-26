@@ -5,7 +5,7 @@ import Image from "next/image";
 import React, { useRef } from "react";
 import Overlay from "../Overlay";
 import HeroNavCircle from "../HeroNavCircle";
-import { Guitar, Mail, Music, Wallet } from "lucide-react";
+import { DiscAlbum, Guitar, Mail, Music, Wallet } from "lucide-react";
 import MainButton from "../buttons/MainButton";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
@@ -98,9 +98,9 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
           <div className="flex lg:flex-row flex-col-reverse gap-8 lg:px-8 lg:py-8 md:px-4 md:py-4 py-4 px-4">
             <div className="flex md:gap-8 justify-between hero-nav-container">
               <HeroNavCircle
-                icon={<Music color="var(--color-black)" size={"32px"} className="md:size-auto size-6" />}
-                title="Music Videos"
-                link="music videos"
+                icon={<DiscAlbum color="var(--color-black)" size={"32px"} className="md:size-auto size-6" />}
+                title="The EP"
+                link="featured-album"
               />
               <HeroNavCircle
                 icon={<Guitar size={"32px"} className="md:size-auto size-6" />}
