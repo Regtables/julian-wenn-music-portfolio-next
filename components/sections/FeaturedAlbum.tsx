@@ -185,7 +185,7 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
 
           <p className="md:text-sm text-xs font-normal">{album.description}</p>
 
-          <div className="flex md:flex-row flex-col md:gap-4 gap-2">
+          {/* <div className="flex md:flex-row flex-col md:gap-4 gap-2">
             <h4>Listen</h4>
 
             <div className="flex gap-4">
@@ -193,7 +193,7 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
               <AppleMusicIcon size={24} url={album.listenLinks?.appleMusic} />
               <YouTubeMusicIcon size={24} url={album.listenLinks?.youtube} />
             </div>
-          </div>
+          </div> */}
 
           {/* Track List */}
           <div className="w-full flex flex-col gap-4 items-start">
