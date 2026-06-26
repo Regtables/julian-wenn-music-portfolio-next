@@ -98,7 +98,29 @@ export const SANITY_HOME_PAGE_QUERY = `*[_type == "homePage"][0]{
       },
       description,
       listenLinks,
-      trackList[]->
+      trackList[]{
+        _key,
+        ...@->{
+          name,
+          description,
+          duration,
+          artwork{
+            image{
+              asset->{
+                url
+              }
+            },
+            alt
+          },
+          links,
+          audioFile{
+            asset->{
+              url,
+              originalFilename
+            }
+          }
+        }
+      }
     }
   },
 
