@@ -13,7 +13,7 @@ const DonateModal = (props: Props) => {
 
   const isModalOpen = isOpen && types.includes('donate')
   return (
-    <Popup fade isOpen = {isModalOpen} opacity={60} className='items-center justify-center'>
+    <Popup fade isOpen = {isModalOpen} opacity={60} className='items-center justify-center px-4'>
       <Donate />
     </Popup>
   )
