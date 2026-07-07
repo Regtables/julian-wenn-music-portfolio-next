@@ -230,7 +230,7 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
                           hasAudio
                             ? isPlaying
                               ? "opacity-100 cursor-pointer"
-                              : "opacity-0 group-hover:opacity-100 cursor-pointer"
+                              : "md:opacity-0 group-hover:opacity-100 cursor-pointer"
                             : "opacity-0 cursor-not-allowed",
                         )}
                       >
@@ -244,14 +244,14 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
                       <button
                         onClick={() => handleDownload(track)}
                         disabled={!hasAudio || isDownloading}
-                        className="text-black cursor-pointer transition-opacity duration-500 bg-custom-gold opacity-0 group-hover:opacity-100 flex gap-1 rounded-full text-xs items-center px-2 py-1 disabled:cursor-not-allowed"
+                        className="text-black cursor-pointer transition-opacity duration-500 bg-custom-gold md:opacity-0 group-hover:opacity-100 flex gap-1 rounded-full text-xs items-center px-2 py-1 disabled:cursor-not-allowed"
                       >
                         {isDownloading ? "Downloading..." : "Download"} <Download size={14} />
                       </button>
 
                       <button
                         onClick={() => handleModalOpen("donate")}
-                        className="text-black transition-opacity duration-500 cursor-pointer bg-custom-gold opacity-0 group-hover:opacity-100 flex gap-1 rounded-full text-xs items-center px-2 py-1"
+                        className="text-black transition-opacity duration-500 cursor-pointer bg-custom-gold md:opacity-0 group-hover:opacity-100 md:flex hidden gap-1 rounded-full text-xs items-center px-2 py-1"
                       >
                         Donate <Wallet size={14} />
                       </button>
@@ -265,7 +265,7 @@ const FeaturedAlbum = ({ heading, album }: FeaturedAlbumProps) => {
         </div>
       </div>
       <div className="w-full flex flex-col items-center gap-4 justify-center pt-6">
-        <div className="text-custom-gold font-baskerville">
+        <div className="text-custom-gold text-center font-baskerville">
           All the music Julian releases is completely free. Concider donating to support the artist process.
         </div>
         <button
