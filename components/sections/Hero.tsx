@@ -117,7 +117,7 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
             <div className="bg-[var(--color-black)] text-[var(--color-gold)] p-4 flex flex-col md:items-start items-center gap-4 hero-about">
               <p className="font-baskerville text-justify md:text-base text-sm">{shortBio}</p>
 
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4">
                 <div onClick={() => navigateToSection("about")}>
                   <MainButton text="read more" />
                 </div>
@@ -127,7 +127,7 @@ const Hero = ({ bgImageDesktop, shortBio }: HeroProps) => {
                 </div>
               
               {/* <Link href={'/donate'}> */}
-                <button onClick={() => handleModalOpen('donate')} className="border-custom-gold border-2 cursor-pointer hover:bg-custom-black hover:text-custom-gold transition-colors duration-500 px-4 py-2 bg-custom-gold text-black ml-auto w-auto text-sm items-center rounded-full flex gap-2 font-medium">
+                <button onClick={() => handleModalOpen('donate')} className="border-custom-gold border-2 cursor-pointer hover:bg-custom-black hover:text-custom-gold transition-colors duration-500 px-4 py-2 bg-custom-gold text-black md:ml-auto md:w-auto w-full md:justify-start justify-center text-sm items-center rounded-full flex gap-2 font-medium">
                   Donate <Wallet size={20} />
                 </button>
               {/* </Link> */}
