@@ -1,4 +1,3 @@
-import { Link } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -13,7 +12,25 @@ const Donate = () => {
       <p className="font-baskerville md:text-sm text-xs text-center text-custom-gold">
         Thank you for your contribution to the artistic process.
       </p>
-      <Image src="/donate-qr.jpeg" height={250} width={250} className="rounded-xl" alt = 'Julian Wenn Donate QR Code' />
+
+      <div className="w-full border border-custom-gold/30 rounded-xl p-6 flex flex-col gap-3 mt-2">
+        <div className="flex items-center justify-between border-b border-custom-gold/20 pb-3">
+          <span className="font-baskerville text-xs text-custom-gold/60 uppercase tracking-widest">Bank</span>
+          <span className="font-baskerville text-sm text-custom-gold font-medium">Capitec Bank</span>
+        </div>
+        <div className="flex items-center justify-between border-b border-custom-gold/20 pb-3">
+          <span className="font-baskerville text-xs text-custom-gold/60 uppercase tracking-widest">Account No.</span>
+          <span className="font-baskerville text-sm text-custom-gold font-medium tracking-wider">2530489382</span>
+        </div>
+        <div className="flex items-center justify-between border-b border-custom-gold/20 pb-3">
+          <span className="font-baskerville text-xs text-custom-gold/60 uppercase tracking-widest">Account Holder</span>
+          <span className="font-baskerville text-sm text-custom-gold font-medium">MR JK WENN</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="font-baskerville text-xs text-custom-gold/60 uppercase tracking-widest">Reference</span>
+          <span className="font-baskerville text-sm text-custom-gold font-medium">WENNTERTAINMENT</span>
+        </div>
+      </div>
     </div>
   );
 };
